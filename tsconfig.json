@@ -1,6 +1,20 @@
 {
   "extends": "expo/tsconfig.base",
+  "esModuleInterop": true,
+  "allowSyntheticDefaultImports": true,
   "compilerOptions": {
-    "strict": true
-  }
+    "jsx": "react-native",
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "target": "ES6",
+    "typeRoots": [
+      "./types"
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.jsx"
+  ]
 }
