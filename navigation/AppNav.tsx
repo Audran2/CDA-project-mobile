@@ -1,15 +1,18 @@
 import React from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, Pressable } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo } from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
+import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 import HomeScreen from "../screens/mainScreen/HomeScreen";
 import CalendarScreen from "../screens/mainScreen/CalendarScreen";
 import ResearchScreen from "../screens/mainScreen/ResearchScreen";
 import AccountScreen from "../screens/mainScreen/AccountScreen";
-import styles from "./appNav.js";
+import ParametersScreen from "../screens/ParametersScreen";
+import styles from "./AppNavStyle.js";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 let { height, width } = Dimensions.get("window");
 
@@ -28,20 +31,22 @@ const tabArray = [
   {
     name: "Calendrier",
     label: "Calendrier",
-    icon: "calendar",
+    icon: "calendar-blank",
     component: CalendarScreen,
   },
   {
     name: "Recherche",
     label: "Recherche",
-    icon: "magnifying-glass",
+    icon: "magnify",
     component: ResearchScreen,
   },
   {
     name: "Compte",
     label: "Compte",
-    icon: "user",
+    icon: "account",
     component: AccountScreen,
+    headerRightIcon: "align-right",
+    headerRightComponent: "ParametersScreen",
   },
 ];
 
@@ -63,7 +68,29 @@ const createAppNavigator = (defaultPage) => {
           options={({ navigation }) => ({
             tabBarShowLabel: false,
             tabBarIcon: () => (
-              <Entypo name={item.icon} size={24} color="black" />
+              <MaterialCommunityIcons
+                name={item.icon}
+                size={35}
+                color="black"
+              />
+            ),
+            headerRight: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.navigate(item.headerRightComponent);
+                }}
+                style={({ pressed }) => ({
+                  opacity: pressed ? 0.5 : 1,
+                  scale: 1,
+                })}
+              >
+                <FontAwesome5
+                  name={item.headerRightIcon}
+                  size={25}
+                  color="black"
+                  style={{ marginRight: 15 }}
+                />
+              </Pressable>
             ),
           })}
         />
@@ -72,4 +99,21 @@ const createAppNavigator = (defaultPage) => {
   );
 };
 
-export default createAppNavigator;
+const AppNav = createAppNavigator("Home");
+
+const AppStackNav = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="AppNav"
+      component={AppNav}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ParametersScreen"
+      component={ParametersScreen}
+      options={{ headerShown: true }}
+    />
+  </Stack.Navigator>
+);
+
+export default AppStackNav;
