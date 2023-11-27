@@ -1,20 +1,26 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import Challenge from "../../components/homeScreen/Challenge";
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <LinearGradient
+      style={styles.container}
+      start={{ x: 0.5, y: 0.8 }}
+      end={{ x: 0.5, y: 0 }}
+      colors={["#0A0726", "#0E008D"]}
+    >
+      <View style={{ marginTop: 30 }}>
+        <Challenge />
+      </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     alignItems: "center",
-    justifyContent: "center",
   },
 });
