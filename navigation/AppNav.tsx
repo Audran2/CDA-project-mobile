@@ -9,6 +9,12 @@ import CalendarScreen from "../screens/mainScreen/CalendarScreen";
 import ResearchScreen from "../screens/mainScreen/ResearchScreen";
 import AccountScreen from "../screens/mainScreen/AccountScreen";
 import ParametersScreen from "../screens/ParametersScreen";
+import CharacterInfoScreen from "../screens/infoScreen/CharacterInfoScreen";
+import GameInfoScreen from "../screens/infoScreen/GameInfoScreen";
+import GameListScreen from "../screens/infoScreen/GameListScreen";
+import GradesScreen from "../screens/infoScreen/GradesScreen";
+import StudioInfoScreen from "../screens/infoScreen/StudioInfoScreen";
+import UserInfoScreen from "../screens/infoScreen/UserInfoScreen";
 import styles from "./AppNavStyle.js";
 
 const Tab = createBottomTabNavigator();
@@ -101,18 +107,59 @@ const createAppNavigator = (defaultPage) => {
 
 const AppNav = createAppNavigator("Home");
 
+const screenConfigurations = [
+  {
+    name: "AppNav",
+    component: AppNav,
+    options: { headerShown: false },
+  },
+  {
+    name: "ParametersScreen",
+    component: ParametersScreen,
+    options: { headerShown: true },
+  },
+  {
+    name: "CharacterInfoScreen",
+    component: CharacterInfoScreen,
+    options: { headerShown: true },
+  },
+  {
+    name: "GameInfoScreen",
+    component: GameInfoScreen,
+    options: { headerShown: true },
+  },
+  {
+    name: "GameListScreen",
+    component: GameListScreen,
+    options: { headerShown: true },
+  },
+  {
+    name: "GradesScreen",
+    component: GradesScreen,
+    options: { headerShown: true },
+  },
+  {
+    name: "StudioInfoScreen",
+    component: StudioInfoScreen,
+    options: { headerShown: true },
+  },
+  {
+    name: "UserInfoScreen",
+    component: UserInfoScreen,
+    options: { headerShown: true },
+  },
+];
+
 const AppStackNav = () => (
   <Stack.Navigator>
-    <Stack.Screen
-      name="AppNav"
-      component={AppNav}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="ParametersScreen"
-      component={ParametersScreen}
-      options={{ headerShown: true }}
-    />
+    {screenConfigurations.map((config, index) => (
+      <Stack.Screen
+        key={index}
+        name={config.name}
+        component={config.component}
+        options={config.options}
+      />
+    ))}
   </Stack.Navigator>
 );
 

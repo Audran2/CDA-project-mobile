@@ -1,11 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, Text, View } from "react-native";
+import HeadScreen from "../../components/accountScreen/HeadScreen";
 
 export default function AccountScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View
+      style={styles.container}
+      // start={{ x: 0.5, y: 0.8 }}
+      // end={{ x: 0.5, y: 0 }}
+      // colors={["#0A0726", "#0E008D"]}
+    >
+      <HeadScreen />
     </View>
   );
 }
@@ -13,8 +18,8 @@ export default function AccountScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#0A0726",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });

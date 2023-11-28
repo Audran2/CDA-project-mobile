@@ -13,3 +13,10 @@ export interface itemNavigation {
     | "log-out"
     | undefined;
 }
+
+export interface CardGameType {
+  imageBackground: string;
+  gameTitle: string;
+  avatarUser: string;
+  userName: string;
+}

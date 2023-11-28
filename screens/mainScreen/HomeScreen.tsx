@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Challenge from "../../components/homeScreen/Challenge";
+import SliderCard from "../../components/homeScreen/SliderCard";
 
 export default function HomeScreen() {
   return (
@@ -12,6 +13,9 @@ export default function HomeScreen() {
     >
       <View style={{ marginTop: 30 }}>
         <Challenge />
+      </View>
+      <View style={{ marginTop: 30 }}>
+        <SliderCard />
       </View>
     </LinearGradient>
   );

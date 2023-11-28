@@ -18,11 +18,13 @@
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-extended-stylesheet": "^0.12.0",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "13.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.14",
+    "@types/react-native-snap-carousel": "^3.8.9",
     "eslint": "^8.54.0",
     "typescript": "^5.1.3"
   },

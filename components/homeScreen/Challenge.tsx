@@ -28,7 +28,10 @@ export default function Challenge() {
         ]}
       >
         <View style={styles.centeredVersus}>
-          <Text style={{ fontFamily: "KeaniaOne", fontSize: 35 }}>VS</Text>
+          <Text style={{ fontFamily: "KeaniaOne", fontSize: 37 }}>V</Text>
+          <Text style={{ fontFamily: "KeaniaOne", fontSize: 37, marginTop: 7 }}>
+            S
+          </Text>
         </View>
 
         <Svg height={height / 5} width={width / 2}>
@@ -50,7 +53,7 @@ export default function Challenge() {
             </Pattern>
           </Defs> */}
           <Polygon
-            points={`0,0 0,${height} ${(3 * width) / 6},0 ${width / 5},0`}
+            points={`0,0 0,${height} ${(3 * width) / 6},-20 ${width / 6},0`}
             // fill="url(#image)"
             fill="lightgray"
           />
@@ -81,6 +84,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: "50%",
     top: "50%",
-    transform: [{ translateX: -25 }, { translateY: -25 }],
+    transform: [{ translateX: -27 }, { translateY: -30 }],
+    flexDirection: "row",
   },
 });
