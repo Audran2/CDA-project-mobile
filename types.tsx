@@ -20,3 +20,13 @@ export interface CardGameType {
   avatarUser: string;
   userName: string;
 }
+
+export interface HeadScreenType {
+  avatarUser: string;
+  userName: string;
+  userRegion: string;
+  isNintendo: boolean;
+  isXbox: boolean;
+  isPlaystation: boolean;
+  isComputer: boolean;
+}
