@@ -22,6 +22,7 @@ export interface CardGameType {
 }
 
 export interface HeadScreenType {
+  isUser?: boolean;
   avatarUser: string;
   userName: string;
   userRegion: string;
@@ -29,4 +30,10 @@ export interface HeadScreenType {
   isXbox: boolean;
   isPlaystation: boolean;
   isComputer: boolean;
+}
+
+export interface characterHeadType {
+  characterAvatar: string;
+  characterName: string;
+  characterJob: string;
 }

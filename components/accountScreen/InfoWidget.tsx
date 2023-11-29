@@ -1,16 +1,109 @@
-import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState, useRef } from "react";
 import {
   View,
   StyleSheet,
   Text,
   Dimensions,
   TouchableOpacity,
+  ScrollView,
+  PanResponder,
+  ImageBackground,
 } from "react-native";
 
 export default function InfoWidget() {
+  // TEMPORAIRE
+
+  const VideoGame = [
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/odyssey.jpg"),
+      navigation: "GameInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/odyssey.jpg"),
+      navigation: "GameInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/odyssey.jpg"),
+      navigation: "GameInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/odyssey.jpg"),
+      navigation: "GameInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/odyssey.jpg"),
+      navigation: "GameInfoScreen",
+    },
+  ];
+
+  const CharacterGame = [
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+  ];
+
+  const Studios = [
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/ubisoft.jpeg"),
+      navigation: "StudioInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/ubisoft.jpeg"),
+      navigation: "StudioInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/ubisoft.jpeg"),
+      navigation: "StudioInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/ubisoft.jpeg"),
+      navigation: "StudioInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/ubisoft.jpeg"),
+      navigation: "StudioInfoScreen",
+    },
+  ];
+
+  // TEMPORAIRE
+
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
   const [selectedButtonSecond, setSelectedButtonSecond] = useState(1);
+  const navigation = useNavigation();
 
   const handleButtonPress = (buttonNumber: React.SetStateAction<number>) => {
     setSelectedButton(buttonNumber);
@@ -21,6 +114,49 @@ export default function InfoWidget() {
   ) => {
     setSelectedButtonSecond(buttonNumber);
   };
+
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gestureState) => {
+        if (scrollViewRef.current) {
+          scrollViewRef.current.scrollTo({
+            x: -gestureState.dx,
+            animated: false,
+          });
+        }
+      },
+    })
+  ).current;
+
+  const selectedData =
+    selectedButtonSecond === 1
+      ? VideoGame
+      : selectedButtonSecond === 2
+      ? CharacterGame
+      : Studios;
+
+  const repeatedViews = selectedData.map((infos, index) => (
+    <TouchableOpacity
+      key={index}
+      style={styles.cardScroll}
+      onPress={() => navigation.navigate(infos.navigation as never)}
+    >
+      <ImageBackground
+        resizeMode="cover"
+        source={infos.image}
+        style={styles.ImageBackground}
+      >
+        {selectedButtonSecond !== 3 && (
+          <Text style={{ color: "white", paddingBottom: 5, paddingLeft: 5 }}>
+            {infos.title}
+          </Text>
+        )}
+      </ImageBackground>
+    </TouchableOpacity>
+  ));
 
   return (
     <View style={styles.container}>
@@ -98,6 +234,17 @@ export default function InfoWidget() {
                 </Text>
               </TouchableOpacity>
             </View>
+            <View style={{ marginHorizontal: 10, width: "95%", height: 140 }}>
+              <ScrollView
+                ref={scrollViewRef}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                {...panResponder.panHandlers}
+                style={{ marginTop: 5 }}
+              >
+                {repeatedViews}
+              </ScrollView>
+            </View>
           </View>
         )}
       </View>
@@ -148,5 +295,20 @@ const styles = StyleSheet.create({
     width: 1,
     height: "100%",
     backgroundColor: "white",
+  },
+
+  cardScroll: {
+    height: "90%",
+    width: 100,
+    backgroundColor: "blue",
+    marginRight: 10,
+    borderRadius: 5,
+    overflow: "hidden",
+  },
+
+  ImageBackground: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "flex-end",
   },
 });

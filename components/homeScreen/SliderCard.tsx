@@ -47,7 +47,6 @@ export default function Challenge() {
         ref={scrollViewRef}
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={styles.scrollView}
         {...panResponder.panHandlers}
       >
         {lastGameFriend.map((game, index) => (
@@ -61,10 +60,6 @@ export default function Challenge() {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    // width: Dimensions.get("window").width,
-  },
-
   textTitle: {
     fontSize: 22,
     fontFamily: "KeaniaOne",

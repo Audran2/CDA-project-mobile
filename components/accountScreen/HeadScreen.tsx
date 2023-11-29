@@ -16,6 +16,7 @@ import {
 import { HeadScreenType } from "../../types";
 
 export default function HeadScreen({
+  isUser = false,
   avatarUser,
   userName,
   userRegion,
@@ -28,7 +29,10 @@ export default function HeadScreen({
 
   return (
     <View
-      style={[styles.headContainer, { height: height / 3.5, width: width }]}
+      style={[
+        styles.headContainer,
+        { height: isUser ? height / 3 : height / 3.5, width: width },
+      ]}
     >
       <ImageBackground
         resizeMode="cover"

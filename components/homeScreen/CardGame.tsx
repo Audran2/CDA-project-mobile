@@ -19,11 +19,11 @@ export default function CardGame({
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate("GameInfoScreen");
+    navigation.navigate("GameInfoScreen" as never);
   };
 
   const handleUserIconPress = () => {
-    navigation.navigate("UserInfoScreen");
+    navigation.navigate("UserInfoScreen" as never);
   };
 
   return (
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   },
   user: {
     flexDirection: "row",
-    // alignItems: "center",
   },
 
   userName: {

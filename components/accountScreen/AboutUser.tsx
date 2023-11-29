@@ -15,7 +15,7 @@ export default function AboutUser() {
   const navigation = useNavigation();
 
   const handleUserIconPress = () => {
-    navigation.navigate("UserInfoScreen");
+    navigation.navigate("UserInfoScreen" as never);
   };
 
   const friendsList = [
