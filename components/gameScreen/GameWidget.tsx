@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Dimensions,
-  StyleSheet,
   TouchableOpacity,
   ScrollView,
   PanResponder,

@@ -1,12 +1,11 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 
-const style = EStyleSheet.create({
+const styles = EStyleSheet.create({
   bottomContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
-
   characterName: {
     color: "white",
     fontSize: 20,
