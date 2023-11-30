@@ -14,6 +14,13 @@ const styles = EStyleSheet.create({
     marginLeft: 10,
     marginBottom: 10,
   },
+  creationDate: {
+    fontSize: 15,
+    color: "white",
+    fontWeight: "bold",
+    marginLeft: 10,
+    marginBottom: 10,
+  },
   note: {
     position: "absolute",
     bottom: 60,

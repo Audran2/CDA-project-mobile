@@ -37,3 +37,22 @@ export interface characterHeadType {
   characterName: string;
   characterJob: string;
 }
+
+export interface GameHeadType {
+  isGame?: boolean;
+  title?: string;
+  backgroundImage: string;
+  creationDate?: string;
+  note?: number;
+  social: Array<boolean>;
+}
+
+export interface GameCardType {
+  title: string;
+  image: string;
+  genre: string;
+  studio?: string;
+  date: string;
+  note: number;
+  social: Array<boolean>;
+}
