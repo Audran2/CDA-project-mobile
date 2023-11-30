@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import CharacterHeadScreen from "../../components/characterScreen/CharacterHeadScreen";
 import CharacterBodyScreen from "../../components/characterScreen/CharacterBodyScreen";
 
@@ -12,12 +12,14 @@ export default function CharacterInfoScreen() {
 
   return (
     <View style={styles.container}>
-      <CharacterHeadScreen
-        characterAvatar={character.image}
-        characterName={character.name}
-        characterJob={character.job}
-      />
-      <CharacterBodyScreen />
+      <ScrollView>
+        <CharacterHeadScreen
+          characterAvatar={character.image}
+          characterName={character.name}
+          characterJob={character.job}
+        />
+        <CharacterBodyScreen />
+      </ScrollView>
     </View>
   );
 }

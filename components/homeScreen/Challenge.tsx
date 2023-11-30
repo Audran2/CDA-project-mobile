@@ -1,7 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, Text } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Svg, { Defs, Polygon, Pattern, Image } from "react-native-svg";
+import styles from "./ChallengeStyle.js";
 
 export default function Challenge() {
   const { height, width } = Dimensions.get("window");
@@ -62,29 +63,3 @@ export default function Challenge() {
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  borderLinear: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-
-  challengeContainer: {
-    position: "relative",
-    backgroundColor: "white",
-    borderRadius: 10,
-    overflow: "hidden",
-    flexDirection: "row",
-  },
-
-  centeredVersus: {
-    zIndex: 1,
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: [{ translateX: -27 }, { translateY: -30 }],
-    flexDirection: "row",
-  },
-});

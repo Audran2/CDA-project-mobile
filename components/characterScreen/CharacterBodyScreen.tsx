@@ -1,11 +1,81 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import React, { useRef } from "react";
+import {
+  View,
+  Text,
+  Dimensions,
+  ScrollView,
+  PanResponder,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import styles from "./CharacterBodyStyle.js";
 
 export default function CharacterBodyScreen() {
+  // TEMPORAIRE
+
+  const CharacterGame = [
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+    {
+      title: "AC : odyssey",
+      image: require("../../assets/images/trooper.jpg"),
+      navigation: "CharacterInfoScreen",
+    },
+  ];
+
+  //TEMPORAIRE
+
   const { height, width } = Dimensions.get("window");
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gestureState) => {
+        if (scrollViewRef.current) {
+          scrollViewRef.current.scrollTo({
+            x: -gestureState.dx,
+            animated: false,
+          });
+        }
+      },
+    })
+  ).current;
+
+  const repeatedViews = CharacterGame.map((infos, index) => (
+    <TouchableOpacity
+      key={index}
+      style={styles.cardScroll}
+      // onPress={() => navigation.navigate(infos.navigation as never)}
+    >
+      <ImageBackground
+        resizeMode="cover"
+        source={infos.image}
+        style={styles.ImageBackground}
+      ></ImageBackground>
+    </TouchableOpacity>
+  ));
 
   return (
-    <View style={{ height: height / 2, width: width }}>
+    <View style={{ height: height / 1.7, width: width }}>
       <View
         style={{
           flexDirection: "row",
@@ -35,21 +105,19 @@ export default function CharacterBodyScreen() {
             Vulputate at scelerisque aliquet.
           </Text>
         </View>
+        <View>
+          <Text style={styles.title}>Voice actors</Text>
+          <ScrollView
+            ref={scrollViewRef}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            {...panResponder.panHandlers}
+            style={{ marginTop: 5 }}
+          >
+            {repeatedViews}
+          </ScrollView>
+        </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  subSpec: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  title: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "#C6C6C6",
-    marginTop: 15,
-    marginBottom: 7,
-  },
-});

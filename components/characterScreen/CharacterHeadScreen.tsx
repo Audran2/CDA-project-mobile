@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Dimensions,
-  ImageBackground,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Dimensions, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { characterHeadType } from "../../types";
+import styles from "./CharacterHeadStyle.js";
 
 export default function CharacterHeadScreen({
   characterAvatar,
@@ -50,23 +45,3 @@ export default function CharacterHeadScreen({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  bottomContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-  },
-
-  characterName: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  characterJob: {
-    color: "white",
-    fontSize: 15,
-    fontWeight: "bold",
-  },
-});

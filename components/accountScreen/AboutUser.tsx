@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import styles from "./AboutUserStyle.js";
 
 export default function AboutUser() {
   const { height, width } = Dimensions.get("window");
@@ -57,32 +58,3 @@ export default function AboutUser() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 5,
-    marginHorizontal: 20,
-  },
-
-  title: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "#C6C6C6",
-    marginTop: 10,
-    marginBottom: 5,
-  },
-
-  friendsList: {
-    flexDirection: "row",
-  },
-
-  iconUser: {
-    height: 40,
-    width: 40,
-    borderRadius: 30,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-});

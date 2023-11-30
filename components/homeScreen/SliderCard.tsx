@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
-import { Text, View, ScrollView, StyleSheet, PanResponder } from "react-native";
+import { Text, View, ScrollView, PanResponder } from "react-native";
 import CardGame from "./CardGame";
+import styles from "./SliderCardStyle.js";
 
 const lastGameFriend = [
   {
@@ -58,12 +59,3 @@ export default function Challenge() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  textTitle: {
-    fontSize: 22,
-    fontFamily: "KeaniaOne",
-    color: "white",
-    marginBottom: 15,
-  },
-});
