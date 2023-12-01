@@ -20,6 +20,8 @@ export default function PlayerCard() {
   const { height, width } = Dimensions.get("window");
   const navigation = useNavigation();
 
+  const isGame = true;
+
   const isNintendo = true;
   const isXbox = true;
   const isPlaystation = true;
@@ -51,7 +53,6 @@ export default function PlayerCard() {
               alignItems: "center",
             }}
           >
-            <Ionicons name="male" style={styles.userTitle} />
             <Text style={styles.userTitle}>Levorio</Text>
           </View>
           <View
@@ -60,28 +61,34 @@ export default function PlayerCard() {
               alignItems: "center",
             }}
           >
-            <Ionicons name="earth" style={styles.userSubtitle} />
             <Text style={styles.userSubtitle}>Région</Text>
           </View>
         </View>
-        <View
-          style={{ flexDirection: "row", alignItems: "center", marginLeft: 7 }}
-        >
-          {isNintendo && (
-            <MaterialCommunityIcons
-              name="nintendo-switch"
-              style={styles.iconSupport}
-            />
-          )}
-          {isXbox && <FontAwesome5 name="xbox" style={styles.iconSupport} />}
-          {isPlaystation && (
-            <FontAwesome5 name="playstation" style={styles.iconSupport} />
-          )}
-          {isComputer && (
-            <MaterialIcons name="computer" style={styles.iconSupport} />
-          )}
-        </View>
+        {isGame && (
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: 7,
+            }}
+          >
+            {isNintendo && (
+              <MaterialCommunityIcons
+                name="nintendo-switch"
+                style={styles.iconSupport}
+              />
+            )}
+            {isXbox && <FontAwesome5 name="xbox" style={styles.iconSupport} />}
+            {isPlaystation && (
+              <FontAwesome5 name="playstation" style={styles.iconSupport} />
+            )}
+            {isComputer && (
+              <MaterialIcons name="computer" style={styles.iconSupport} />
+            )}
+          </View>
+        )}
       </View>
+
       <View style={{ alignItems: "center", justifyContent: "center" }}>
         <TouchableOpacity>
           <Feather name="user-plus" size={24} color="white" />

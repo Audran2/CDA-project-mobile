@@ -56,3 +56,30 @@ export interface GameCardType {
   note: number;
   social: Array<boolean>;
 }
+
+export interface LabelData {
+  name: string;
+  required: boolean;
+}
+
+export interface InputData {
+  value: string;
+  placeholder: string;
+  onChangeText?: (text: string) => void;
+  secureTextEntry: boolean;
+  showPassword?: boolean;
+  switchPasswordVisibility?: () => void;
+  multiline: boolean;
+  numberOfLines?: 1 | number;
+  regex?: RegExp[] | RegExp;
+  isInValid?: boolean;
+  setIsInValid?: (newValue: boolean) => void;
+  hasToBeChecked?: boolean;
+  editable?: boolean;
+  isVerify?: boolean;
+}
+
+export interface ButtonData {
+  isFormValid: boolean;
+  handleSubmit: () => void;
+}

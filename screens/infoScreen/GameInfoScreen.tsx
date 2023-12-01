@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import GameHeadScreen from "../../components/gameScreen/GameHeadScreen";
 import GameWidget from "../../components/gameScreen/GameWidget";
-import { GameHeadType } from "../../types";
+import { type GameHeadType } from "../../types";
 
 export default function GameInfoScreen() {
   const game: Array<GameHeadType> = [

@@ -13,7 +13,7 @@ import {
   FontAwesome5,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { GameCardType } from "../../types.js";
+import { type GameCardType } from "../../types.js";
 import styles from "./GameCardStyle.js";
 
 export default function GameCard({

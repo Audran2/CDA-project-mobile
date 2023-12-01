@@ -13,7 +13,7 @@ import {
   MaterialIcons,
   Feather,
 } from "@expo/vector-icons";
-import { GameHeadType } from "../../types.js";
+import { type GameHeadType } from "../../types.js";
 import styles from "./GameHeadScreenStyle.js";
 
 export default function GameHeadScreen({

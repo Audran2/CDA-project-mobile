@@ -14,6 +14,7 @@ const styles = EStyleSheet.create({
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50,
     overflow: "hidden",
+    backgroundColor: "#cfcfcf",
   },
   userTitle: {
     color: "white",

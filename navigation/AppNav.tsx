@@ -1,9 +1,13 @@
 import React from "react";
-import { Dimensions, Pressable } from "react-native";
+import { Dimensions, Pressable, TouchableOpacity } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  FontAwesome5,
+  Ionicons,
+} from "@expo/vector-icons";
 import HomeScreen from "../screens/mainScreen/HomeScreen";
 import CalendarScreen from "../screens/mainScreen/CalendarScreen";
 import ResearchScreen from "../screens/mainScreen/ResearchScreen";
@@ -15,6 +19,10 @@ import GameListScreen from "../screens/infoScreen/GameListScreen";
 import GradesScreen from "../screens/infoScreen/GradesScreen";
 import StudioInfoScreen from "../screens/infoScreen/StudioInfoScreen";
 import UserInfoScreen from "../screens/infoScreen/UserInfoScreen";
+import UserEditScreen from "../screens/paramScreen/UserEditScreen";
+import SecurityScreen from "../screens/paramScreen/SecurityScreen";
+import HelpScreen from "../screens/paramScreen/HelpScreen";
+import AboutScreen from "../screens/paramScreen/AboutScreen";
 import styles from "./AppNavStyle.js";
 
 const Tab = createBottomTabNavigator();
@@ -56,7 +64,7 @@ const tabArray = [
   },
 ];
 
-const createAppNavigator = (defaultPage) => {
+const createAppNavigator = (defaultPage: string | undefined) => {
   return () => (
     <Tab.Navigator
       initialRouteName={defaultPage}
@@ -150,6 +158,29 @@ const screenConfigurations = [
   },
 ];
 
+const ScreenArr = [
+  {
+    screenName: "UserEditScreen",
+    component: UserEditScreen,
+    label: "Informations",
+  },
+  {
+    screenName: "SecurityScreen",
+    component: SecurityScreen,
+    label: "Sécurité",
+  },
+  {
+    screenName: "HelpScreen",
+    component: HelpScreen,
+    label: "Aide",
+  },
+  {
+    screenName: "AboutScreen",
+    component: AboutScreen,
+    label: "A propos",
+  },
+];
+
 const AppStackNav = () => (
   <Stack.Navigator>
     {screenConfigurations.map((config, index) => (
@@ -160,6 +191,28 @@ const AppStackNav = () => (
         options={config.options}
       />
     ))}
+    <Stack.Group>
+      {ScreenArr.map((config, index) => (
+        <Stack.Screen
+          key={index}
+          name={config.screenName}
+          component={config.component}
+          options={({ route, navigation }) => ({
+            title: config.label,
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{ marginLeft: 15 }}
+                onPress={() => navigation.goBack()}
+              >
+                <Ionicons name="chevron-back" size={30} color={"black"} />
+              </TouchableOpacity>
+            ),
+            headerShown: true,
+            headerTitleAlign: "center",
+          })}
+        />
+      ))}
+    </Stack.Group>
   </Stack.Navigator>
 );
 
