@@ -6,12 +6,18 @@ import {
   Text,
   View,
 } from "react-native";
+import { NavigationProp } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Entypo, Feather } from "@expo/vector-icons";
 import { type itemNavigation } from "../types";
 import styles from "./ParametersScreenStyle.js";
+import { LinearGradient } from "expo-linear-gradient";
 
-export default function ParametersScreen({ navigation }): React.JSX.Element {
+export default function ParametersScreen({
+  navigation,
+}: {
+  navigation: NavigationProp<any>;
+}): React.JSX.Element {
   const [categoryList] = useState<itemNavigation[]>([
     {
       id: 1,
@@ -65,17 +71,20 @@ export default function ParametersScreen({ navigation }): React.JSX.Element {
           } else navigation.navigate(item.url, {});
         }}
       >
-        <View style={[styles.blockParameter]}>
+        <LinearGradient
+          style={[styles.blockParameter]}
+          start={{ x: 0.9, y: 0.5 }}
+          end={{ x: 0.2, y: 0.5 }}
+          colors={["white", "transparent"]}
+        >
           <Feather
             name={item.nameIcon}
             size={20}
             style={{
-              color: "#171717",
+              color: "white",
             }}
           />
-          <Text style={[{ marginLeft: 10 }, styles.subCategory]}>
-            {item.name}
-          </Text>
+          <Text style={{ marginLeft: 10, color: "white" }}>{item.name}</Text>
           <View
             style={{
               flex: 1,
@@ -95,7 +104,7 @@ export default function ParametersScreen({ navigation }): React.JSX.Element {
               ]}
             />
           </View>
-        </View>
+        </LinearGradient>
       </TouchableOpacity>
     );
   }
@@ -111,37 +120,44 @@ export default function ParametersScreen({ navigation }): React.JSX.Element {
   }, {});
 
   return (
-    <ScrollView
-      alwaysBounceVertical={false}
-      showsVerticalScrollIndicator={false}
+    <LinearGradient
+      style={{ flex: 1 }}
+      start={{ x: 0.5, y: 0.8 }}
+      end={{ x: 0.5, y: 0 }}
+      colors={["#0A0726", "#0E008D"]}
     >
-      <SafeAreaView
-        edges={["bottom", "left", "right"]}
-        style={[
-          styles.container,
-          {
-            marginTop: 20,
-          },
-        ]}
+      <ScrollView
+        alwaysBounceVertical={false}
+        showsVerticalScrollIndicator={false}
       >
-        {Object.keys(categories).map((category, index) => {
-          return (
-            <View key={index} style={{ backgroundColor: "transparent" }}>
-              <View style={styles.titleCategory}>
-                <Text style={styles.textCategory}>{category}</Text>
+        <SafeAreaView
+          edges={["bottom", "left", "right"]}
+          style={[
+            styles.container,
+            {
+              marginTop: 20,
+            },
+          ]}
+        >
+          {Object.keys(categories).map((category, index) => {
+            return (
+              <View key={index} style={{ backgroundColor: "transparent" }}>
+                <View style={styles.titleCategory}>
+                  <Text style={styles.textCategory}>{category}</Text>
+                </View>
+                <FlatList
+                  scrollEnabled={false}
+                  data={categories[category]}
+                  keyExtractor={(item) => item.id.toString()}
+                  renderItem={({ item, index }) =>
+                    renderCategoryList(item, index)
+                  }
+                />
               </View>
-              <FlatList
-                scrollEnabled={false}
-                data={categories[category]}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item, index }) =>
-                  renderCategoryList(item, index)
-                }
-              />
-            </View>
-          );
-        })}
-      </SafeAreaView>
-    </ScrollView>
+            );
+          })}
+        </SafeAreaView>
+      </ScrollView>
+    </LinearGradient>
   );
 }

@@ -16,9 +16,9 @@ const styles = EStyleSheet.create({
     fontSize: 16,
     textTransform: "uppercase",
     fontWeight: "bold",
+    color: "white",
   },
   blockParameter: {
-    backgroundColor: "#fff",
     flexDirection: "row",
     marginVertical: 5,
     marginHorizontal: 0,

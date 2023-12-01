@@ -50,9 +50,9 @@ export default function Challenge() {
         showsHorizontalScrollIndicator={false}
         {...panResponder.panHandlers}
       >
-        {lastGameFriend.map((game, index) => (
-          <View style={{ marginRight: 10 }}>
-            <CardGame key={index} {...game} />
+        {lastGameFriend.map((game) => (
+          <View style={{ marginRight: 10 }} key={game.userName}>
+            <CardGame {...game} />
           </View>
         ))}
       </ScrollView>

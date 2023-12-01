@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {
-  Ionicons,
   MaterialCommunityIcons,
   FontAwesome5,
   MaterialIcons,

@@ -79,6 +79,20 @@ export interface InputData {
   isVerify?: boolean;
 }
 
+export interface DropDownData<T> {
+  modalTitle: string;
+  placeholder: string;
+  open: boolean;
+  value: T | null;
+  items: Array<{ value: number | string; label: string }>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setValue: React.Dispatch<React.SetStateAction<T>>;
+  isValid?: boolean;
+  setIsValid?: (newValue: string | number | boolean) => void;
+  translation?: Record<string, string>;
+  multiple?: boolean;
+}
+
 export interface ButtonData {
   isFormValid: boolean;
   handleSubmit: () => void;

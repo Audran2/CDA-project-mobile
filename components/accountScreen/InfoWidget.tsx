@@ -185,7 +185,11 @@ export default function InfoWidget() {
 
       <View style={styles.contentContainer}>
         {selectedButton === 1 && (
-          <Text style={{ color: "white" }}>Contenu de la page 1</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("GameListScreen" as never)}
+          >
+            <Text style={{ color: "white" }}>Contenu de la page 1</Text>
+          </TouchableOpacity>
         )}
         {selectedButton === 2 && (
           <View

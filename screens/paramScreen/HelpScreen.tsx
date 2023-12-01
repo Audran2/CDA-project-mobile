@@ -1,10 +1,12 @@
-import React from "react";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
+import React, { Component } from "react";
 
-export default function HelpScreen() {
-  return (
-    <View>
-      <Text>HelpScreen</Text>
-    </View>
-  );
+export default class HelpScreen extends Component {
+  render() {
+    return (
+      <View>
+        <Text>HelpScreen</Text>
+      </View>
+    );
+  }
 }
