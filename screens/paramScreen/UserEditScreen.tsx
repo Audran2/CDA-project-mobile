@@ -1,24 +1,44 @@
-import React, { useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
+import { View, ScrollView } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
 import InputTemplate from "../../components/FormTemplate/InputTemplate";
 import DropDownTemplate from "../../components/FormTemplate/DropdownTemplate";
+import ButtonTemplate from "../../components/FormTemplate/ButtonTemplate";
+import styles from "./UserEditStyle.js";
 
 export default function UserEditScreen() {
+  const navigation = useNavigation();
+
   const { handleSubmit, control, formState, trigger, reset } = useForm({
     defaultValues: {
       userName: "Levorio",
       email: "test.test@gmail.com",
       gender: "male",
       region: "Europe",
-      plateforms: [true, true, true, true],
+      plateforms: ["nintendo", "xbox", "pc"],
     },
   });
 
   const isFormValid = formState.isValid;
   const iFormDirty = formState.isDirty;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <ButtonTemplate
+          isFormValid={isFormValid}
+          handleSubmit={handleSubmit(onSubmit)}
+        />
+      ),
+    });
+  }, [navigation, isFormValid]);
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
 
   const [openGender, setOpenGender] = useState(false);
   const genderOptions = [
@@ -39,10 +59,10 @@ export default function UserEditScreen() {
 
   const [openPlateform, setOpenPlateform] = useState(false);
   const plateformOptions = [
-    { value: true, label: "Nintendo" },
-    { value: true, label: "Xbox" },
-    { value: true, label: "Playstation" },
-    { value: true, label: "PC" },
+    { value: "nintendo", label: "Nintendo" },
+    { value: "xbox", label: "Xbox" },
+    { value: "playstation", label: "Playstation" },
+    { value: "pc", label: "PC" },
   ];
 
   const placeholder = {
@@ -54,9 +74,15 @@ export default function UserEditScreen() {
   };
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={styles.container}>
       <ScrollView>
-        <View>
+        <View
+          style={{
+            backgroundColor: "transparent",
+            paddingBottom: 25,
+            marginHorizontal: 30,
+          }}
+        >
           <Controller
             control={control}
             render={({ field }) => (

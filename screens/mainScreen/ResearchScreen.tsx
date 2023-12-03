@@ -8,6 +8,7 @@ import {
   Text,
   ScrollView,
   PanResponder,
+  KeyboardAvoidingView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
@@ -37,96 +38,101 @@ export default function ResearchScreen() {
   };
 
   return (
-    <LinearGradient
-      style={styles.container}
-      start={{ x: 0.5, y: 0.8 }}
-      end={{ x: 0.5, y: 0 }}
-      colors={["#0A0726", "#0E008D"]}
-    >
-      <View style={{ alignItems: "center" }}>
-        <View style={{ marginTop: 20, position: "relative" }}>
-          <View style={styles.iconContainer}>
-            <Entypo name="magnifying-glass" size={24} color="white" />
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <LinearGradient
+        style={styles.container}
+        start={{ x: 0.5, y: 0.8 }}
+        end={{ x: 0.5, y: 0 }}
+        colors={["#0A0726", "#0E008D"]}
+      >
+        <View style={{ alignItems: "center" }}>
+          <View style={{ marginTop: 20, position: "relative" }}>
+            <View style={styles.iconContainer}>
+              <Entypo name="magnifying-glass" size={24} color="white" />
+            </View>
+            <TextInput
+              style={[
+                styles.inputSearch,
+                { width: width - 50, paddingLeft: 40 },
+              ]}
+              placeholder="Search..."
+              placeholderTextColor="white"
+            />
           </View>
-          <TextInput
-            style={[styles.inputSearch, { width: width - 50, paddingLeft: 40 }]}
-            placeholder="Search..."
-            placeholderTextColor="white"
-          />
+          <View style={{ flexDirection: "row" }}>
+            <ScrollView
+              ref={scrollViewRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              {...panResponder.panHandlers}
+              style={{ marginTop: 15 }}
+            >
+              <TouchableOpacity
+                style={[styles.btn, { marginLeft: 15 }]}
+                onPress={() => handleButtonPress(1)}
+              >
+                <LinearGradient
+                  start={{ x: 0.3, y: 0.5 }}
+                  end={{ x: 0.8, y: 0.5 }}
+                  colors={[
+                    "#102ECD",
+                    selectedButton === 1 ? "#102ECD" : "transparent",
+                  ]}
+                >
+                  <Text style={styles.btnText}>Jeux</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => handleButtonPress(2)}
+              >
+                <LinearGradient
+                  start={{ x: 0.3, y: 0.5 }}
+                  end={{ x: 0.8, y: 0.5 }}
+                  colors={[
+                    "#102ECD",
+                    selectedButton === 2 ? "#102ECD" : "transparent",
+                  ]}
+                >
+                  <Text style={styles.btnText}>Studios</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => handleButtonPress(3)}
+              >
+                <LinearGradient
+                  start={{ x: 0.3, y: 0.5 }}
+                  end={{ x: 0.8, y: 0.5 }}
+                  colors={[
+                    "#102ECD",
+                    selectedButton === 3 ? "#102ECD" : "transparent",
+                  ]}
+                >
+                  <Text style={styles.btnText}>Personnages</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.btn, { marginRight: 15 }]}
+                onPress={() => handleButtonPress(4)}
+              >
+                <LinearGradient
+                  start={{ x: 0.3, y: 0.5 }}
+                  end={{ x: 0.8, y: 0.5 }}
+                  colors={[
+                    "#102ECD",
+                    selectedButton === 4 ? "#102ECD" : "transparent",
+                  ]}
+                >
+                  <Text style={styles.btnText}>Joueurs</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <ScrollView
-            ref={scrollViewRef}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            {...panResponder.panHandlers}
-            style={{ marginTop: 15 }}
-          >
-            <TouchableOpacity
-              style={[styles.btn, { marginLeft: 15 }]}
-              onPress={() => handleButtonPress(1)}
-            >
-              <LinearGradient
-                start={{ x: 0.3, y: 0.5 }}
-                end={{ x: 0.8, y: 0.5 }}
-                colors={[
-                  "#102ECD",
-                  selectedButton === 1 ? "#102ECD" : "transparent",
-                ]}
-              >
-                <Text style={styles.btnText}>Jeux</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => handleButtonPress(2)}
-            >
-              <LinearGradient
-                start={{ x: 0.3, y: 0.5 }}
-                end={{ x: 0.8, y: 0.5 }}
-                colors={[
-                  "#102ECD",
-                  selectedButton === 2 ? "#102ECD" : "transparent",
-                ]}
-              >
-                <Text style={styles.btnText}>Studios</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => handleButtonPress(3)}
-            >
-              <LinearGradient
-                start={{ x: 0.3, y: 0.5 }}
-                end={{ x: 0.8, y: 0.5 }}
-                colors={[
-                  "#102ECD",
-                  selectedButton === 3 ? "#102ECD" : "transparent",
-                ]}
-              >
-                <Text style={styles.btnText}>Personnages</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.btn, { marginRight: 15 }]}
-              onPress={() => handleButtonPress(4)}
-            >
-              <LinearGradient
-                start={{ x: 0.3, y: 0.5 }}
-                end={{ x: 0.8, y: 0.5 }}
-                colors={[
-                  "#102ECD",
-                  selectedButton === 4 ? "#102ECD" : "transparent",
-                ]}
-              >
-                <Text style={styles.btnText}>Joueurs</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
-      </View>
-      <PlayerCard />
-    </LinearGradient>
+        <PlayerCard />
+      </LinearGradient>
+    </KeyboardAvoidingView>
   );
 }
 

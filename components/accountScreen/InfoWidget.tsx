@@ -9,6 +9,7 @@ import {
   PanResponder,
   ImageBackground,
 } from "react-native";
+import PieChart from "../mathsUtilities/PieChart";
 import styles from "./InfoWidgetStyle.js";
 
 export default function InfoWidget() {
@@ -185,11 +186,14 @@ export default function InfoWidget() {
 
       <View style={styles.contentContainer}>
         {selectedButton === 1 && (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("GameListScreen" as never)}
-          >
-            <Text style={{ color: "white" }}>Contenu de la page 1</Text>
-          </TouchableOpacity>
+          <>
+            <PieChart />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("GameListScreen" as never)}
+            >
+              <Text style={{ color: "white" }}>Contenu de la page 1</Text>
+            </TouchableOpacity>
+          </>
         )}
         {selectedButton === 2 && (
           <View
