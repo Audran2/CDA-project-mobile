@@ -6,12 +6,13 @@ import {
   Text,
   View,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { NavigationProp } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Entypo, Feather } from "@expo/vector-icons";
+import { colors } from "../assets/utils/_colors";
 import { type itemNavigation } from "../types";
 import styles from "./ParametersScreenStyle.js";
-import { LinearGradient } from "expo-linear-gradient";
 
 export default function ParametersScreen({
   navigation,
@@ -124,7 +125,7 @@ export default function ParametersScreen({
       style={{ flex: 1 }}
       start={{ x: 0.5, y: 0.8 }}
       end={{ x: 0.5, y: 0 }}
-      colors={["#0A0726", "#0E008D"]}
+      colors={[colors.darkblue, colors.blue]}
     >
       <ScrollView
         alwaysBounceVertical={false}

@@ -8,7 +8,7 @@ interface ItemProps {
 }
 
 const AgendaItem = (props: ItemProps) => {
-  const { item } = props;
+  const { item /** , isLast, doRefresh */ } = props;
 
   if (isEmpty(item)) {
     return (
@@ -21,7 +21,13 @@ const AgendaItem = (props: ItemProps) => {
   }
 
   return (
-    <View style={{ alignItems: "center", backgroundColor: "transparent" }}>
+    <View
+      style={{
+        alignItems: "center",
+        backgroundColor: "transparent",
+        // marginBottom: isLast ? 130 : 0,
+      }}
+    >
       <GameCard {...item} />
     </View>
   );

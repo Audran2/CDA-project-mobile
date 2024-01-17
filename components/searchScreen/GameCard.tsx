@@ -13,6 +13,7 @@ import {
   FontAwesome5,
   MaterialIcons,
 } from "@expo/vector-icons";
+import { getColorGrade } from "../../assets/utils/_functions.js";
 import { type GameCardType } from "../../types.js";
 import styles from "./GameCardStyle.js";
 
@@ -27,20 +28,6 @@ export default function GameCard({
 }: GameCardType) {
   const { height, width } = Dimensions.get("window");
   const navigation = useNavigation();
-
-  const getColorGrade = (note: number) => {
-    if (note <= 2) {
-      return "#c91508";
-    } else if (note > 2 && note < 4) {
-      return "#e38b19";
-    } else if (note === 5) {
-      return "#1673de";
-    } else if (note >= 6 && note < 8) {
-      return "#43db0b";
-    } else {
-      return "#267009";
-    }
-  };
 
   return (
     <TouchableOpacity
@@ -68,7 +55,7 @@ export default function GameCard({
         >
           <ImageBackground
             resizeMode="cover"
-            source={image}
+            source={{ uri: image }}
             style={{
               width: "100%",
               height: "100%",

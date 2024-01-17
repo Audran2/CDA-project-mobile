@@ -1,5 +1,6 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useState } from "react";
 import { StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   ExpandableCalendar,
   AgendaList,
@@ -13,8 +14,8 @@ import {
 } from "../../components/calendarFiles/agendaItems";
 import { getTheme, themeColor } from "../../components/calendarFiles/theme";
 import setFrenchConfig from "../../components/calendarFiles/LocalConfig";
+import { colors } from "../../assets/utils/_colors";
 import AgendaItem from "./AgendaItem";
-import { LinearGradient } from "expo-linear-gradient";
 
 setFrenchConfig();
 
@@ -28,6 +29,9 @@ interface Props {
 
 export default function CalendarScreen(props: Props): JSX.Element {
   const { weekView } = props;
+  const [eventMockItems, setEventMockItems] = useState<
+    Array<{ title: string; data: any }>
+  >([]);
   const marked = useRef(getMarkedDates());
   const theme = useRef(getTheme());
   const todayBtnTheme = useRef({
@@ -35,7 +39,22 @@ export default function CalendarScreen(props: Props): JSX.Element {
   });
 
   const renderItem = useCallback(({ item }: any) => {
-    return <AgendaItem item={item} />;
+    const isLastItem =
+      eventMockItems.findIndex(
+        (ev) =>
+          JSON.stringify(ev.data[ev.data.length - 1]) === JSON.stringify(item)
+      ) ===
+      eventMockItems.length - 1;
+
+    return (
+      <AgendaItem
+        item={item}
+        // isLast={isLastItem}
+        // doRefresh={() => {
+        //   onRefresh();
+        // }}
+      />
+    );
   }, []);
 
   return (
@@ -43,7 +62,7 @@ export default function CalendarScreen(props: Props): JSX.Element {
       style={styles.container}
       start={{ x: 0.5, y: 0.8 }}
       end={{ x: 0.5, y: 0 }}
-      colors={["#0A0726", "#0E008D"]}
+      colors={[colors.darkblue, colors.blue]}
     >
       <CalendarProvider
         date={ITEMS[1]?.title}

@@ -8,6 +8,7 @@ import {
   PanResponder,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { colors } from "../../assets/utils/_colors";
 
 const buttons = [
   { id: 1, label: "Tous" },
@@ -45,7 +46,7 @@ export default function GameListScreen() {
       style={{ flex: 1 }}
       start={{ x: 0.5, y: 0.8 }}
       end={{ x: 0.5, y: 0 }}
-      colors={["#0A0726", "#0E008D"]}
+      colors={[colors.darkblue, colors.blue]}
     >
       <View style={{ flexDirection: "row" }}>
         <ScrollView
@@ -68,8 +69,10 @@ export default function GameListScreen() {
                 start={{ x: 0.3, y: 0.5 }}
                 end={{ x: 0.8, y: 0.5 }}
                 colors={[
-                  "#102ECD",
-                  selectedButton === button.id ? "#102ECD" : "transparent",
+                  colors.alternativeBlue,
+                  selectedButton === button.id
+                    ? colors.alternativeBlue
+                    : "transparent",
                 ]}
               >
                 <Text style={styles.btnText}>{button.label}</Text>
@@ -91,7 +94,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderWidth: 2,
-    borderColor: "#102ECD",
+    borderColor: colors.alternativeBlue,
     borderRadius: 20,
     overflow: "hidden",
     marginHorizontal: 5,

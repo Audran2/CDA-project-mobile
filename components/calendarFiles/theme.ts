@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 
-export const themeColor = "#00AAAF";
+export const themeColor = "white";
 
 export function getTheme() {
   const disabledColor = "grey";
@@ -17,7 +17,7 @@ export function getTheme() {
 
     textMonthFontWeight: "bold" as const,
     // day names
-    textSectionTitleColor: "black",
+    textSectionTitleColor: "white",
     textDayHeaderFontSize: 12,
 
     textDayHeaderFontWeight: "normal" as const,
@@ -30,7 +30,7 @@ export function getTheme() {
     textDayStyle: { marginTop: Platform.OS === "android" ? 2 : 4 },
     // selected date
     selectedDayBackgroundColor: themeColor,
-    selectedDayTextColor: "white",
+    selectedDayTextColor: "black",
     // disabled date
     textDisabledColor: disabledColor,
     // dot (marked date)
@@ -38,5 +38,6 @@ export function getTheme() {
     selectedDotColor: "white",
     disabledDotColor: disabledColor,
     dotStyle: { marginTop: -2 },
+    calendarBackground: "#1402bd",
   };
 }

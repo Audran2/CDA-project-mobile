@@ -13,6 +13,8 @@ import {
   MaterialIcons,
   Feather,
 } from "@expo/vector-icons";
+import { getColorGrade } from "../../assets/utils/_functions";
+import { colors } from "../../assets/utils/_colors";
 import { type GameHeadType } from "../../types.js";
 import styles from "./GameHeadScreenStyle.js";
 
@@ -26,20 +28,6 @@ export default function GameHeadScreen({
 }: GameHeadType) {
   const { height, width } = Dimensions.get("window");
 
-  const getColorGrade = (note: number) => {
-    if (note <= 2) {
-      return "#c91508";
-    } else if (note > 2 && note < 4) {
-      return "#e38b19";
-    } else if (note === 5) {
-      return "#1673de";
-    } else if (note >= 6 && note < 8) {
-      return "#43db0b";
-    } else {
-      return "#267009";
-    }
-  };
-
   return (
     <View
       style={{
@@ -49,7 +37,7 @@ export default function GameHeadScreen({
     >
       <ImageBackground
         resizeMode="cover"
-        source={backgroundImage}
+        source={{ uri: backgroundImage }}
         style={{
           width: "100%",
           height: isGame ? "100%" : "90%",
@@ -64,7 +52,7 @@ export default function GameHeadScreen({
           }}
           start={{ x: 0.5, y: 0.85 }}
           end={{ x: 0.5, y: isGame ? 0.55 : 0.75 }}
-          colors={["#0A0726", "transparent"]}
+          colors={[colors.darkblue, "transparent"]}
         >
           <View style={styles.bottomContainer}>
             <View>
@@ -75,7 +63,9 @@ export default function GameHeadScreen({
               )}
             </View>
             {isGame && (
-              <View style={[styles.note, { borderColor: getColorGrade(note) }]}>
+              <View
+                style={[styles.note, { borderColor: getColorGrade(note || 0) }]}
+              >
                 <Text style={styles.textNote}>{note}</Text>
               </View>
             )}

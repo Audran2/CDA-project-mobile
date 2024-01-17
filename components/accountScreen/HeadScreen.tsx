@@ -7,6 +7,7 @@ import {
   MaterialIcons,
   Ionicons,
 } from "@expo/vector-icons";
+import { colors } from "../../assets/utils/_colors";
 import { HeadScreenType } from "../../types";
 import styles from "./HeadScreenStyle.js";
 
@@ -42,7 +43,7 @@ export default function HeadScreen({
           }}
           start={{ x: 0.75, y: 0.7 }}
           end={{ x: 0.7, y: 0.2 }}
-          colors={["#0A0726", "transparent"]}
+          colors={[colors.darkblue, "transparent"]}
         >
           <View style={styles.bottomContainer}>
             <View style={styles.gameSupport}>

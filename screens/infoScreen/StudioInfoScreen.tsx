@@ -2,7 +2,9 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import GameHeadScreen from "../../components/gameScreen/GameHeadScreen";
 import StudioBodyScreen from "../../components/studioScreen/StudioBodyScreen";
+import BottomNav from "../../components/BottomNav";
 import { type GameHeadType } from "../../types";
+import { colors } from "../../assets/utils/_colors";
 
 export default function StudioInfoScreen() {
   const studio: Array<GameHeadType> = [
@@ -20,6 +22,7 @@ export default function StudioInfoScreen() {
         <GameHeadScreen {...studio} />
       ))}
       <StudioBodyScreen />
+      <BottomNav />
     </View>
   );
 }
@@ -27,6 +30,6 @@ export default function StudioInfoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0A0726",
+    backgroundColor: colors.darkblue,
   },
 });

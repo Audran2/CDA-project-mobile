@@ -57,6 +57,10 @@ export interface GameCardType {
   social: Array<boolean>;
 }
 
+export interface BottomNavType {
+  addList?: boolean;
+}
+
 export interface LabelData {
   name: string;
   required: boolean;

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Svg, G, Path, Text as SvgText } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
-import { colors } from "../../assets/style/_colors";
+import { colors } from "../../assets/utils/_colors";
 import styles from "./PieChartStyle";
 
 export default function PieChart() {

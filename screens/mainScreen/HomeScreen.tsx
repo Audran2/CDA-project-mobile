@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Challenge from "../../components/homeScreen/Challenge";
 import SliderCard from "../../components/homeScreen/SliderCard";
+import { colors } from "../../assets/utils/_colors";
 
 export default function HomeScreen() {
   return (
@@ -9,7 +10,7 @@ export default function HomeScreen() {
       style={styles.container}
       start={{ x: 0.5, y: 0.8 }}
       end={{ x: 0.5, y: 0 }}
-      colors={["#0A0726", "#0E008D"]}
+      colors={[colors.darkblue, colors.blue]}
     >
       <View style={{ marginTop: 30 }}>
         <Challenge />

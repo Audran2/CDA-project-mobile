@@ -13,6 +13,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
 import PlayerCard from "../../components/searchScreen/PlayerCard";
+import { colors } from "../../assets/utils/_colors";
 
 export default function ResearchScreen() {
   const { height, width } = Dimensions.get("window");
@@ -43,7 +44,7 @@ export default function ResearchScreen() {
         style={styles.container}
         start={{ x: 0.5, y: 0.8 }}
         end={{ x: 0.5, y: 0 }}
-        colors={["#0A0726", "#0E008D"]}
+        colors={[colors.darkblue, colors.blue]}
       >
         <View style={{ alignItems: "center" }}>
           <View style={{ marginTop: 20, position: "relative" }}>
@@ -75,8 +76,10 @@ export default function ResearchScreen() {
                   start={{ x: 0.3, y: 0.5 }}
                   end={{ x: 0.8, y: 0.5 }}
                   colors={[
-                    "#102ECD",
-                    selectedButton === 1 ? "#102ECD" : "transparent",
+                    colors.alternativeBlue,
+                    selectedButton === 1
+                      ? colors.alternativeBlue
+                      : "transparent",
                   ]}
                 >
                   <Text style={styles.btnText}>Jeux</Text>
@@ -90,8 +93,10 @@ export default function ResearchScreen() {
                   start={{ x: 0.3, y: 0.5 }}
                   end={{ x: 0.8, y: 0.5 }}
                   colors={[
-                    "#102ECD",
-                    selectedButton === 2 ? "#102ECD" : "transparent",
+                    colors.alternativeBlue,
+                    selectedButton === 2
+                      ? colors.alternativeBlue
+                      : "transparent",
                   ]}
                 >
                   <Text style={styles.btnText}>Studios</Text>
@@ -105,8 +110,10 @@ export default function ResearchScreen() {
                   start={{ x: 0.3, y: 0.5 }}
                   end={{ x: 0.8, y: 0.5 }}
                   colors={[
-                    "#102ECD",
-                    selectedButton === 3 ? "#102ECD" : "transparent",
+                    colors.alternativeBlue,
+                    selectedButton === 3
+                      ? colors.alternativeBlue
+                      : "transparent",
                   ]}
                 >
                   <Text style={styles.btnText}>Personnages</Text>
@@ -120,8 +127,10 @@ export default function ResearchScreen() {
                   start={{ x: 0.3, y: 0.5 }}
                   end={{ x: 0.8, y: 0.5 }}
                   colors={[
-                    "#102ECD",
-                    selectedButton === 4 ? "#102ECD" : "transparent",
+                    colors.alternativeBlue,
+                    selectedButton === 4
+                      ? colors.alternativeBlue
+                      : "transparent",
                   ]}
                 >
                   <Text style={styles.btnText}>Joueurs</Text>
@@ -158,7 +167,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderWidth: 2,
-    borderColor: "#102ECD",
+    borderColor: colors.alternativeBlue,
     borderRadius: 20,
     overflow: "hidden",
     marginHorizontal: 5,

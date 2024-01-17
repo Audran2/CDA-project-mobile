@@ -7,6 +7,7 @@ import {
   ImageSourcePropType,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { colors } from "../../assets/utils/_colors";
 import { characterHeadType } from "../../types";
 import styles from "./CharacterHeadStyle.js";
 
@@ -38,7 +39,7 @@ export default function CharacterHeadScreen({
           }}
           start={{ x: 0.5, y: 0.9 }}
           end={{ x: 0.6, y: 0.35 }}
-          colors={["#0A0726", "transparent"]}
+          colors={[colors.darkblue, "transparent"]}
         >
           <View style={styles.bottomContainer}>
             <View style={{ marginLeft: 10, marginBottom: 10 }}>

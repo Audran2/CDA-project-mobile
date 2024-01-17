@@ -2,6 +2,8 @@ import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import CharacterHeadScreen from "../../components/characterScreen/CharacterHeadScreen";
 import CharacterBodyScreen from "../../components/characterScreen/CharacterBodyScreen";
+import BottomNav from "../../components/BottomNav";
+import { colors } from "../../assets/utils/_colors";
 
 export default function CharacterInfoScreen() {
   const character = {
@@ -19,6 +21,7 @@ export default function CharacterInfoScreen() {
           characterJob={character.job}
         />
         <CharacterBodyScreen />
+        <BottomNav />
       </ScrollView>
     </View>
   );
@@ -27,6 +30,6 @@ export default function CharacterInfoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0A0726",
+    backgroundColor: colors.darkblue,
   },
 });

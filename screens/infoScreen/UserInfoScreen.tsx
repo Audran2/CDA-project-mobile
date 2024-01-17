@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 import HeadScreen from "../../components/accountScreen/HeadScreen";
 import AboutUser from "../../components/accountScreen/AboutUser";
 import InfoWidget from "../../components/accountScreen/InfoWidget";
+import { colors } from "../../assets/utils/_colors";
 
 export default function UserInfoScreen() {
   const user = {
@@ -36,6 +37,6 @@ export default function UserInfoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0A0726",
+    backgroundColor: colors.darkblue,
   },
 });
