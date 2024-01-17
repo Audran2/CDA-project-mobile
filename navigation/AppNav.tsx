@@ -23,6 +23,7 @@ import UserEditScreen from "../screens/paramScreen/UserEditScreen";
 import SecurityScreen from "../screens/paramScreen/SecurityScreen";
 import HelpScreen from "../screens/paramScreen/HelpScreen";
 import AboutScreen from "../screens/paramScreen/AboutScreen";
+import { iconType } from "../types";
 import styles from "./AppNavStyle.js";
 
 const Tab = createBottomTabNavigator();
@@ -83,7 +84,7 @@ const createAppNavigator = (defaultPage: string | undefined) => {
             tabBarShowLabel: false,
             tabBarIcon: () => (
               <MaterialCommunityIcons
-                name={item.icon}
+                name={item.icon as iconType}
                 size={35}
                 color="black"
               />

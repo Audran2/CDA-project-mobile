@@ -101,3 +101,24 @@ export interface ButtonData {
   isFormValid: boolean;
   handleSubmit: () => void;
 }
+
+export type iconType =
+  | "symbol"
+  | "function"
+  | "key"
+  | "contain"
+  | "repeat"
+  | "sort"
+  | "map"
+  | "filter"
+  | "at"
+  | "anchor"
+  | "link"
+  | "details"
+  | "head"
+  | "label"
+  | "menu"
+  | "script"
+  | "select"
+  | "table"
+  | undefined;
