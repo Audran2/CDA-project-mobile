@@ -188,11 +188,6 @@ export default function InfoWidget() {
         {selectedButton === 1 && (
           <>
             <PieChart />
-            <TouchableOpacity
-              onPress={() => navigation.navigate("GameListScreen" as never)}
-            >
-              <Text style={{ color: "white" }}>Contenu de la page 1</Text>
-            </TouchableOpacity>
           </>
         )}
         {selectedButton === 2 && (

@@ -1,20 +1,31 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Svg, G, Path, Text as SvgText } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
+import { colors } from "../../assets/style/_colors";
+import styles from "./PieChartStyle";
 
 export default function PieChart() {
+  const navigation = useNavigation();
+
   const centerX = 80;
   const centerY = 100;
   const radius = 80;
   const innerRadius = 50;
-  const data = [15, 25, 10, 20, 30];
-  const colors = ["#FF5733", "#FFC300", "#36A2EB", "#4CAF50", "#FF6384"];
+  const data = [15, 30, 25, 10, 20];
+  const colors_chart = [
+    colors.gameStatus.inProgess,
+    colors.gameStatus.completed,
+    colors.gameStatus.onHold,
+    colors.gameStatus.abandonned,
+    colors.gameStatus.waiting,
+  ];
 
   const total = data.reduce((acc, value) => acc + value, 0);
   let currentAngle = -90;
 
   return (
-    <View style={{ flexDirection: "row", justifyContent: "center" }}>
+    <View style={styles.containerChart}>
       <View>
         <Svg height="200" width="170">
           <G transform={`translate(${centerX},${centerY})`}>
@@ -52,7 +63,7 @@ export default function PieChart() {
 
               currentAngle += angle;
 
-              return <Path key={index} d={path} fill={colors[index]} />;
+              return <Path key={index} d={path} fill={colors_chart[index]} />;
             })}
 
             <SvgText
@@ -69,13 +80,71 @@ export default function PieChart() {
           </G>
         </Svg>
       </View>
-      <View>
-        <Text style={{ color: "white" }}>Total</Text>
-        <Text style={{ color: "white" }}>En cours</Text>
-        <Text style={{ color: "white" }}>Complété</Text>
-        <Text style={{ color: "white" }}>Abandonné</Text>
-        <Text style={{ color: "white" }}>En attente</Text>
-        <Text style={{ color: "white" }}>Prévu</Text>
+      <View style={styles.containerLegend}>
+        {/* <View>
+          <Text style={{ color: "white" }}>Total</Text>
+        </View> */}
+        <View style={styles.infoLegend}>
+          <View
+            style={[
+              styles.pointLegend,
+              {
+                backgroundColor: colors.gameStatus.inProgess,
+              },
+            ]}
+          />
+          <Text style={{ color: "white" }}>En cours</Text>
+        </View>
+        <View style={styles.infoLegend}>
+          <View
+            style={[
+              ,
+              styles.pointLegend,
+              {
+                backgroundColor: colors.gameStatus.completed,
+              },
+            ]}
+          />
+          <Text style={{ color: "white" }}>Complété</Text>
+        </View>
+        <View style={styles.infoLegend}>
+          <View
+            style={[
+              styles.pointLegend,
+              {
+                backgroundColor: colors.gameStatus.onHold,
+              },
+            ]}
+          />
+          <Text style={{ color: "white" }}>En attente</Text>
+        </View>
+        <View style={styles.infoLegend}>
+          <View
+            style={[
+              styles.pointLegend,
+              {
+                backgroundColor: colors.gameStatus.abandonned,
+              },
+            ]}
+          />
+          <Text style={{ color: "white" }}>Abandonné</Text>
+        </View>
+        <View style={styles.infoLegend}>
+          <View
+            style={[
+              styles.pointLegend,
+              {
+                backgroundColor: colors.gameStatus.waiting,
+              },
+            ]}
+          />
+          <Text style={{ color: "white" }}>Prévu</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("GameListScreen" as never)}
+        >
+          <Text style={{ color: "white" }}>Voir la liste</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

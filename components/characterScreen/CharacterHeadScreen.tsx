@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, Dimensions, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  ImageBackground,
+  ImageSourcePropType,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { characterHeadType } from "../../types";
 import styles from "./CharacterHeadStyle.js";
@@ -21,7 +27,7 @@ export default function CharacterHeadScreen({
     >
       <ImageBackground
         resizeMode="contain"
-        source={characterAvatar}
+        source={characterAvatar as ImageSourcePropType}
         style={{ width: "100%", height: "100%", justifyContent: "center" }}
       >
         <LinearGradient

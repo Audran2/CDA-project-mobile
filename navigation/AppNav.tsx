@@ -124,22 +124,22 @@ const screenConfigurations = [
   {
     name: "ParametersScreen",
     component: ParametersScreen,
-    options: { headerShown: true },
+    options: { headerShown: true, title: "Paramètres" },
   },
   {
     name: "CharacterInfoScreen",
     component: CharacterInfoScreen,
-    options: { headerShown: true },
+    options: { headerShown: true, title: "Informations personnage" },
   },
   {
     name: "GameInfoScreen",
     component: GameInfoScreen,
-    options: { headerShown: true },
+    options: { headerShown: true, title: "Informations jeux" },
   },
   {
     name: "GameListScreen",
     component: GameListScreen,
-    options: { headerShown: true },
+    options: { headerShown: true, title: "Liste jeux" },
   },
   {
     name: "GradesScreen",
@@ -149,12 +149,12 @@ const screenConfigurations = [
   {
     name: "StudioInfoScreen",
     component: StudioInfoScreen,
-    options: { headerShown: true },
+    options: { headerShown: true, title: "Informations studio" },
   },
   {
     name: "UserInfoScreen",
     component: UserInfoScreen,
-    options: { headerShown: true },
+    options: { headerShown: true, title: "Informations Utilisateur" },
   },
 ];
 
