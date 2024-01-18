@@ -13,8 +13,8 @@ import {
   FontAwesome5,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { getColorGrade } from "../../assets/utils/_functions.js";
-import { type GameCardType } from "../../types.js";
+import { getColorGrade } from "../../assets/utils/_functions";
+import { type GameCardType } from "../../types";
 import styles from "./GameCardStyle.js";
 
 export default function GameCard({
@@ -55,7 +55,7 @@ export default function GameCard({
         >
           <ImageBackground
             resizeMode="cover"
-            source={{ uri: image }}
+            source={image}
             style={{
               width: "100%",
               height: "100%",

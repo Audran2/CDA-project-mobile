@@ -15,7 +15,7 @@ import { Entypo } from "@expo/vector-icons";
 import PlayerCard from "../../components/searchScreen/PlayerCard";
 import { colors } from "../../assets/utils/_colors";
 
-export default function ResearchScreen() {
+const ResearchScreen = () => {
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
   const scrollViewRef = useRef<ScrollView>(null);
@@ -24,12 +24,10 @@ export default function ResearchScreen() {
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
-        if (scrollViewRef.current) {
-          scrollViewRef.current.scrollTo({
-            x: -gestureState.dx,
-            animated: false,
-          });
-        }
+        scrollViewRef.current?.scrollTo({
+          x: -gestureState.dx,
+          animated: false,
+        });
       },
     })
   ).current;
@@ -37,6 +35,27 @@ export default function ResearchScreen() {
   const handleButtonPress = (buttonNumber: React.SetStateAction<number>) => {
     setSelectedButton(buttonNumber);
   };
+
+  const renderButton = (buttonNumber: number, label: string) => (
+    <TouchableOpacity
+      key={buttonNumber}
+      style={[styles.btn, { marginHorizontal: 5 }]}
+      onPress={() => handleButtonPress(buttonNumber)}
+    >
+      <LinearGradient
+        start={{ x: 0.3, y: 0.5 }}
+        end={{ x: 0.8, y: 0.5 }}
+        colors={[
+          colors.alternativeBlue,
+          selectedButton === buttonNumber
+            ? colors.alternativeBlue
+            : "transparent",
+        ]}
+      >
+        <Text style={styles.btnText}>{label}</Text>
+      </LinearGradient>
+    </TouchableOpacity>
+  );
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
@@ -46,104 +65,44 @@ export default function ResearchScreen() {
         end={{ x: 0.5, y: 0 }}
         colors={[colors.darkblue, colors.blue]}
       >
-        <View style={{ alignItems: "center" }}>
-          <View style={{ marginTop: 20, position: "relative" }}>
-            <View style={styles.iconContainer}>
-              <Entypo name="magnifying-glass" size={24} color="white" />
-            </View>
-            <TextInput
-              style={[
-                styles.inputSearch,
-                { width: width - 50, paddingLeft: 40 },
-              ]}
-              placeholder="Search..."
-              placeholderTextColor="white"
-            />
+        <View
+          style={{ alignItems: "center", marginTop: 20, position: "relative" }}
+        >
+          <View style={styles.iconContainer}>
+            <Entypo name="magnifying-glass" size={24} color="white" />
           </View>
-          <View style={{ flexDirection: "row" }}>
-            <ScrollView
-              ref={scrollViewRef}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              {...panResponder.panHandlers}
-              style={{ marginTop: 15 }}
-            >
-              <TouchableOpacity
-                style={[styles.btn, { marginLeft: 15 }]}
-                onPress={() => handleButtonPress(1)}
-              >
-                <LinearGradient
-                  start={{ x: 0.3, y: 0.5 }}
-                  end={{ x: 0.8, y: 0.5 }}
-                  colors={[
-                    colors.alternativeBlue,
-                    selectedButton === 1
-                      ? colors.alternativeBlue
-                      : "transparent",
-                  ]}
-                >
-                  <Text style={styles.btnText}>Jeux</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => handleButtonPress(2)}
-              >
-                <LinearGradient
-                  start={{ x: 0.3, y: 0.5 }}
-                  end={{ x: 0.8, y: 0.5 }}
-                  colors={[
-                    colors.alternativeBlue,
-                    selectedButton === 2
-                      ? colors.alternativeBlue
-                      : "transparent",
-                  ]}
-                >
-                  <Text style={styles.btnText}>Studios</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => handleButtonPress(3)}
-              >
-                <LinearGradient
-                  start={{ x: 0.3, y: 0.5 }}
-                  end={{ x: 0.8, y: 0.5 }}
-                  colors={[
-                    colors.alternativeBlue,
-                    selectedButton === 3
-                      ? colors.alternativeBlue
-                      : "transparent",
-                  ]}
-                >
-                  <Text style={styles.btnText}>Personnages</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.btn, { marginRight: 15 }]}
-                onPress={() => handleButtonPress(4)}
-              >
-                <LinearGradient
-                  start={{ x: 0.3, y: 0.5 }}
-                  end={{ x: 0.8, y: 0.5 }}
-                  colors={[
-                    colors.alternativeBlue,
-                    selectedButton === 4
-                      ? colors.alternativeBlue
-                      : "transparent",
-                  ]}
-                >
-                  <Text style={styles.btnText}>Joueurs</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
+          <TextInput
+            style={[styles.inputSearch, { width: width - 50, paddingLeft: 40 }]}
+            placeholder="Search..."
+            placeholderTextColor="white"
+          />
+        </View>
+        <View style={{ flexDirection: "row", marginTop: 15 }}>
+          <ScrollView
+            ref={scrollViewRef}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            {...panResponder.panHandlers}
+          >
+            {[1, 2, 3, 4].map((buttonNumber) =>
+              renderButton(
+                buttonNumber,
+                buttonNumber === 1
+                  ? "Jeux"
+                  : buttonNumber === 2
+                  ? "Studios"
+                  : buttonNumber === 3
+                  ? "Personnages"
+                  : "Joueurs"
+              )
+            )}
+          </ScrollView>
         </View>
         <PlayerCard />
       </LinearGradient>
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -170,7 +129,6 @@ const styles = StyleSheet.create({
     borderColor: colors.alternativeBlue,
     borderRadius: 20,
     overflow: "hidden",
-    marginHorizontal: 5,
   },
   btnText: {
     color: "white",
@@ -179,3 +137,5 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
 });
+
+export default ResearchScreen;

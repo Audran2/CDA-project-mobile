@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import {
-  View,
   Text,
   TouchableOpacity,
   ScrollView,
@@ -19,7 +18,7 @@ const buttons = [
   { id: 6, label: "Prévu" },
 ];
 
-export default function GameListScreen() {
+const GameListScreen = () => {
   const [selectedButton, setSelectedButton] = useState(1);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -27,12 +26,10 @@ export default function GameListScreen() {
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
-        if (scrollViewRef.current) {
-          scrollViewRef.current.scrollTo({
-            x: -gestureState.dx,
-            animated: false,
-          });
-        }
+        scrollViewRef.current?.scrollTo({
+          x: -gestureState.dx,
+          animated: false,
+        });
       },
     })
   ).current;
@@ -48,50 +45,45 @@ export default function GameListScreen() {
       end={{ x: 0.5, y: 0 }}
       colors={[colors.darkblue, colors.blue]}
     >
-      <View style={{ flexDirection: "row" }}>
-        <ScrollView
-          ref={scrollViewRef}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          {...panResponder.panHandlers}
-          style={{ marginTop: 15 }}
-        >
-          {buttons.map((button) => (
-            <TouchableOpacity
-              key={button.id}
-              style={[
-                styles.btn,
-                { marginLeft: button.id === 1 ? 15 : 0, marginRight: 15 },
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        {...panResponder.panHandlers}
+        style={{ marginTop: 15 }}
+      >
+        {buttons.map((button, index) => (
+          <TouchableOpacity
+            key={button.id}
+            style={[
+              styles.btn,
+              {
+                marginLeft: index === 0 ? 15 : 0,
+                marginRight: index === buttons.length - 1 ? 15 : 0,
+              },
+            ]}
+            onPress={() => handleButtonPress(button.id)}
+          >
+            <LinearGradient
+              start={{ x: 0.3, y: 0.5 }}
+              end={{ x: 0.8, y: 0.5 }}
+              colors={[
+                colors.alternativeBlue,
+                selectedButton === button.id
+                  ? colors.alternativeBlue
+                  : "transparent",
               ]}
-              onPress={() => handleButtonPress(button.id)}
             >
-              <LinearGradient
-                start={{ x: 0.3, y: 0.5 }}
-                end={{ x: 0.8, y: 0.5 }}
-                colors={[
-                  colors.alternativeBlue,
-                  selectedButton === button.id
-                    ? colors.alternativeBlue
-                    : "transparent",
-                ]}
-              >
-                <Text style={styles.btnText}>{button.label}</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
+              <Text style={styles.btnText}>{button.label}</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </LinearGradient>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  iconContainer: {
-    position: "absolute",
-    left: 8,
-    top: 8,
-    zIndex: 20,
-  },
   btn: {
     borderWidth: 2,
     borderColor: colors.alternativeBlue,
@@ -106,3 +98,5 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
 });
+
+export default GameListScreen;

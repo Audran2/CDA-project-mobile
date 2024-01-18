@@ -37,7 +37,7 @@ export default function GameHeadScreen({
     >
       <ImageBackground
         resizeMode="cover"
-        source={{ uri: backgroundImage }}
+        source={backgroundImage}
         style={{
           width: "100%",
           height: isGame ? "100%" : "90%",
