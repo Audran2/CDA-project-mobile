@@ -1,12 +1,10 @@
-import React, { useContext, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
-  Alert,
   Dimensions,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   View,
-  Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";

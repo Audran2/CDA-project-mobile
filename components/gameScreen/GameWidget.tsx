@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -6,15 +6,35 @@ import {
   TouchableOpacity,
   ScrollView,
   PanResponder,
+  Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { GameWidgetType } from "../../types.js";
 import styles from "./GameWidgetStyle.js";
 
-export default function GameWidget() {
+export default function GameWidget({
+  genre,
+  studio,
+  dateSortie,
+  resume,
+  trailers,
+}: GameWidgetType) {
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
   const navigation = useNavigation();
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    const dateObj = new Date(dateSortie);
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    };
+    const formatted = dateObj.toLocaleDateString("fr", options);
+    setFormattedDate(formatted);
+  }, [dateSortie]);
 
   const characterData = [
     { id: 1, name: "Character 1" },
@@ -112,7 +132,7 @@ export default function GameWidget() {
               <Text
                 style={[styles.typeGame, { marginTop: 15, marginBottom: 5 }]}
               >
-                Genre
+                {genre}
               </Text>
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
@@ -120,22 +140,30 @@ export default function GameWidget() {
                     navigation.navigate("StudioInfoScreen" as never)
                   }
                 >
-                  <Text style={styles.typeGame}>Studio, 2018</Text>
+                  <Text style={styles.typeGame}>
+                    {studio.nom}, {formattedDate}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View>
               <Text style={styles.title}>Résumé</Text>
-              <Text style={{ color: "white" }}>
-                Lorem ipsum dolor sit amet consectetur. Vulputate at scelerisque
-                aliquet. Lorem ipsum dolor sit amet consectetur. Vulputate at
-                scelerisque aliquet. Lorem ipsum dolor sit amet consectetur.
-                Vulputate at scelerisque aliquet.
-              </Text>
+              <Text style={{ color: "white" }}>{resume}</Text>
             </View>
             <View>
               <Text style={styles.title}>Trailer</Text>
-              <FontAwesome5 name="youtube" size={40} color="white" />
+              {trailers && trailers.length > 0 && (
+                <View style={{ columnGap: 10 }}>
+                  {trailers.map((trailer, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => Linking.openURL(trailer)}
+                    >
+                      <FontAwesome5 name="youtube" size={40} color="white" />
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
             </View>
           </View>
         )}

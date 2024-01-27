@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   TouchableOpacity,
   View,
@@ -18,20 +18,34 @@ import { type GameCardType } from "../../types";
 import styles from "./GameCardStyle.js";
 
 export default function GameCard({
-  title,
+  _id,
+  nom,
   image,
   genre,
   studio,
-  date,
+  dateSortie,
   note,
-  social,
+  plateformes,
+  lastCard,
 }: GameCardType) {
   const { height, width } = Dimensions.get("window");
   const navigation = useNavigation();
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    const dateObj = new Date(dateSortie);
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    };
+    const formatted = dateObj.toLocaleDateString("fr", options);
+    setFormattedDate(formatted);
+  }, [dateSortie]);
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("GameInfoScreen" as never)}
+      onPress={() => navigation.navigate("GameInfoScreen", { gameId: _id })}
     >
       <LinearGradient
         style={{
@@ -41,7 +55,7 @@ export default function GameCard({
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 10,
-          marginBottom: 15,
+          marginBottom: lastCard ? 100 : 15,
         }}
         start={{ x: 0.3, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
@@ -55,7 +69,7 @@ export default function GameCard({
         >
           <ImageBackground
             resizeMode="cover"
-            source={image}
+            source={image ? { uri: image[0] } : null}
             style={{
               width: "100%",
               height: "100%",
@@ -82,12 +96,12 @@ export default function GameCard({
                 justifyContent: "space-between",
               }}
             >
-              <Text style={styles.titleGame}>{title}</Text>
+              <Text style={styles.titleGame}>{nom}</Text>
               <View>
                 <Text style={styles.gameGenre}>{genre}</Text>
                 <Text style={styles.gameComplement}>
-                  {studio && studio + ", "}
-                  {date}
+                  {studio && studio.nom + ", "}
+                  {formattedDate}
                 </Text>
               </View>
             </View>
@@ -102,19 +116,19 @@ export default function GameCard({
                 <Text style={styles.textNote}>{note}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
-                {social[0] && (
+                {plateformes && plateformes.includes("Switch") && (
                   <MaterialCommunityIcons
                     name="nintendo-switch"
                     style={styles.iconSupport}
                   />
                 )}
-                {social[1] && (
+                {plateformes && plateformes.includes("Xbox") && (
                   <FontAwesome5 name="xbox" style={styles.iconSupport} />
                 )}
-                {social[2] && (
+                {plateformes && plateformes.includes("PlayStation") && (
                   <FontAwesome5 name="playstation" style={styles.iconSupport} />
                 )}
-                {social[3] && (
+                {plateformes && plateformes.includes("PC") && (
                   <MaterialIcons name="computer" style={styles.iconSupport} />
                 )}
               </View>

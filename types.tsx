@@ -44,17 +44,27 @@ export interface GameHeadType {
   backgroundImage: string;
   creationDate?: string;
   note?: number;
-  social: Array<boolean>;
+  plateformes: Array<string>;
 }
 
 export interface GameCardType {
-  title: string;
+  _id: string;
+  nom: string;
   image: string;
   genre: string;
-  studio?: string;
-  date: string;
+  studio?: Array<string>;
+  dateSortie: string;
   note: number;
-  social: Array<boolean>;
+  plateformes: Array<string>;
+  lastCard?: boolean;
+}
+
+export interface GameWidgetType {
+  genre: string;
+  studio: string;
+  dateSortie: string;
+  resume: string;
+  trailers: Array<string>;
 }
 
 export interface BottomNavType {

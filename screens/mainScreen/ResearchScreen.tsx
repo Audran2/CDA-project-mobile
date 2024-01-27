@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   StyleSheet,
@@ -12,13 +12,28 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
-import PlayerCard from "../../components/searchScreen/PlayerCard";
 import { colors } from "../../assets/utils/_colors";
+import useDataFetching from "../../hooks/useDataFetching";
+import GameCard from "../../components/searchScreen/GameCard";
 
 const ResearchScreen = () => {
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
   const scrollViewRef = useRef<ScrollView>(null);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      try {
+        const apiData = await useDataFetching("games");
+        setData(apiData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDataFromApi();
+  }, []);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -98,7 +113,15 @@ const ResearchScreen = () => {
             )}
           </ScrollView>
         </View>
-        <PlayerCard />
+        <ScrollView>
+          {data.map((game, index) => (
+            <GameCard
+              key={index}
+              {...game}
+              lastCard={index === data.length - 1}
+            />
+          ))}
+        </ScrollView>
       </LinearGradient>
     </KeyboardAvoidingView>
   );

@@ -24,7 +24,7 @@ export default function GameHeadScreen({
   backgroundImage,
   creationDate,
   note,
-  social,
+  plateformes,
 }: GameHeadType) {
   const { height, width } = Dimensions.get("window");
 
@@ -73,22 +73,22 @@ export default function GameHeadScreen({
               <View style={styles.gameSupport}>
                 {isGame ? (
                   <>
-                    {social[0] && (
+                    {plateformes.includes("Switch") && (
                       <MaterialCommunityIcons
                         name="nintendo-switch"
                         style={styles.iconSupport}
                       />
                     )}
-                    {social[1] && (
+                    {plateformes.includes("Xbox") && (
                       <FontAwesome5 name="xbox" style={styles.iconSupport} />
                     )}
-                    {social[2] && (
+                    {plateformes.includes("PlayStation") && (
                       <FontAwesome5
                         name="playstation"
                         style={styles.iconSupport}
                       />
                     )}
-                    {social[3] && (
+                    {plateformes.includes("PC") && (
                       <MaterialIcons
                         name="computer"
                         style={styles.iconSupport}
@@ -97,7 +97,7 @@ export default function GameHeadScreen({
                   </>
                 ) : (
                   <>
-                    {social[0] && (
+                    {/* {social[0] && (
                       <TouchableOpacity>
                         <Feather name="globe" style={styles.iconSupport} />
                       </TouchableOpacity>
@@ -125,7 +125,7 @@ export default function GameHeadScreen({
                           style={styles.iconSupport}
                         />
                       </TouchableOpacity>
-                    )}
+                    )} */}
                   </>
                 )}
               </View>
