@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import axios from "axios";
 import { Feather } from "@expo/vector-icons";
 import GameCard from "../searchScreen/GameCard";
 import styles from "./StudioBodyStyle.js";
 
-export default function StudioBodyScreen() {
+export default function StudioBodyScreen(studioId: string) {
+  const [data, setData] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchDataFromApi = async () => {
+  //     try {
+  //       const apiData = await axios.get(
+  //         `http://192.168.10.212:3000/api/studios/${studioId}/jeux`
+  //       );
+  //       setData(apiData.data);
+  //       console.log(apiData.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   fetchDataFromApi();
+  // }, [studioId]);
+
   const gameCard = [
     {
       title: "Assassin's Creed Odysser",

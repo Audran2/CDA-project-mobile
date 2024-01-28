@@ -13,28 +13,28 @@ import {
   MaterialIcons,
   Feather,
 } from "@expo/vector-icons";
+import { PlayerCardType } from "../../types.js";
 import styles from "./PlayerCardStyle.js";
 
-export default function PlayerCard() {
+export default function PlayerCard({
+  _id,
+  username,
+  avatar,
+  region,
+  plateformes,
+}: PlayerCardType) {
   const { height, width } = Dimensions.get("window");
   const navigation = useNavigation();
-
-  const isGame = true;
-
-  const isNintendo = true;
-  const isXbox = true;
-  const isPlaystation = true;
-  const isComputer = true;
 
   return (
     <TouchableOpacity
       style={[styles.cardView, { height: height / 8, width: width - 50 }]}
-      onPress={() => navigation.navigate("UserInfoScreen" as never)}
+      onPress={() => navigation.navigate("UserInfoScreen", { cardId: _id })}
     >
       <View style={styles.cardContainer}>
         <ImageBackground
           resizeMode="cover"
-          source={require("../../assets/images/ballistic.webp")}
+          source={avatar ? { uri: avatar } : undefined}
           style={{ width: "100%", height: "100%", justifyContent: "center" }}
         />
       </View>
@@ -52,7 +52,7 @@ export default function PlayerCard() {
               alignItems: "center",
             }}
           >
-            <Text style={styles.userTitle}>Levorio</Text>
+            <Text style={styles.userTitle}>{username}</Text>
           </View>
           <View
             style={{
@@ -60,10 +60,10 @@ export default function PlayerCard() {
               alignItems: "center",
             }}
           >
-            <Text style={styles.userSubtitle}>Région</Text>
+            <Text style={styles.userSubtitle}>{region}</Text>
           </View>
         </View>
-        {isGame && (
+        {plateformes && (
           <View
             style={{
               flexDirection: "row",
@@ -71,17 +71,19 @@ export default function PlayerCard() {
               marginLeft: 7,
             }}
           >
-            {isNintendo && (
+            {plateformes.includes("Switch") && (
               <MaterialCommunityIcons
                 name="nintendo-switch"
                 style={styles.iconSupport}
               />
             )}
-            {isXbox && <FontAwesome5 name="xbox" style={styles.iconSupport} />}
-            {isPlaystation && (
+            {plateformes.includes("Xbox") && (
+              <FontAwesome5 name="xbox" style={styles.iconSupport} />
+            )}
+            {plateformes.includes("PlayStation") && (
               <FontAwesome5 name="playstation" style={styles.iconSupport} />
             )}
-            {isComputer && (
+            {plateformes.includes("PC") && (
               <MaterialIcons name="computer" style={styles.iconSupport} />
             )}
           </View>

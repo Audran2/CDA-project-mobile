@@ -15,25 +15,60 @@ import { Entypo } from "@expo/vector-icons";
 import { colors } from "../../assets/utils/_colors";
 import useDataFetching from "../../hooks/useDataFetching";
 import GameCard from "../../components/searchScreen/GameCard";
+import PlayerCard from "../../components/searchScreen/PlayerCard";
 
 const ResearchScreen = () => {
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
   const scrollViewRef = useRef<ScrollView>(null);
   const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (text: React.SetStateAction<string>) => {
+    setSearchQuery(text);
+  };
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const apiData = await useDataFetching("games");
-        setData(apiData);
+        let endpoint = "";
+
+        switch (selectedButton) {
+          case 1:
+            endpoint = "games";
+            break;
+          case 2:
+            endpoint = "studios";
+            break;
+          case 3:
+            endpoint = "characters";
+            break;
+          case 4:
+            endpoint = "users";
+            break;
+          default:
+            endpoint = "games";
+        }
+
+        const apiData = await useDataFetching(endpoint);
+        const filteredData = apiData.filter(
+          (cardData: { username: string; nom: string }) => {
+            const lowerCaseQuery = searchQuery.toLowerCase();
+            if (selectedButton === 4) {
+              return cardData.username.toLowerCase().includes(lowerCaseQuery);
+            } else {
+              return cardData.nom.toLowerCase().includes(lowerCaseQuery);
+            }
+          }
+        );
+        setData(filteredData);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchDataFromApi();
-  }, []);
+  }, [searchQuery, selectedButton]);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -72,6 +107,27 @@ const ResearchScreen = () => {
     </TouchableOpacity>
   );
 
+  const renderCard = (cardData, index) => {
+    if (selectedButton === 4) {
+      return (
+        <PlayerCard
+          key={index}
+          {...cardData}
+          lastCard={index === data.length - 1}
+        />
+      );
+    } else {
+      return (
+        <GameCard
+          key={index}
+          isStudio={selectedButton === 2 ? true : false}
+          {...cardData}
+          lastCard={index === data.length - 1}
+        />
+      );
+    }
+  };
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <LinearGradient
@@ -88,8 +144,9 @@ const ResearchScreen = () => {
           </View>
           <TextInput
             style={[styles.inputSearch, { width: width - 50, paddingLeft: 40 }]}
-            placeholder="Search..."
+            placeholder="Rechercher..."
             placeholderTextColor="white"
+            onChangeText={handleSearchChange}
           />
         </View>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
@@ -114,13 +171,7 @@ const ResearchScreen = () => {
           </ScrollView>
         </View>
         <ScrollView>
-          {data.map((game, index) => (
-            <GameCard
-              key={index}
-              {...game}
-              lastCard={index === data.length - 1}
-            />
-          ))}
+          {data.map((cardData, index) => renderCard(cardData, index))}
         </ScrollView>
       </LinearGradient>
     </KeyboardAvoidingView>

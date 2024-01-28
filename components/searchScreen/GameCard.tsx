@@ -18,12 +18,14 @@ import { type GameCardType } from "../../types";
 import styles from "./GameCardStyle.js";
 
 export default function GameCard({
+  isStudio,
   _id,
   nom,
   image,
   genre,
   studio,
   dateSortie,
+  dateCreation,
   note,
   plateformes,
   lastCard,
@@ -33,7 +35,7 @@ export default function GameCard({
   const [formattedDate, setFormattedDate] = useState("");
 
   useEffect(() => {
-    const dateObj = new Date(dateSortie);
+    const dateObj = new Date(dateSortie ?? dateCreation ?? "");
     const options: Intl.DateTimeFormatOptions = {
       day: "numeric",
       month: "numeric",
@@ -41,11 +43,15 @@ export default function GameCard({
     };
     const formatted = dateObj.toLocaleDateString("fr", options);
     setFormattedDate(formatted);
-  }, [dateSortie]);
+  }, [dateSortie ?? dateCreation]);
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("GameInfoScreen", { gameId: _id })}
+      onPress={() =>
+        navigation.navigate(isStudio ? "StudioInfoScreen" : "GameInfoScreen", {
+          gameId: _id,
+        })
+      }
     >
       <LinearGradient
         style={{
@@ -69,7 +75,7 @@ export default function GameCard({
         >
           <ImageBackground
             resizeMode="cover"
-            source={image ? { uri: image[0] } : null}
+            source={image ? { uri: image[0] } : undefined}
             style={{
               width: "100%",
               height: "100%",
@@ -112,9 +118,13 @@ export default function GameCard({
                 alignItems: "flex-end",
               }}
             >
-              <View style={[styles.note, { borderColor: getColorGrade(note) }]}>
-                <Text style={styles.textNote}>{note}</Text>
-              </View>
+              {note && (
+                <View
+                  style={[styles.note, { borderColor: getColorGrade(note) }]}
+                >
+                  <Text style={styles.textNote}>{note}</Text>
+                </View>
+              )}
               <View style={{ flexDirection: "row" }}>
                 {plateformes && plateformes.includes("Switch") && (
                   <MaterialCommunityIcons

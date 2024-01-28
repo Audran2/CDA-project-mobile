@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   Dimensions,
   ImageBackground,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -13,6 +14,8 @@ import {
   MaterialIcons,
   Feather,
 } from "@expo/vector-icons";
+import { format, parseISO } from "date-fns";
+import { fr } from "date-fns/locale";
 import { getColorGrade } from "../../assets/utils/_functions";
 import { colors } from "../../assets/utils/_colors";
 import { type GameHeadType } from "../../types.js";
@@ -25,8 +28,18 @@ export default function GameHeadScreen({
   creationDate,
   note,
   plateformes,
+  reseaux,
 }: GameHeadType) {
   const { height, width } = Dimensions.get("window");
+
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    const dateObj = creationDate ? parseISO(creationDate) : new Date();
+
+    const formatted = format(dateObj, "dd MMMM yyyy", { locale: fr });
+    setFormattedDate(formatted);
+  }, [creationDate]);
 
   return (
     <View
@@ -59,7 +72,10 @@ export default function GameHeadScreen({
               {isGame ? (
                 <Text style={styles.gameTitle}>{title}</Text>
               ) : (
-                <Text style={styles.creationDate}> Créé le {creationDate}</Text>
+                <Text style={styles.creationDate}>
+                  {" "}
+                  Créé le {formattedDate}
+                </Text>
               )}
             </View>
             {isGame && (
@@ -97,35 +113,53 @@ export default function GameHeadScreen({
                   </>
                 ) : (
                   <>
-                    {/* {social[0] && (
-                      <TouchableOpacity>
+                    {reseaux.siteInternet && (
+                      <TouchableOpacity
+                        onPress={() =>
+                          Linking.openURL(reseaux.siteInternet ?? "")
+                        }
+                      >
                         <Feather name="globe" style={styles.iconSupport} />
                       </TouchableOpacity>
                     )}
-                    {social[1] && (
-                      <TouchableOpacity>
+                    {reseaux.youtube && (
+                      <TouchableOpacity
+                        onPress={() => Linking.openURL(reseaux.youtube ?? "")}
+                      >
                         <FontAwesome5
                           name="youtube"
                           style={styles.iconSupport}
                         />
                       </TouchableOpacity>
                     )}
-                    {social[2] && (
-                      <TouchableOpacity>
+                    {reseaux.twitter && (
+                      <TouchableOpacity
+                        onPress={() =>
+                          Linking.openURL(
+                            `https://twitter.com/${reseaux.twitter}`
+                          )
+                        }
+                      >
                         <FontAwesome5
                           name="twitter"
                           style={styles.iconSupport}
                         />
                       </TouchableOpacity>
                     )}
-                    {social[3] && (
-                      <TouchableOpacity>
+                    {reseaux.instagram && (
+                      <TouchableOpacity
+                        onPress={() =>
+                          Linking.openURL(
+                            `https://www.instagram.com/${reseaux.instagram}`
+                          )
+                        }
+                      >
                         <FontAwesome5
                           name="instagram"
                           style={styles.iconSupport}
                         />
                       </TouchableOpacity>
-                    )} */}
+                    )}
                   </>
                 )}
               </View>

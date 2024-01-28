@@ -14,6 +14,13 @@ export interface itemNavigation {
     | undefined;
 }
 
+interface ReseauxType {
+  siteInternet?: string;
+  youtube?: string;
+  twitter?: string;
+  instagram?: string;
+}
+
 export interface CardGameType {
   imageBackground: string;
   gameTitle: string;
@@ -21,15 +28,30 @@ export interface CardGameType {
   userName: string;
 }
 
+export interface PlayerCardType {
+  _id: string;
+  username: string;
+  avatar: string;
+  region: string;
+  plateformes?: Array<string>;
+}
+
+export interface PlayerInfoType extends PlayerCardType {
+  description: string;
+  amis: Array<string>;
+}
+
 export interface HeadScreenType {
   isUser?: boolean;
   avatarUser: string;
   userName: string;
   userRegion: string;
-  isNintendo: boolean;
-  isXbox: boolean;
-  isPlaystation: boolean;
-  isComputer: boolean;
+  plateformes?: Array<string>;
+}
+
+export interface AboutUserType {
+  description: string;
+  friends?: Array<string>;
 }
 
 export interface characterHeadType {
@@ -45,23 +67,26 @@ export interface GameHeadType {
   creationDate?: string;
   note?: number;
   plateformes: Array<string>;
+  reseaux: ReseauxType;
 }
 
 export interface GameCardType {
+  isStudio: boolean;
   _id: string;
   nom: string;
   image: string;
-  genre: string;
+  genre?: string;
   studio?: Array<string>;
-  dateSortie: string;
-  note: number;
-  plateformes: Array<string>;
+  dateSortie?: string;
+  dateCreation?: string;
+  note?: number;
+  plateformes?: Array<string>;
   lastCard?: boolean;
 }
 
 export interface GameWidgetType {
   genre: string;
-  studio: string;
+  studio: Array<string>;
   dateSortie: string;
   resume: string;
   trailers: Array<string>;

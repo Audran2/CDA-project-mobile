@@ -16,10 +16,7 @@ export default function HeadScreen({
   avatarUser,
   userName,
   userRegion,
-  isNintendo,
-  isXbox,
-  isPlaystation,
-  isComputer,
+  plateformes,
 }: HeadScreenType) {
   const { height, width } = Dimensions.get("window");
 
@@ -32,7 +29,7 @@ export default function HeadScreen({
     >
       <ImageBackground
         resizeMode="cover"
-        source={require("../../assets/images/trooper.jpg")}
+        source={avatarUser ? { uri: avatarUser } : undefined}
         style={{ width: "100%", height: "100%", justifyContent: "center" }}
       >
         <LinearGradient
@@ -47,19 +44,19 @@ export default function HeadScreen({
         >
           <View style={styles.bottomContainer}>
             <View style={styles.gameSupport}>
-              {isNintendo && (
+              {plateformes && plateformes.includes("Switch") && (
                 <MaterialCommunityIcons
                   name="nintendo-switch"
                   style={styles.iconSupport}
                 />
               )}
-              {isXbox && (
+              {plateformes && plateformes.includes("Xbox") && (
                 <FontAwesome5 name="xbox" style={styles.iconSupport} />
               )}
-              {isPlaystation && (
+              {plateformes && plateformes.includes("PlayStation") && (
                 <FontAwesome5 name="playstation" style={styles.iconSupport} />
               )}
-              {isComputer && (
+              {plateformes && plateformes.includes("PC") && (
                 <MaterialIcons name="computer" style={styles.iconSupport} />
               )}
             </View>
