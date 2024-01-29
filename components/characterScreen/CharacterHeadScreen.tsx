@@ -28,7 +28,11 @@ export default function CharacterHeadScreen({
     >
       <ImageBackground
         resizeMode="contain"
-        source={characterAvatar as ImageSourcePropType}
+        source={
+          (characterAvatar as ImageSourcePropType)
+            ? { uri: characterAvatar[0] }
+            : undefined
+        }
         style={{ width: "100%", height: "100%", justifyContent: "center" }}
       >
         <LinearGradient

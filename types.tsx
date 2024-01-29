@@ -30,10 +30,14 @@ export interface CardGameType {
 
 export interface PlayerCardType {
   _id: string;
-  username: string;
-  avatar: string;
-  region: string;
+  username?: string;
+  avatar?: string;
+  region?: string;
   plateformes?: Array<string>;
+  nomComplet?: string;
+  images?: Array<string>;
+  licence?: string;
+  lastCard?: boolean;
 }
 
 export interface PlayerInfoType extends PlayerCardType {
@@ -58,6 +62,12 @@ export interface characterHeadType {
   characterAvatar: string;
   characterName: string;
   characterJob: string;
+}
+
+export interface CharacterBodyType {
+  licence: string;
+  jeux: Array<string>;
+  description: string;
 }
 
 export interface GameHeadType {
@@ -157,3 +167,5 @@ export type iconType =
   | "select"
   | "table"
   | undefined;
+
+export interface CardData extends PlayerCardType, GameCardType {}

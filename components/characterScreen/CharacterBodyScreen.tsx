@@ -8,9 +8,14 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import { CharacterBodyType } from "../../types.js";
 import styles from "./CharacterBodyStyle.js";
 
-export default function CharacterBodyScreen() {
+export default function CharacterBodyScreen({
+  licence,
+  jeux,
+  description,
+}: CharacterBodyType) {
   // TEMPORAIRE
 
   const CharacterGame = [
@@ -83,27 +88,23 @@ export default function CharacterBodyScreen() {
           paddingHorizontal: 10,
         }}
       >
-        <Text style={styles.subSpec}>Licence: The Witcher</Text>
+        <Text style={styles.subSpec}>Licence: {licence}</Text>
         <Text style={styles.subSpec}>XXXXX Favorites</Text>
       </View>
       <View style={{ marginHorizontal: 15, marginTop: 15 }}>
         <View>
           <Text style={styles.title}>Apparition</Text>
           <View style={{ marginLeft: 10 }}>
-            <Text style={{ color: "white" }}>{`\u2022`} The Witcher 1</Text>
-            <Text style={{ color: "white" }}>{`\u2022`} The Witcher 2</Text>
-            <Text style={{ color: "white" }}>{`\u2022`} The Witcher 3</Text>
-            <Text style={{ color: "white" }}>{`\u2022`} The Witcher 4</Text>
+            {jeux.map((jeu, index) => (
+              <Text key={index} style={{ color: "white" }}>
+                {`\u2022`} {jeu.nom}
+              </Text>
+            ))}
           </View>
         </View>
         <View>
           <Text style={styles.title}>Informations</Text>
-          <Text style={{ color: "white" }}>
-            Lorem ipsum dolor sit amet consectetur. Vulputate at scelerisque
-            aliquet. Lorem ipsum dolor sit amet consectetur. Vulputate at
-            scelerisque aliquet. Lorem ipsum dolor sit amet consectetur.
-            Vulputate at scelerisque aliquet.
-          </Text>
+          <Text style={{ color: "white" }}>{description}</Text>
         </View>
         <View>
           <Text style={styles.title}>Voice actors</Text>

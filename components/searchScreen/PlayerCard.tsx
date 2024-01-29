@@ -22,19 +22,37 @@ export default function PlayerCard({
   avatar,
   region,
   plateformes,
+  nomComplet,
+  images,
+  licence,
+  lastCard,
 }: PlayerCardType) {
   const { height, width } = Dimensions.get("window");
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      style={[styles.cardView, { height: height / 8, width: width - 50 }]}
-      onPress={() => navigation.navigate("UserInfoScreen", { cardId: _id })}
+      style={[
+        styles.cardView,
+        {
+          height: height / 8,
+          width: width - 50,
+          marginBottom: lastCard ? 100 : 15,
+        },
+      ]}
+      onPress={() =>
+        navigation.navigate(
+          username ? "UserInfoScreen" : "CharacterInfoScreen",
+          { cardId: _id }
+        )
+      }
     >
       <View style={styles.cardContainer}>
         <ImageBackground
           resizeMode="cover"
-          source={avatar ? { uri: avatar } : undefined}
+          source={
+            avatar ? { uri: avatar } : images ? { uri: images[0] } : undefined
+          }
           style={{ width: "100%", height: "100%", justifyContent: "center" }}
         />
       </View>
@@ -52,7 +70,7 @@ export default function PlayerCard({
               alignItems: "center",
             }}
           >
-            <Text style={styles.userTitle}>{username}</Text>
+            <Text style={styles.userTitle}>{username ?? nomComplet}</Text>
           </View>
           <View
             style={{
@@ -60,7 +78,7 @@ export default function PlayerCard({
               alignItems: "center",
             }}
           >
-            <Text style={styles.userSubtitle}>{region}</Text>
+            <Text style={styles.userSubtitle}>{region ?? licence}</Text>
           </View>
         </View>
         {plateformes && (
@@ -89,12 +107,13 @@ export default function PlayerCard({
           </View>
         )}
       </View>
-
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <TouchableOpacity>
-          <Feather name="user-plus" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
+      {username && (
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <TouchableOpacity>
+            <Feather name="user-plus" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+      )}
     </TouchableOpacity>
   );
 }

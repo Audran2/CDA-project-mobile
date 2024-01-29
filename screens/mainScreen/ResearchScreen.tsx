@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   View,
@@ -16,49 +15,35 @@ import { colors } from "../../assets/utils/_colors";
 import useDataFetching from "../../hooks/useDataFetching";
 import GameCard from "../../components/searchScreen/GameCard";
 import PlayerCard from "../../components/searchScreen/PlayerCard";
+import { CardData } from "../../types";
+import styles from "./ResearchScreenStyle";
 
-const ResearchScreen = () => {
+export default function ResearchScreen() {
   const { height, width } = Dimensions.get("window");
-  const [selectedButton, setSelectedButton] = useState(1);
   const scrollViewRef = useRef<ScrollView>(null);
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedButton, setSelectedButton] = useState(1);
 
-  const handleSearchChange = (text: React.SetStateAction<string>) => {
+  const handleSearchChange = (text: React.SetStateAction<string>) =>
     setSearchQuery(text);
-  };
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        let endpoint = "";
-
-        switch (selectedButton) {
-          case 1:
-            endpoint = "games";
-            break;
-          case 2:
-            endpoint = "studios";
-            break;
-          case 3:
-            endpoint = "characters";
-            break;
-          case 4:
-            endpoint = "users";
-            break;
-          default:
-            endpoint = "games";
-        }
-
+        const endpoints = ["games", "studios", "characters", "users"];
+        const endpoint = endpoints[selectedButton - 1] || "games";
         const apiData = await useDataFetching(endpoint);
         const filteredData = apiData.filter(
-          (cardData: { username: string; nom: string }) => {
+          (cardData: { username: string; nomComplet: string; nom: string }) => {
             const lowerCaseQuery = searchQuery.toLowerCase();
-            if (selectedButton === 4) {
-              return cardData.username.toLowerCase().includes(lowerCaseQuery);
-            } else {
-              return cardData.nom.toLowerCase().includes(lowerCaseQuery);
-            }
+            return (
+              (selectedButton === 4 &&
+                cardData.username.toLowerCase().includes(lowerCaseQuery)) ||
+              (selectedButton === 3 &&
+                cardData.nomComplet.toLowerCase().includes(lowerCaseQuery)) ||
+              cardData.nom.toLowerCase().includes(lowerCaseQuery)
+            );
           }
         );
         setData(filteredData);
@@ -82,9 +67,8 @@ const ResearchScreen = () => {
     })
   ).current;
 
-  const handleButtonPress = (buttonNumber: React.SetStateAction<number>) => {
+  const handleButtonPress = (buttonNumber: React.SetStateAction<number>) =>
     setSelectedButton(buttonNumber);
-  };
 
   const renderButton = (buttonNumber: number, label: string) => (
     <TouchableOpacity
@@ -107,8 +91,8 @@ const ResearchScreen = () => {
     </TouchableOpacity>
   );
 
-  const renderCard = (cardData, index) => {
-    if (selectedButton === 4) {
+  const renderCard = (cardData: CardData, index: number) => {
+    if (selectedButton === 4 || selectedButton === 3) {
       return (
         <PlayerCard
           key={index}
@@ -117,11 +101,12 @@ const ResearchScreen = () => {
         />
       );
     } else {
+      const { isStudio, ...rest } = cardData;
       return (
         <GameCard
           key={index}
-          isStudio={selectedButton === 2 ? true : false}
-          {...cardData}
+          isStudio={selectedButton === 2}
+          {...rest}
           lastCard={index === data.length - 1}
         />
       );
@@ -176,40 +161,4 @@ const ResearchScreen = () => {
       </LinearGradient>
     </KeyboardAvoidingView>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  inputSearch: {
-    padding: 5,
-    color: "white",
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    borderRadius: 5,
-    borderColor: "white",
-    borderWidth: 1,
-    zIndex: 10,
-  },
-  iconContainer: {
-    position: "absolute",
-    left: 8,
-    top: 8,
-    zIndex: 20,
-  },
-  btn: {
-    borderWidth: 2,
-    borderColor: colors.alternativeBlue,
-    borderRadius: 20,
-    overflow: "hidden",
-  },
-  btnText: {
-    color: "white",
-    fontSize: 16,
-    paddingHorizontal: 18,
-    paddingVertical: 5,
-  },
-});
-
-export default ResearchScreen;
+}
