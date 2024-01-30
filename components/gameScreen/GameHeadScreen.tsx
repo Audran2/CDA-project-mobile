@@ -89,22 +89,22 @@ export default function GameHeadScreen({
               <View style={styles.gameSupport}>
                 {isGame ? (
                   <>
-                    {plateformes.includes("Switch") && (
+                    {plateformes?.includes("Switch") && (
                       <MaterialCommunityIcons
                         name="nintendo-switch"
                         style={styles.iconSupport}
                       />
                     )}
-                    {plateformes.includes("Xbox") && (
+                    {plateformes?.includes("Xbox") && (
                       <FontAwesome5 name="xbox" style={styles.iconSupport} />
                     )}
-                    {plateformes.includes("PlayStation") && (
+                    {plateformes?.includes("PlayStation") && (
                       <FontAwesome5
                         name="playstation"
                         style={styles.iconSupport}
                       />
                     )}
-                    {plateformes.includes("PC") && (
+                    {plateformes?.includes("PC") && (
                       <MaterialIcons
                         name="computer"
                         style={styles.iconSupport}
@@ -113,7 +113,7 @@ export default function GameHeadScreen({
                   </>
                 ) : (
                   <>
-                    {reseaux.siteInternet && (
+                    {reseaux?.siteInternet && (
                       <TouchableOpacity
                         onPress={() =>
                           Linking.openURL(reseaux.siteInternet ?? "")
@@ -122,7 +122,7 @@ export default function GameHeadScreen({
                         <Feather name="globe" style={styles.iconSupport} />
                       </TouchableOpacity>
                     )}
-                    {reseaux.youtube && (
+                    {reseaux?.youtube && (
                       <TouchableOpacity
                         onPress={() => Linking.openURL(reseaux.youtube ?? "")}
                       >
@@ -132,7 +132,7 @@ export default function GameHeadScreen({
                         />
                       </TouchableOpacity>
                     )}
-                    {reseaux.twitter && (
+                    {reseaux?.twitter && (
                       <TouchableOpacity
                         onPress={() =>
                           Linking.openURL(
@@ -146,7 +146,7 @@ export default function GameHeadScreen({
                         />
                       </TouchableOpacity>
                     )}
-                    {reseaux.instagram && (
+                    {reseaux?.instagram && (
                       <TouchableOpacity
                         onPress={() =>
                           Linking.openURL(

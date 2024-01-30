@@ -4,7 +4,7 @@ import HeadScreen from "../../components/accountScreen/HeadScreen";
 import AboutUser from "../../components/accountScreen/AboutUser";
 import InfoWidget from "../../components/accountScreen/InfoWidget";
 import { colors } from "../../assets/utils/_colors";
-import useDataFetching from "../../hooks/useDataFetching";
+import { useDataFetching } from "../../hooks/useDataFetching";
 import { PlayerInfoType } from "../../types";
 
 export default function UserInfoScreen({ route }: { route: any }) {
@@ -41,9 +41,9 @@ export default function UserInfoScreen({ route }: { route: any }) {
         <>
           <HeadScreen
             isUser={true}
-            avatarUser={data.avatar}
-            userName={data.username}
-            userRegion={data.region}
+            avatarUser={data.avatar ?? ""}
+            userName={data.username ?? ""}
+            userRegion={data.region ?? ""}
             plateformes={data.plateformes}
           />
           <AboutUser description={data.description} friends={data.amis} />

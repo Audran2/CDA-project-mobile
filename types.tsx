@@ -64,6 +64,15 @@ export interface characterHeadType {
   characterJob: string;
 }
 
+export interface CharacterInfo {
+  images: string[];
+  nomComplet: string;
+  profession: string;
+  licence: string;
+  jeux: Array<string>;
+  description: string;
+}
+
 export interface CharacterBodyType {
   licence: string;
   jeux: Array<string>;
@@ -73,11 +82,24 @@ export interface CharacterBodyType {
 export interface GameHeadType {
   isGame?: boolean;
   title?: string;
-  backgroundImage: string;
+  backgroundImage: string | { uri: string };
   creationDate?: string;
   note?: number;
-  plateformes: Array<string>;
-  reseaux: ReseauxType;
+  plateformes?: Array<string>;
+  reseaux?: ReseauxType;
+}
+
+export interface GameInfo {
+  _id: string;
+  nom: string;
+  image: string[];
+  note: number;
+  genre: string;
+  plateformes: string[];
+  studio: string[];
+  dateSortie: string;
+  resume: string;
+  trailers: string[];
 }
 
 export interface GameCardType {
@@ -104,6 +126,7 @@ export interface GameWidgetType {
 
 export interface BottomNavType {
   addList?: boolean;
+  GameID?: string;
 }
 
 export interface LabelData {
@@ -169,3 +192,11 @@ export type iconType =
   | undefined;
 
 export interface CardData extends PlayerCardType, GameCardType {}
+
+export interface userInfo {
+  _id: string;
+  nom: string;
+  image: string[];
+  dateCreation: string;
+  reseaux: ReseauxType;
+}

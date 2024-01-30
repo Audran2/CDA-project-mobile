@@ -30,7 +30,7 @@ export default function CharacterHeadScreen({
         resizeMode="contain"
         source={
           (characterAvatar as ImageSourcePropType)
-            ? { uri: characterAvatar[0] }
+            ? { uri: characterAvatar }
             : undefined
         }
         style={{ width: "100%", height: "100%", justifyContent: "center" }}

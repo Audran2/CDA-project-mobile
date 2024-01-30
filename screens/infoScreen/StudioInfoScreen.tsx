@@ -4,12 +4,13 @@ import GameHeadScreen from "../../components/gameScreen/GameHeadScreen";
 import StudioBodyScreen from "../../components/studioScreen/StudioBodyScreen";
 import BottomNav from "../../components/BottomNav";
 import { colors } from "../../assets/utils/_colors";
-import useDataFetching from "../../hooks/useDataFetching";
+import { useDataFetching } from "../../hooks/useDataFetching";
+import { userInfo } from "../../types";
 
 export default function StudioInfoScreen({ route }: { route: any }) {
   const { gameId } = route.params;
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<userInfo | null>(null);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
@@ -30,10 +31,10 @@ export default function StudioInfoScreen({ route }: { route: any }) {
         <>
           <GameHeadScreen
             isGame={false}
-            title={data.nom}
-            backgroundImage={{ uri: data.image[0] }}
-            creationDate={data.dateCreation}
-            reseaux={data}
+            title={data?.nom}
+            backgroundImage={{ uri: data?.image[0] }}
+            creationDate={data?.dateCreation}
+            reseaux={data?.reseaux}
           />
           <StudioBodyScreen studioId={data._id} />
           <BottomNav />

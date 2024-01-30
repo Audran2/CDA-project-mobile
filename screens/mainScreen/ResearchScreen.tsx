@@ -12,7 +12,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
 import { colors } from "../../assets/utils/_colors";
-import useDataFetching from "../../hooks/useDataFetching";
+import { useDataFetching } from "../../hooks/useDataFetching";
 import GameCard from "../../components/searchScreen/GameCard";
 import PlayerCard from "../../components/searchScreen/PlayerCard";
 import { CardData } from "../../types";

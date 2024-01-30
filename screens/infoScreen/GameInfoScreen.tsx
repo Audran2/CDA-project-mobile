@@ -3,14 +3,14 @@ import { View, StyleSheet } from "react-native";
 import GameHeadScreen from "../../components/gameScreen/GameHeadScreen";
 import GameWidget from "../../components/gameScreen/GameWidget";
 import BottomNav from "../../components/BottomNav";
-import { type GameHeadType } from "../../types";
+import { GameInfo } from "../../types";
 import { colors } from "../../assets/utils/_colors";
-import useDataFetching from "../../hooks/useDataFetching";
+import { useDataFetching } from "../../hooks/useDataFetching";
 
 export default function GameInfoScreen({ route }: { route: any }) {
   const { gameId } = route.params;
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<GameInfo | null>(null);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
@@ -37,9 +37,9 @@ export default function GameInfoScreen({ route }: { route: any }) {
             plateformes={data.plateformes}
           />
           <GameWidget {...data} />
+          <BottomNav addList GameID={data?._id} />
         </>
       )}
-      <BottomNav addList />
     </View>
   );
 }
