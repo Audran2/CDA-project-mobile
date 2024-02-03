@@ -31,8 +31,13 @@ export default function ResearchScreen() {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const endpoints = ["games", "studios", "characters", "users"];
-        const endpoint = endpoints[selectedButton - 1] || "games";
+        const endpoints = [
+          "gamesReduct",
+          "studiosReduct",
+          "charactersReduct",
+          "users",
+        ];
+        const endpoint = endpoints[selectedButton - 1] || "gamesReduct";
         const apiData = await useDataFetching(endpoint);
         const filteredData = apiData.filter(
           (cardData: { username: string; nomComplet: string; nom: string }) => {

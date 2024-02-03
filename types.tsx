@@ -35,7 +35,7 @@ export interface PlayerCardType {
   region?: string;
   plateformes?: Array<string>;
   nomComplet?: string;
-  images?: Array<string>;
+  images?: string;
   licence?: string;
   lastCard?: boolean;
 }

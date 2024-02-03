@@ -75,7 +75,7 @@ export default function GameCard({
         >
           <ImageBackground
             resizeMode="cover"
-            source={image ? { uri: image[0] } : undefined}
+            source={image ? { uri: image } : undefined}
             style={{
               width: "100%",
               height: "100%",

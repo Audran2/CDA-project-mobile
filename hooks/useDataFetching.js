@@ -1,13 +1,19 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.1.90:3000/api"; //si partage de co : 192.168.10.212 / sinon : 192.168.1.34 / pour ordi portable : 192.168.1.90
+const BASE_URL = process.env.EXPO_API_PUBLIC_URL;
 
-export const useDataFetching = async (endpoint, id = null) => {
+export const useDataFetching = async (endpoint, id = null, filtre = null) => {
   try {
+    console.log(filtre);
+
     let url = `${BASE_URL}/${endpoint}`;
 
     if (id) {
       url += `/${id}`;
+    }
+
+    if (filtre) {
+      url += `?filtre=${filtre}`;
     }
 
     const response = await axios.get(url);
@@ -24,6 +30,42 @@ export const fetchDataForStudio = async (studioId) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching data for studio:", error);
+    throw error;
+  }
+};
+
+export const useAddToGameList = async (userId, gameId, etat, note) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/gameList`,
+      {
+        userId,
+        gameId,
+        etat,
+        note,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Server Response:", response.data);
+
+    if (response.status === 201) {
+      console.log("Game added to the list successfully!");
+      return response.data; 
+    } else {
+      console.error(
+        "Failed to add game to the list. Server response:",
+        response.status,
+        response.data
+      );
+      throw new Error("Failed to add game to the list");
+    }
+  } catch (error) {
+    console.error("Error adding game to the list:", error);
     throw error;
   }
 };

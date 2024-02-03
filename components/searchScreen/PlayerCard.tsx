@@ -51,7 +51,7 @@ export default function PlayerCard({
         <ImageBackground
           resizeMode="cover"
           source={
-            avatar ? { uri: avatar } : images ? { uri: images[0] } : undefined
+            avatar ? { uri: avatar } : images ? { uri: images } : undefined
           }
           style={{ width: "100%", height: "100%", justifyContent: "center" }}
         />

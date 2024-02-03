@@ -25,16 +25,6 @@ export default function UserInfoScreen({ route }: { route: any }) {
     fetchDataFromApi();
   }, [cardId]);
 
-  const user = {
-    avatarUser: require("../../assets/images/trooper.jpg"),
-    userName: "Levorio",
-    userRegion: "Europe",
-    isNintendo: true,
-    isXbox: true,
-    isPlaystation: true,
-    isComputer: true,
-  };
-
   return (
     <View style={styles.container}>
       {data && (
