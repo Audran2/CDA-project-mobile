@@ -1,16 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  PanResponder,
-  View,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, ScrollView, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../../assets/utils/_colors";
 import styles from "./GameListScreenStyle";
 import { useDataFetching } from "../../hooks/useDataFetching";
 import GameCard from "../../components/searchScreen/GameCard";
+import ButtonNavTop from "../../components/ButtonNavTop";
 
 const buttons = [
   { id: 1, label: "Tous" },
@@ -21,22 +16,9 @@ const buttons = [
   { id: 6, label: "Prévu" },
 ];
 
-export default function GameListScreen() {
+const GameListScreen = () => {
   const [selectedButton, setSelectedButton] = useState(1);
-  const scrollViewRef = useRef<ScrollView>(null);
   const [data, setData] = useState([]);
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (_, gestureState) => {
-        scrollViewRef.current?.scrollTo({
-          x: -gestureState.dx,
-          animated: false,
-        });
-      },
-    })
-  ).current;
 
   const handleButtonPress = (buttonNumber: number) => {
     setSelectedButton(buttonNumber);
@@ -68,6 +50,48 @@ export default function GameListScreen() {
     fetchDataFromApi();
   }, [userId, selectedButton]);
 
+  const renderButtons = () => (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {buttons.map((button) => (
+        <ButtonNavTop
+          key={button.id}
+          buttonNumber={button.id}
+          label={button.label}
+          onPress={handleButtonPress}
+          isSelected={selectedButton === button.id}
+        />
+      ))}
+    </ScrollView>
+  );
+
+  const renderGameCards = () => (
+    <ScrollView
+      contentContainerStyle={
+        data.length === 0
+          ? {
+              flex: 1,
+              justifyContent: "center",
+            }
+          : null
+      }
+    >
+      {data.map((game, index) => (
+        <GameCard
+          key={index}
+          {...game.details}
+          lastCard={index === data.length - 1}
+        />
+      ))}
+      {data.length === 0 && (
+        <View>
+          <Text style={styles.textEmpty}>
+            Aucun jeu à afficher{"\n"}pour le moment
+          </Text>
+        </View>
+      )}
+    </ScrollView>
+  );
+
   return (
     <LinearGradient
       style={styles.container}
@@ -75,45 +99,12 @@ export default function GameListScreen() {
       end={{ x: 0.5, y: 0 }}
       colors={[colors.darkblue, colors.blue]}
     >
-      <View style={{ flexDirection: "row", marginTop: 15 }}>
-        <ScrollView
-          ref={scrollViewRef}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          {...panResponder.panHandlers}
-        >
-          {buttons.map((button, index) => (
-            <TouchableOpacity
-              key={button.id}
-              style={[styles.btn, { marginHorizontal: 5 }]}
-              onPress={() => handleButtonPress(button.id)}
-            >
-              <LinearGradient
-                start={{ x: 0.3, y: 0.5 }}
-                end={{ x: 0.8, y: 0.5 }}
-                colors={[
-                  colors.alternativeBlue,
-                  selectedButton === button.id
-                    ? colors.alternativeBlue
-                    : "transparent",
-                ]}
-              >
-                <Text style={styles.btnText}>{button.label}</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      <View style={{ flexDirection: "row", marginVertical: 15 }}>
+        {renderButtons()}
       </View>
-      <ScrollView>
-        {data &&
-          data.map((game, index) => (
-            <GameCard
-              key={index}
-              {...game.details}
-              lastCard={index === data.length - 1}
-            />
-          ))}
-      </ScrollView>
+      {renderGameCards()}
     </LinearGradient>
   );
-}
+};
+
+export default GameListScreen;

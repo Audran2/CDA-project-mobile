@@ -17,6 +17,7 @@ import GameCard from "../../components/searchScreen/GameCard";
 import PlayerCard from "../../components/searchScreen/PlayerCard";
 import { CardData } from "../../types";
 import styles from "./ResearchScreenStyle";
+import ButtonNavTop from "../../components/ButtonNavTop";
 
 export default function ResearchScreen() {
   const { height, width } = Dimensions.get("window");
@@ -76,24 +77,13 @@ export default function ResearchScreen() {
     setSelectedButton(buttonNumber);
 
   const renderButton = (buttonNumber: number, label: string) => (
-    <TouchableOpacity
+    <ButtonNavTop
       key={buttonNumber}
-      style={[styles.btn, { marginHorizontal: 5 }]}
-      onPress={() => handleButtonPress(buttonNumber)}
-    >
-      <LinearGradient
-        start={{ x: 0.3, y: 0.5 }}
-        end={{ x: 0.8, y: 0.5 }}
-        colors={[
-          colors.alternativeBlue,
-          selectedButton === buttonNumber
-            ? colors.alternativeBlue
-            : "transparent",
-        ]}
-      >
-        <Text style={styles.btnText}>{label}</Text>
-      </LinearGradient>
-    </TouchableOpacity>
+      buttonNumber={buttonNumber}
+      label={label}
+      onPress={handleButtonPress}
+      isSelected={selectedButton === buttonNumber}
+    />
   );
 
   const renderCard = (cardData: CardData, index: number) => {
@@ -139,7 +129,7 @@ export default function ResearchScreen() {
             onChangeText={handleSearchChange}
           />
         </View>
-        <View style={{ flexDirection: "row", marginTop: 15 }}>
+        <View style={{ flexDirection: "row", marginVertical: 15 }}>
           <ScrollView
             ref={scrollViewRef}
             horizontal

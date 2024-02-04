@@ -4,8 +4,6 @@ const BASE_URL = process.env.EXPO_API_PUBLIC_URL;
 
 export const useDataFetching = async (endpoint, id = null, filtre = null) => {
   try {
-    console.log(filtre);
-
     let url = `${BASE_URL}/${endpoint}`;
 
     if (id) {

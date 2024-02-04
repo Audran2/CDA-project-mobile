@@ -200,3 +200,10 @@ export interface userInfo {
   dateCreation: string;
   reseaux: ReseauxType;
 }
+
+export interface ButtonNavTopType {
+  buttonNumber: number;
+  label: string;
+  onPress: (buttonNumber: number) => void;
+  isSelected: boolean;
+}
