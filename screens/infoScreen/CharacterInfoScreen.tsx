@@ -43,7 +43,7 @@ export default function CharacterInfoScreen({ route }: { route: any }) {
           </>
         )}
 
-        <BottomNav />
+        <BottomNav typeInfo="characters" GameID={cardId} />
       </ScrollView>
     </View>
   );

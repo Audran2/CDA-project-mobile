@@ -10,6 +10,7 @@ import { useDataFetching } from "../../hooks/useDataFetching";
 export default function AccountScreen() {
   const userId = "65b62a93d1aef4c0e8f69a65";
   const [data, setData] = useState<PlayerInfoType | null>(null);
+  const [dataFavorite, setDataFavorite] = useState();
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
@@ -20,19 +21,18 @@ export default function AccountScreen() {
         console.log(error);
       }
     };
+    const fetchDataFromApiSecond = async () => {
+      try {
+        const apiData = await useDataFetching("favorisList", userId);
+        setDataFavorite(apiData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     fetchDataFromApi();
+    fetchDataFromApiSecond();
   }, [userId]);
-
-  const user = {
-    avatarUser: require("../../assets/images/trooper.jpg"),
-    userName: "Levorio",
-    userRegion: "Europe",
-    isNintendo: true,
-    isXbox: true,
-    isPlaystation: true,
-    isComputer: true,
-  };
 
   return (
     <View style={styles.container}>
@@ -46,8 +46,14 @@ export default function AccountScreen() {
             plateformes={data.plateformes}
           />
           <AboutUser description={data.description} friends={data.amis} />
-          <InfoWidget />
         </>
+      )}
+      {dataFavorite && (
+        <InfoWidget
+          games={dataFavorite?.jeux}
+          characters={dataFavorite?.characters}
+          studios={dataFavorite?.studios}
+        />
       )}
     </View>
   );

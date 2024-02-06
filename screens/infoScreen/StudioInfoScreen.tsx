@@ -37,7 +37,7 @@ export default function StudioInfoScreen({ route }: { route: any }) {
             reseaux={data?.reseaux}
           />
           <StudioBodyScreen studioId={data._id} />
-          <BottomNav />
+          <BottomNav typeInfo="studios" GameID={gameId} />
         </>
       )}
     </View>

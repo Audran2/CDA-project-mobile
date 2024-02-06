@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import {
   View,
   Text,
@@ -10,113 +10,28 @@ import {
   ImageBackground,
 } from "react-native";
 import PieChart from "../mathsUtilities/PieChart";
+import { InfoWidgetType } from "../../types";
 import styles from "./InfoWidgetStyle.js";
 
-export default function InfoWidget() {
-  // TEMPORAIRE
-
-  const VideoGame = [
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/odyssey.jpg"),
-      navigation: "GameInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/odyssey.jpg"),
-      navigation: "GameInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/odyssey.jpg"),
-      navigation: "GameInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/odyssey.jpg"),
-      navigation: "GameInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/odyssey.jpg"),
-      navigation: "GameInfoScreen",
-    },
-  ];
-
-  const CharacterGame = [
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/trooper.jpg"),
-      navigation: "CharacterInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/trooper.jpg"),
-      navigation: "CharacterInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/trooper.jpg"),
-      navigation: "CharacterInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/trooper.jpg"),
-      navigation: "CharacterInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/trooper.jpg"),
-      navigation: "CharacterInfoScreen",
-    },
-  ];
-
-  const Studios = [
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/ubisoft.jpeg"),
-      navigation: "StudioInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/ubisoft.jpeg"),
-      navigation: "StudioInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/ubisoft.jpeg"),
-      navigation: "StudioInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/ubisoft.jpeg"),
-      navigation: "StudioInfoScreen",
-    },
-    {
-      title: "AC : odyssey",
-      image: require("../../assets/images/ubisoft.jpeg"),
-      navigation: "StudioInfoScreen",
-    },
-  ];
-
-  // TEMPORAIRE
-
+export default function InfoWidget({
+  games,
+  characters,
+  studios,
+}: InfoWidgetType) {
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
   const [selectedButtonSecond, setSelectedButtonSecond] = useState(1);
   const navigation = useNavigation();
 
-  const handleButtonPress = (buttonNumber: React.SetStateAction<number>) => {
+  const handleButtonPress = (buttonNumber) => {
     setSelectedButton(buttonNumber);
   };
 
-  const handleButtonSecondPress = (
-    buttonNumber: React.SetStateAction<number>
-  ) => {
+  const handleButtonSecondPress = (buttonNumber) => {
     setSelectedButtonSecond(buttonNumber);
   };
 
-  const scrollViewRef = useRef<ScrollView>(null);
+  const scrollViewRef = useRef(null);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -134,30 +49,39 @@ export default function InfoWidget() {
 
   const selectedData =
     selectedButtonSecond === 1
-      ? VideoGame
+      ? games
       : selectedButtonSecond === 2
-      ? CharacterGame
-      : Studios;
+      ? characters
+      : studios;
 
-  const repeatedViews = selectedData.map((infos, index) => (
-    <TouchableOpacity
-      key={index}
-      style={styles.cardScroll}
-      onPress={() => navigation.navigate(infos.navigation as never)}
-    >
-      <ImageBackground
-        resizeMode="cover"
-        source={infos.image}
-        style={styles.ImageBackground}
+  const selectedNavigation =
+    selectedButtonSecond === 1
+      ? "GameInfoScreen"
+      : selectedButtonSecond === 2
+      ? "CharacterInfoScreen"
+      : "StudioInfoScreen";
+
+  const repeatedViews = useMemo(() => {
+    return selectedData?.map((infos, index) => (
+      <TouchableOpacity
+        key={index}
+        style={styles.cardScroll}
+        onPress={() =>
+          navigation.navigate(selectedNavigation, { gameId: infos._id })
+        }
       >
-        {selectedButtonSecond !== 3 && (
-          <Text style={{ color: "white", paddingBottom: 5, paddingLeft: 5 }}>
-            {infos.title}
-          </Text>
-        )}
-      </ImageBackground>
-    </TouchableOpacity>
-  ));
+        <ImageBackground
+          resizeMode="cover"
+          source={{ uri: infos.image[0] }}
+          style={styles.ImageBackground}
+        >
+          {selectedButtonSecond !== 3 && (
+            <Text style={{ color: "white" }}>{infos.nom}</Text>
+          )}
+        </ImageBackground>
+      </TouchableOpacity>
+    ));
+  }, [selectedData, selectedNavigation, selectedButtonSecond, navigation]);
 
   return (
     <View style={styles.container}>
@@ -185,19 +109,12 @@ export default function InfoWidget() {
       <View style={styles.line} />
 
       <View style={styles.contentContainer}>
-        {selectedButton === 1 && (
-          <>
-            <PieChart />
-          </>
-        )}
+        {selectedButton === 1 && <PieChart />}
         {selectedButton === 2 && (
           <View
             style={[
               styles.favoriteView,
-              {
-                width: width - 60,
-                height: height / 4.3,
-              },
+              { width: width - 60, height: height / 4.3 },
             ]}
           >
             <View style={styles.favoriteNav}>
@@ -237,16 +154,30 @@ export default function InfoWidget() {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={{ marginHorizontal: 10, width: "95%", height: 140 }}>
-              <ScrollView
-                ref={scrollViewRef}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                {...panResponder.panHandlers}
-                style={{ marginTop: 5 }}
-              >
-                {repeatedViews}
-              </ScrollView>
+            <View
+              style={{
+                marginHorizontal: 10,
+                width: "95%",
+                height: 140,
+                justifyContent: selectedData.length > 0 ? "" : "center",
+                alignItems: selectedData.length > 0 ? "" : "center",
+              }}
+            >
+              {selectedData && selectedData.length > 0 ? (
+                <ScrollView
+                  ref={scrollViewRef}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  {...panResponder.panHandlers}
+                  style={{ marginTop: 5 }}
+                >
+                  {repeatedViews}
+                </ScrollView>
+              ) : (
+                <Text style={{ color: "white" }}>
+                  Aucun favori dans cette section
+                </Text>
+              )}
             </View>
           </View>
         )}

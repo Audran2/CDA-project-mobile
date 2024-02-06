@@ -37,7 +37,7 @@ export default function GameInfoScreen({ route }: { route: any }) {
             plateformes={data.plateformes}
           />
           <GameWidget {...data} />
-          <BottomNav addList GameID={data?._id} />
+          <BottomNav addList typeInfo="jeux" GameID={data?._id} />
         </>
       )}
     </View>

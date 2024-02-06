@@ -10,10 +10,14 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import LabelTemplate from "./FormTemplate/LabelTemplate";
 import { BottomNavType } from "../types.js";
-import { useAddToGameList } from "../hooks/useDataFetching.js";
+import { addToFavorites, useAddToGameList } from "../hooks/useDataFetching.js";
 import styles from "./BottomNavStyle.js";
 
-export default function BottomNav({ addList = false, GameID }: BottomNavType) {
+export default function BottomNav({
+  addList = false,
+  typeInfo,
+  GameID,
+}: BottomNavType) {
   const [userGameList, setUserGameList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [completionStatus, setCompletionStatus] = useState("inProgress");
@@ -40,8 +44,17 @@ export default function BottomNav({ addList = false, GameID }: BottomNavType) {
     10: "10",
   };
 
-  const addToLike = () => {
-    console.log("Adding to like...");
+  const addToLike = async () => {
+    try {
+      const userId = "65b62a93d1aef4c0e8f69a65";
+      const type = typeInfo;
+      const id = GameID;
+
+      const response = await addToFavorites(userId, type, id);
+      console.log("Added to like:", response);
+    } catch (error) {
+      console.error("Error adding to like:", error);
+    }
   };
 
   const addToList = () => {

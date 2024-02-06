@@ -53,7 +53,7 @@ export const useAddToGameList = async (userId, gameId, etat, note) => {
 
     if (response.status === 201) {
       console.log("Game added to the list successfully!");
-      return response.data; 
+      return response.data;
     } else {
       console.error(
         "Failed to add game to the list. Server response:",
@@ -64,6 +64,38 @@ export const useAddToGameList = async (userId, gameId, etat, note) => {
     }
   } catch (error) {
     console.error("Error adding game to the list:", error);
+    throw error;
+  }
+};
+
+export const addToFavorites = async (userId, type, id) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/favorisList`,
+      {
+        userId,
+        type,
+        id,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.status === 201) {
+      console.log("Game added to the list successfully!");
+      return response.data;
+    } else {
+      console.error(
+        "Failed to add game to the list. Server response:",
+        response.status,
+        response.data
+      );
+      throw new Error("Failed to add game to the list");
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
     throw error;
   }
 };

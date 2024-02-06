@@ -126,6 +126,7 @@ export interface GameWidgetType {
 
 export interface BottomNavType {
   addList?: boolean;
+  typeInfo?: string;
   GameID?: string;
 }
 
@@ -206,4 +207,16 @@ export interface ButtonNavTopType {
   label: string;
   onPress: (buttonNumber: number) => void;
   isSelected: boolean;
+}
+
+type Entity = {
+  _id: string;
+  image: string[];
+  nom: string;
+};
+
+export interface InfoWidgetType {
+  games: Entity[] | null;
+  characters: Entity[] | null;
+  studios: Entity[] | null;
 }

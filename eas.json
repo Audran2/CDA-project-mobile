@@ -14,6 +14,12 @@
       "developmentClient": true
     },
     "production": {
+      "env": {
+        "ENVIRONMENT": "production",
+        "NODE_ENV": "development",
+        "BABEL_ENV": "release",
+        "APP_VARIANT": "release"
+      },
       "android": {
         "buildType": "apk"
       }
