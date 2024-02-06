@@ -79,10 +79,10 @@ export default function BottomNav({ addList = false, GameID }: BottomNavType) {
             marginRight: 10,
             borderRadius: 5,
             borderWidth: 1,
-            borderColor: selectedValue === item ? "blue" : "gray",
+            borderColor: selectedValue === item ? "#21a5ff" : "gray",
           }}
         >
-          <Text>{translations[item]}</Text>
+          <Text style={{ color: "white" }}>{translations[item]}</Text>
         </TouchableOpacity>
       )}
     />
@@ -117,7 +117,7 @@ export default function BottomNav({ addList = false, GameID }: BottomNavType) {
                   onPress={() => setModalVisible(false)}
                   style={styles.closeButton}
                 >
-                  <Entypo name="cross" size={24} color="black" />
+                  <Entypo name="cross" size={24} color="white" />
                 </TouchableOpacity>
                 <View>
                   <LabelTemplate name="Statut" required />
@@ -137,10 +137,20 @@ export default function BottomNav({ addList = false, GameID }: BottomNavType) {
                     noteTranslations
                   )}
                 </View>
-
-                <TouchableOpacity onPress={handleAddToList}>
-                  <Text>Sauvegarder</Text>
-                </TouchableOpacity>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 20,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={styles.btnModal}
+                    onPress={handleAddToList}
+                  >
+                    <Text style={{ color: "white" }}>Sauvegarder</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </TouchableWithoutFeedback>
           </View>

@@ -1,4 +1,5 @@
 import EStyleSheet from "react-native-extended-stylesheet";
+import { colors } from "../../assets/utils/_colors";
 
 const styles = EStyleSheet.create({
   button: {
@@ -41,9 +42,10 @@ const styles = EStyleSheet.create({
     backgroundColor: "transparent",
     flexDirection: "column",
     marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   labelText: {
+    color: colors.white,
     fontSize: 16,
     marginRight: 5,
   },

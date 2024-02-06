@@ -1,4 +1,5 @@
 import EStyleSheet from "react-native-extended-stylesheet";
+import { colors } from "../assets/utils/_colors";
 
 const styles = EStyleSheet.create({
   container: {
@@ -19,10 +20,17 @@ const styles = EStyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: '#1b175c',
     padding: 20,
     borderRadius: 10,
     width: '80%',
+  },
+  btnModal: {
+    borderColor: colors.white,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   closeButton: {
     position: 'absolute',
