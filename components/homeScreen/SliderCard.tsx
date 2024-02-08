@@ -42,7 +42,7 @@ export default function Challenge() {
   ).current;
 
   return (
-    <View style={{ marginHorizontal: 10 }}>
+    <View style={{ height: 208, marginHorizontal: 10 }}>
       <Text style={styles.textTitle}>Derniers jeux de vos amis</Text>
       <ScrollView
         ref={scrollViewRef}

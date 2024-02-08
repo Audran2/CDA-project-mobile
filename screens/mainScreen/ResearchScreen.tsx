@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   TextInput,
-  TouchableOpacity,
   View,
-  Text,
   ScrollView,
   PanResponder,
   KeyboardAvoidingView,

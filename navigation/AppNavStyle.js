@@ -23,11 +23,6 @@ const styles = EStyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  activeBtn: {
-    backgroundColor: "red", // Add a red background for the active button
-    borderWidth: 0, // Remove border for the active button
-    elevation: 5, // Add elevation for the active button
-  },
 });
 
 export default styles;

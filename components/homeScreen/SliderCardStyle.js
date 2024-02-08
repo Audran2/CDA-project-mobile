@@ -5,7 +5,7 @@ const styles = EStyleSheet.create({
     fontSize: 22,
     fontFamily: "KeaniaOne",
     color: "white",
-    marginBottom: 15,
+    marginBottom: 10,
   },
 });
 

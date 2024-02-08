@@ -156,35 +156,6 @@ export default function UserEditScreen() {
             control={control}
             render={({ field }) => (
               <View style={{ backgroundColor: "transparent" }}>
-                <LabelTemplate name="Genre" required />
-                <DropDownTemplate
-                  modalTitle="Sélection du genre"
-                  placeholder={placeholder.genderph}
-                  open={openGender}
-                  value={field.value}
-                  items={genderOptions}
-                  setOpen={setOpenGender}
-                  setValue={(value) => {
-                    field.onChange(value);
-                  }}
-                  isValid={true}
-                  setIsValid={() => {}}
-                  multiple={false}
-                  translation={{
-                    NOTHING_TO_SHOW: "Aucun genre sélectionné",
-                  }}
-                />
-              </View>
-            )}
-            name="gender"
-            rules={{
-              required: true,
-            }}
-          />
-          <Controller
-            control={control}
-            render={({ field }) => (
-              <View style={{ backgroundColor: "transparent" }}>
                 <LabelTemplate name="Région" required />
                 <DropDownTemplate
                   modalTitle="Sélection de la région"

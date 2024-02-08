@@ -32,6 +32,18 @@ export const fetchDataForStudio = async (studioId) => {
   }
 };
 
+export const fetchLastUpdatedGameForUser = async (userId) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/gameList/${userId}/lastUpdated`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data for last game :", error);
+    throw error;
+  }
+};
+
 export const useAddToGameList = async (userId, gameId, etat, note) => {
   try {
     const response = await axios.post(

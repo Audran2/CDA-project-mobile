@@ -73,6 +73,7 @@ const createAppNavigator = (defaultPage: string | undefined) => {
         headerShown: true,
         tabBarStyle: [styles.tabBar],
         headerTitleAlign: "center",
+        tabBarHideOnKeyboard: true,
       }}
     >
       {tabArray.map((item, index) => (
