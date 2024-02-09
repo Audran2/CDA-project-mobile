@@ -8,6 +8,7 @@ import {
   FontAwesome5,
   Ionicons,
 } from "@expo/vector-icons";
+import LoginScreen from "../screens/auth/LoginScreen";
 import HomeScreen from "../screens/mainScreen/HomeScreen";
 import CalendarScreen from "../screens/mainScreen/CalendarScreen";
 import ResearchScreen from "../screens/mainScreen/ResearchScreen";
@@ -115,9 +116,14 @@ const createAppNavigator = (defaultPage: string | undefined) => {
   );
 };
 
-const AppNav = createAppNavigator("Home");
+const AppNav = createAppNavigator("Login");
 
 const screenConfigurations = [
+  {
+    name: "LoginScreen",
+    component: LoginScreen,
+    options: { headerShown: false },
+  },
   {
     name: "AppNav",
     component: AppNav,

@@ -14,6 +14,28 @@ export interface itemNavigation {
     | undefined;
 }
 
+interface Studio {
+  _id: string;
+  nom: string;
+}
+
+interface Game {
+  _id: string;
+  dateSortie: string;
+  image: string[];
+  nom: string;
+  note: number;
+  studio: Studio;
+}
+
+export interface LastGameDataType {
+  _id: string;
+  etat: string;
+  gameId: Game;
+  note: number;
+  update: string;
+}
+
 interface ReseauxType {
   siteInternet?: string;
   youtube?: string;
