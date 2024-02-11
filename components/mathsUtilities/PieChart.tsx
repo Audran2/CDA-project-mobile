@@ -5,14 +5,33 @@ import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../assets/utils/_colors";
 import styles from "./PieChartStyle";
 
-export default function PieChart() {
+export default function PieChart(gameAverage) {
   const navigation = useNavigation();
 
   const centerX = 80;
   const centerY = 100;
   const radius = 80;
   const innerRadius = 50;
-  const data = [15, 30, 25, 10, 20];
+
+  const averageStatus = gameAverage.gameAverage.averageStatus;
+  const totalAverage = Object.values(averageStatus).reduce(
+    (acc, curr) => acc + curr,
+    0
+  );
+
+  const percentages = {};
+  for (const key in averageStatus) {
+    percentages[key] = (averageStatus[key] / totalAverage) * 100;
+  }
+
+  const data = [
+    percentages.inProgress || 0,
+    percentages.completed || 0,
+    percentages.onHold || 0,
+    percentages.abandonned || 0,
+    percentages.waiting || 0,
+  ];
+
   const colors_chart = [
     colors.gameStatus.inProgess,
     colors.gameStatus.completed,
@@ -67,7 +86,7 @@ export default function PieChart() {
             })}
 
             <SvgText
-              x="0"
+              x="-15"
               y="0"
               textAnchor="middle"
               alignmentBaseline="middle"
@@ -75,7 +94,7 @@ export default function PieChart() {
               fontWeight="bold"
               fill="white"
             >
-              6.5 / 10
+              {gameAverage.gameAverage.averageNote} / 10
             </SvgText>
           </G>
         </Svg>

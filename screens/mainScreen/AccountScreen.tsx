@@ -10,10 +10,10 @@ import { RootState } from "../../hooks/store";
 export default function AccountScreen() {
   const userData = useSelector((state: RootState) => state.user);
   const userFavoritesData = useSelector((state: RootState) => state.favorites);
-  const favoritesData = useSelector(
+  const GameAverage = useSelector(
     (state: RootState) => state.userGameListAverage
   );
-  console.log(favoritesData);
+  console.log(GameAverage);
 
   return (
     <View style={styles.container}>
@@ -32,11 +32,12 @@ export default function AccountScreen() {
           />
         </>
       )}
-      {userFavoritesData && (
+      {GameAverage && userFavoritesData && (
         <InfoWidget
           games={userFavoritesData.favorites?.jeux}
           characters={userFavoritesData.favorites?.characters}
           studios={userFavoritesData.favorites?.studios}
+          gameAverage={GameAverage}
         />
       )}
     </View>

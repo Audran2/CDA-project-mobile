@@ -237,8 +237,14 @@ type Entity = {
   nom: string;
 };
 
+type Average = {
+  averageNote: number;
+  averageStatus: string[];
+};
+
 export interface InfoWidgetType {
   games: Entity[] | null;
   characters: Entity[] | null;
   studios: Entity[] | null;
+  gameAverage: Average[] | null;
 }

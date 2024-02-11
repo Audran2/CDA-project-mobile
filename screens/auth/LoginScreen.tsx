@@ -5,6 +5,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch } from "react-redux";
 import { loginUser, useDataFetching } from "../../hooks/useDataFetching";
 import { setUser } from "../../hooks/slice/userSlice";
+import {
+  setAverageNote,
+  setAverageStatus,
+} from "../../hooks/slice/userAverageListSlice";
 import { setFavorites } from "../../hooks/slice/userFavoriteSlice";
 import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
 import InputTemplate from "../../components/FormTemplate/InputTemplate";
@@ -22,7 +26,7 @@ export default function LoginScreen() {
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const placeholder = {
-    emailph: "prenom.nom@next-u.fr",
+    emailph: "prenom.nom@gmail.com",
     passwordph: "e.g., •••••••",
   };
 
@@ -33,7 +37,9 @@ export default function LoginScreen() {
       dispatch(setUser(userDataResponse));
       const userFavorites = await useDataFetching("favorisList");
       dispatch(setFavorites(userFavorites));
-
+      const averageData = await useDataFetching("average");
+      dispatch(setAverageNote(averageData.averageNote));
+      dispatch(setAverageStatus(averageData.averageStatus));
       navigation.navigate("Home" as never);
     } catch (error) {
       console.error("Error logging in:", error);

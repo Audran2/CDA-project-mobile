@@ -17,6 +17,7 @@ export default function InfoWidget({
   games,
   characters,
   studios,
+  gameAverage,
 }: InfoWidgetType) {
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
@@ -109,7 +110,7 @@ export default function InfoWidget({
       <View style={styles.line} />
 
       <View style={styles.contentContainer}>
-        {selectedButton === 1 && <PieChart />}
+        {selectedButton === 1 && <PieChart gameAverage={gameAverage} />}
         {selectedButton === 2 && (
           <View
             style={[
