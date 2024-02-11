@@ -7,10 +7,12 @@ import {
   Text,
   FlatList,
 } from "react-native";
+import { useSelector } from "react-redux";
 import { Entypo } from "@expo/vector-icons";
 import LabelTemplate from "./FormTemplate/LabelTemplate";
 import { BottomNavType } from "../types.js";
 import { addToFavorites, useAddToGameList } from "../hooks/useDataFetching.js";
+import { RootState } from "../hooks/store";
 import styles from "./BottomNavStyle.js";
 
 export default function BottomNav({
@@ -18,6 +20,7 @@ export default function BottomNav({
   typeInfo,
   GameID,
 }: BottomNavType) {
+  const userData = useSelector((state: RootState) => state.user);
   const [userGameList, setUserGameList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [completionStatus, setCompletionStatus] = useState("inProgress");
@@ -46,7 +49,7 @@ export default function BottomNav({
 
   const addToLike = async () => {
     try {
-      const userId = "65b62a93d1aef4c0e8f69a65";
+      const userId = userData?._id;
       const type = typeInfo;
       const id = GameID;
 
@@ -64,7 +67,7 @@ export default function BottomNav({
   const handleAddToList = async () => {
     try {
       const response = await useAddToGameList(
-        "65b62a93d1aef4c0e8f69a65",
+        userData?._id,
         GameID,
         completionStatus,
         note

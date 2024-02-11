@@ -8,7 +8,7 @@ import {
   FontAwesome5,
   Ionicons,
 } from "@expo/vector-icons";
-import LoginScreen from "../screens/auth/LoginScreen";
+import LoginScreen from "../screens/auth/LoginScreen"; // Importez LoginScreen
 import HomeScreen from "../screens/mainScreen/HomeScreen";
 import CalendarScreen from "../screens/mainScreen/CalendarScreen";
 import ResearchScreen from "../screens/mainScreen/ResearchScreen";
@@ -116,19 +116,9 @@ const createAppNavigator = (defaultPage: string | undefined) => {
   );
 };
 
-const AppNav = createAppNavigator("Login");
+const AppNav = createAppNavigator("Home"); // Utilisez "Home" comme page par défaut
 
 const screenConfigurations = [
-  {
-    name: "LoginScreen",
-    component: LoginScreen,
-    options: { headerShown: false },
-  },
-  {
-    name: "AppNav",
-    component: AppNav,
-    options: { headerShown: false },
-  },
   {
     name: "ParametersScreen",
     component: ParametersScreen,
@@ -191,6 +181,16 @@ const ScreenArr = [
 
 const AppStackNav = () => (
   <Stack.Navigator>
+    <Stack.Screen
+      name="LoginScreen"
+      component={LoginScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Home"
+      component={AppNav}
+      options={{ headerShown: false }}
+    />
     {screenConfigurations.map((config, index) => (
       <Stack.Screen
         key={index}

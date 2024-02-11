@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSelector } from "react-redux";
 import Challenge from "../../components/homeScreen/Challenge";
 import SliderCard from "../../components/homeScreen/SliderCard";
 import { colors } from "../../assets/utils/_colors";
 import { fetchLastUpdatedGameForUser } from "../../hooks/useDataFetching";
+import { RootState } from "../../hooks/store";
 import LastGameCard from "../../components/homeScreen/LastGameCard";
 
 export default function HomeScreen() {
+  const userData = useSelector((state: RootState) => state.user);
   const [lastGameData, setLastGameData] = useState();
-  const userID = "65b62a93d1aef4c0e8f69a65";
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const apiData = await fetchLastUpdatedGameForUser(userID);
+        const apiData = await fetchLastUpdatedGameForUser(userData?._id);
         setLastGameData(apiData);
       } catch (error) {
         console.log(error);
@@ -22,7 +24,7 @@ export default function HomeScreen() {
     };
 
     fetchDataFromApi();
-  }, [userID]);
+  }, [userData]);
 
   return (
     <LinearGradient

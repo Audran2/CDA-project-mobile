@@ -2,6 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
+import { Provider } from "react-redux";
+import store from "./hooks/store";
 import AppNavigator from "./navigation/AppNav";
 
 const App = () => {
@@ -15,9 +17,11 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </Provider>
     </SafeAreaProvider>
   );
 };

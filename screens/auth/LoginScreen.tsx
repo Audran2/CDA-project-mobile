@@ -1,74 +1,88 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useDispatch } from "react-redux";
+import { loginUser, useDataFetching } from "../../hooks/useDataFetching";
+import { setUser } from "../../hooks/slice/userSlice";
+import { setFavorites } from "../../hooks/slice/userFavoriteSlice";
+import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
+import InputTemplate from "../../components/FormTemplate/InputTemplate";
+import { colors } from "../../assets/utils/_colors";
+import styles from "./LoginScreenStyle";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const BASE_URL = process.env.EXPO_API_PUBLIC_URL;
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const handleLogin = () => {
-    axios
-      .post(`${BASE_URL}/users/login`, {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        const token = response.data.token;
-        storeTokenInAsyncStorage(token);
-        console.log("Connexion réussie. Token stocké :", token);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la connexion :", error);
-      });
+  const placeholder = {
+    emailph: "prenom.nom@next-u.fr",
+    passwordph: "e.g., •••••••",
   };
 
-  const storeTokenInAsyncStorage = async (token) => {
+  const handleLogin = async () => {
     try {
-      await AsyncStorage.setItem("token", token);
+      const token = await loginUser(email, password);
+      const userDataResponse = await useDataFetching("users/me");
+      dispatch(setUser(userDataResponse));
+      const userFavorites = await useDataFetching("favorisList");
+      dispatch(setFavorites(userFavorites));
+
+      navigation.navigate("Home" as never);
     } catch (error) {
-      console.error(
-        "Erreur lors du stockage du token dans AsyncStorage :",
-        error
-      );
+      console.error("Error logging in:", error);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Mot de passe"
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <Button title="Se connecter" onPress={handleLogin} />
-    </View>
+    <LinearGradient
+      style={styles.container}
+      start={{ x: 0.5, y: 0.8 }}
+      end={{ x: 0.5, y: 0 }}
+      colors={[colors.darkblue, colors.blue]}
+    >
+      <View style={styles.InputContainer}>
+        <LabelTemplate name={"Email"} required={false} />
+        <InputTemplate
+          value={email}
+          placeholder={placeholder.emailph}
+          onChangeText={(val: string) => {
+            setEmail(val.trim());
+          }}
+          secureTextEntry={false}
+          multiline={false}
+          regex={emailRegex}
+          hasToBeChecked={false}
+        />
+      </View>
+      <View style={styles.InputContainer}>
+        <LabelTemplate name={"Mot de passe"} required={false} />
+        <InputTemplate
+          value={password}
+          placeholder={placeholder.passwordph}
+          onChangeText={(val: string) => {
+            setPassword(val.trim());
+          }}
+          secureTextEntry={true}
+          showPassword={isPasswordVisible}
+          switchPasswordVisibility={() => {
+            setIsPasswordVisible(!isPasswordVisible);
+          }}
+          multiline={false}
+          hasToBeChecked={false}
+        />
+      </View>
+      <View style={{ alignItems: "center" }}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.text}>Connexion</Text>
+        </TouchableOpacity>
+      </View>
+    </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
-  },
-  input: {
-    height: 40,
-    width: "100%",
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-});

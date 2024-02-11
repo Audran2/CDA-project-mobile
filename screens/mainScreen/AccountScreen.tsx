@@ -1,58 +1,42 @@
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { useSelector } from "react-redux";
 import HeadScreen from "../../components/accountScreen/HeadScreen";
 import AboutUser from "../../components/accountScreen/AboutUser";
 import InfoWidget from "../../components/accountScreen/InfoWidget";
 import { colors } from "../../assets/utils/_colors";
-import { PlayerInfoType } from "../../types";
-import { useEffect, useState } from "react";
-import { useDataFetching } from "../../hooks/useDataFetching";
+import { RootState } from "../../hooks/store";
 
 export default function AccountScreen() {
-  const userId = "65b62a93d1aef4c0e8f69a65";
-  const [data, setData] = useState<PlayerInfoType | null>(null);
-  const [dataFavorite, setDataFavorite] = useState();
-
-  useEffect(() => {
-    const fetchDataFromApi = async () => {
-      try {
-        const apiData = await useDataFetching("users", userId);
-        setData(apiData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const fetchDataFromApiSecond = async () => {
-      try {
-        const apiData = await useDataFetching("favorisList", userId);
-        setDataFavorite(apiData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchDataFromApi();
-    fetchDataFromApiSecond();
-  }, [userId]);
+  const userData = useSelector((state: RootState) => state.user);
+  const userFavoritesData = useSelector((state: RootState) => state.favorites);
+  const favoritesData = useSelector(
+    (state: RootState) => state.userGameListAverage
+  );
+  console.log(favoritesData);
 
   return (
     <View style={styles.container}>
-      {data && (
+      {userData && (
         <>
           <HeadScreen
             isUser={true}
-            avatarUser={data.avatar ?? ""}
-            userName={data.username ?? ""}
-            userRegion={data.region ?? ""}
-            plateformes={data.plateformes}
+            avatarUser={userData.avatar ?? ""}
+            userName={userData.username ?? ""}
+            userRegion={userData.region ?? ""}
+            plateformes={userData.plateformes}
           />
-          <AboutUser description={data.description} friends={data.amis} />
+          <AboutUser
+            description={userData.description}
+            friends={userData.amis}
+          />
         </>
       )}
-      {dataFavorite && (
+      {userFavoritesData && (
         <InfoWidget
-          games={dataFavorite?.jeux}
-          characters={dataFavorite?.characters}
-          studios={dataFavorite?.studios}
+          games={userFavoritesData.favorites?.jeux}
+          characters={userFavoritesData.favorites?.characters}
+          studios={userFavoritesData.favorites?.studios}
         />
       )}
     </View>
