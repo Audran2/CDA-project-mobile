@@ -11,7 +11,11 @@ import { useSelector } from "react-redux";
 import { Entypo } from "@expo/vector-icons";
 import LabelTemplate from "./FormTemplate/LabelTemplate";
 import { BottomNavType } from "../types.js";
-import { addToFavorites, useAddToGameList } from "../hooks/useDataFetching.js";
+import {
+  addToFavorites,
+  removeFromFavorites,
+  useAddToGameList,
+} from "../hooks/useDataFetching.js";
 import { RootState } from "../hooks/store";
 import styles from "./BottomNavStyle.js";
 
@@ -21,31 +25,19 @@ export default function BottomNav({
   GameID,
 }: BottomNavType) {
   const userData = useSelector((state: RootState) => state.user);
+  const userFavoritesData = useSelector((state: RootState) => state.favorites);
   const [userGameList, setUserGameList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [completionStatus, setCompletionStatus] = useState("inProgress");
   const [note, setNote] = useState(5);
 
-  const statusTranslations = {
-    inProgress: "En cours",
-    completed: "Complété",
-    abandoned: "Abandonné",
-    pending: "En attente",
-    planned: "Prévu",
+  const isGameInFavorites = () => {
+    const { characters, jeux, studios } = userFavoritesData.favorites;
+    const allFavorites = [...characters, ...jeux, ...studios];
+    return allFavorites.some((favorite) => favorite._id === GameID);
   };
 
-  const noteTranslations = {
-    1: "1",
-    2: "2",
-    3: "3",
-    4: "4",
-    5: "5",
-    6: "6",
-    7: "7",
-    8: "8",
-    9: "9",
-    10: "10",
-  };
+  const [isFavorite, setIsFavorite] = useState(isGameInFavorites());
 
   const addToLike = async () => {
     try {
@@ -53,10 +45,15 @@ export default function BottomNav({
       const type = typeInfo;
       const id = GameID;
 
-      const response = await addToFavorites(userId, type, id);
-      console.log("Added to like:", response);
+      if (isFavorite) {
+        const response = await removeFromFavorites(userId, type, id);
+        setIsFavorite(false);
+      } else {
+        const response = await addToFavorites(userId, type, id);
+        setIsFavorite(true);
+      }
     } catch (error) {
-      console.error("Error adding to like:", error);
+      console.error("Error updating favorites:", error);
     }
   };
 
@@ -79,6 +76,27 @@ export default function BottomNav({
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const statusTranslations = {
+    inProgress: "En cours",
+    completed: "Complété",
+    abandoned: "Abandonné",
+    pending: "En attente",
+    planned: "Prévu",
+  };
+
+  const noteTranslations = {
+    1: "1",
+    2: "2",
+    3: "3",
+    4: "4",
+    5: "5",
+    6: "6",
+    7: "7",
+    8: "8",
+    9: "9",
+    10: "10",
   };
 
   const renderSelector = (data, onSelect, selectedValue, translations) => (
@@ -108,7 +126,11 @@ export default function BottomNav({
     <View style={styles.container}>
       <View>
         <TouchableOpacity style={styles.btnStyle} onPress={addToLike}>
-          <Entypo name="heart-outlined" size={28} color="black" />
+          {isFavorite ? (
+            <Entypo name="heart" size={28} color="red" />
+          ) : (
+            <Entypo name="heart-outlined" size={28} color="black" />
+          )}
         </TouchableOpacity>
       </View>
       {addList && (

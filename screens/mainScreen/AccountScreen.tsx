@@ -13,7 +13,6 @@ export default function AccountScreen() {
   const GameAverage = useSelector(
     (state: RootState) => state.userGameListAverage
   );
-  console.log(GameAverage);
 
   return (
     <View style={styles.container}>

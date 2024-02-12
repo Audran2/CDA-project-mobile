@@ -1,5 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import store from "./store";
+import { setFavorites } from "./slice/userFavoriteSlice";
 
 const BASE_URL = process.env.EXPO_API_PUBLIC_URL;
 
@@ -152,8 +154,10 @@ export const addToFavorites = async (userId, type, id) => {
         type,
         id,
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log("Game added to the list successfully!");
+        const userFavorites = await useDataFetching("favorisList");
+        store.dispatch(setFavorites(userFavorites));
         return response.data;
       } else {
         console.error(
@@ -162,6 +166,36 @@ export const addToFavorites = async (userId, type, id) => {
           response.data
         );
         throw new Error("Failed to add game to the list");
+      }
+    } else {
+      throw new Error("Token not found in AsyncStorage");
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+
+export const removeFromFavorites = async (userId, type, id) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      configureAxios(token);
+      const response = await axios.delete(`${BASE_URL}/favorisList`, {
+        data: { userId, type, id },
+      });
+      if (response.status === 200) {
+        console.log("Game removed from the list successfully!");
+        const userFavorites = await useDataFetching("favorisList");
+        store.dispatch(setFavorites(userFavorites));
+        return response.data;
+      } else {
+        console.error(
+          "Failed to remove game from the list. Server response:",
+          response.status,
+          response.data
+        );
+        throw new Error("Failed to remove game from the list");
       }
     } else {
       throw new Error("Token not found in AsyncStorage");
