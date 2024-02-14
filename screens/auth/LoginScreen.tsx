@@ -89,6 +89,13 @@ export default function LoginScreen() {
           <Text style={styles.text}>Connexion</Text>
         </TouchableOpacity>
       </View>
+      <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AccountCreationScreen" as never)}
+        >
+          <Text style={styles.text}>Créer un compte</Text>
+        </TouchableOpacity>
+      </View>
     </LinearGradient>
   );
 }

@@ -5,7 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../assets/utils/_colors";
 import styles from "./PieChartStyle";
 
-export default function PieChart(gameAverage) {
+export default function PieChart(gameAverage: {
+  gameAverage: { averageStatus: any; averageNote: string | number };
+}) {
   const navigation = useNavigation();
 
   const centerX = 80;
