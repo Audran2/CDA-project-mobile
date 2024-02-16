@@ -50,7 +50,7 @@ export default function GameHeadScreen({
     >
       <ImageBackground
         resizeMode="cover"
-        source={backgroundImage}
+        source={{ uri: backgroundImage }}
         style={{
           width: "100%",
           height: isGame ? "100%" : "90%",
@@ -89,22 +89,22 @@ export default function GameHeadScreen({
               <View style={styles.gameSupport}>
                 {isGame ? (
                   <>
-                    {plateformes?.includes("Switch") && (
+                    {plateformes?.includes("nintendo") && (
                       <MaterialCommunityIcons
                         name="nintendo-switch"
                         style={styles.iconSupport}
                       />
                     )}
-                    {plateformes?.includes("Xbox") && (
+                    {plateformes?.includes("xbox") && (
                       <FontAwesome5 name="xbox" style={styles.iconSupport} />
                     )}
-                    {plateformes?.includes("PlayStation") && (
+                    {plateformes?.includes("playstation") && (
                       <FontAwesome5
                         name="playstation"
                         style={styles.iconSupport}
                       />
                     )}
-                    {plateformes?.includes("PC") && (
+                    {plateformes?.includes("pc") && (
                       <MaterialIcons
                         name="computer"
                         style={styles.iconSupport}

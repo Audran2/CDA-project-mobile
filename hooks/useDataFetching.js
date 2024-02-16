@@ -20,6 +20,15 @@ const storeTokenInAsyncStorage = async (token) => {
   }
 };
 
+export const signupUser = async (userData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/users`, userData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${BASE_URL}/users/login`, {

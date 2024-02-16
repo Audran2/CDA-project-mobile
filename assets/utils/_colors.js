@@ -16,7 +16,7 @@ const colors = {
     completed: "#0c66a6",
     onHold: "#c79e16",
     abandonned: "#ba2814",
-    waiting: "#a3a3a3",
+    planned: "#a3a3a3",
   },
   //   Color grade
 

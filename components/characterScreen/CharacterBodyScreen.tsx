@@ -80,7 +80,7 @@ export default function CharacterBodyScreen({
   ));
 
   return (
-    <View style={{ height: height / 1.7, width: width }}>
+    <View style={{ height: height / 2.2, width: width }}>
       <View
         style={{
           flexDirection: "row",

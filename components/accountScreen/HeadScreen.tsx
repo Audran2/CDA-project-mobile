@@ -44,19 +44,19 @@ export default function HeadScreen({
         >
           <View style={styles.bottomContainer}>
             <View style={styles.gameSupport}>
-              {plateformes && plateformes.includes("Switch") && (
+              {plateformes && plateformes.includes("nintendo") && (
                 <MaterialCommunityIcons
                   name="nintendo-switch"
                   style={styles.iconSupport}
                 />
               )}
-              {plateformes && plateformes.includes("Xbox") && (
+              {plateformes && plateformes.includes("xbox") && (
                 <FontAwesome5 name="xbox" style={styles.iconSupport} />
               )}
-              {plateformes && plateformes.includes("PlayStation") && (
+              {plateformes && plateformes.includes("playstation") && (
                 <FontAwesome5 name="playstation" style={styles.iconSupport} />
               )}
-              {plateformes && plateformes.includes("PC") && (
+              {plateformes && plateformes.includes("pc") && (
                 <MaterialIcons name="computer" style={styles.iconSupport} />
               )}
             </View>

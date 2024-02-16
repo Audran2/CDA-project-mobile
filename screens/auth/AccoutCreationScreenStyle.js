@@ -21,6 +21,21 @@ const styles = EStyleSheet.create({
     color: colors.blue,
     fontWeight: "bold",
   },
+  nextButton: {
+    backgroundColor: colors.white,
+    borderColor: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 5,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: 20,
+  },
+  buttonText: {
+    color: colors.darkblue,
+    fontWeight: "bold",
+  },
 });
 
 export default styles;

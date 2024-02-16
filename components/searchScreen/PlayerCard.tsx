@@ -89,19 +89,19 @@ export default function PlayerCard({
               marginLeft: 7,
             }}
           >
-            {plateformes.includes("Switch") && (
+            {plateformes.includes("nintendo") && (
               <MaterialCommunityIcons
                 name="nintendo-switch"
                 style={styles.iconSupport}
               />
             )}
-            {plateformes.includes("Xbox") && (
+            {plateformes.includes("xbox") && (
               <FontAwesome5 name="xbox" style={styles.iconSupport} />
             )}
-            {plateformes.includes("PlayStation") && (
+            {plateformes.includes("playstation") && (
               <FontAwesome5 name="playstation" style={styles.iconSupport} />
             )}
-            {plateformes.includes("PC") && (
+            {plateformes.includes("pc") && (
               <MaterialIcons name="computer" style={styles.iconSupport} />
             )}
           </View>

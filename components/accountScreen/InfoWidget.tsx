@@ -12,6 +12,7 @@ import {
 import PieChart from "../mathsUtilities/PieChart";
 import { InfoWidgetType } from "../../types";
 import styles from "./InfoWidgetStyle.js";
+import { colors } from "../../assets/utils/_colors";
 
 export default function InfoWidget({
   games,
@@ -110,7 +111,25 @@ export default function InfoWidget({
       <View style={styles.line} />
 
       <View style={styles.contentContainer}>
-        {selectedButton === 1 && <PieChart gameAverage={gameAverage} />}
+        {selectedButton === 1 &&
+          (Object.values(gameAverage?.averageStatus ?? {}).some(
+            (value) => value > 0
+          ) ? (
+            <PieChart gameAverage={gameAverage} />
+          ) : (
+            <View
+              style={{
+                height: 100,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: colors.white, textAlign: "center" }}>
+                Le joueur n'a pour le moment{"\n"}ajouté aucun jeu à sa liste
+              </Text>
+            </View>
+          ))}
+
         {selectedButton === 2 && (
           <View
             style={[

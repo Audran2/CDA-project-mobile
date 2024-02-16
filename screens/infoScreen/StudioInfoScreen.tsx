@@ -32,7 +32,7 @@ export default function StudioInfoScreen({ route }: { route: any }) {
           <GameHeadScreen
             isGame={false}
             title={data?.nom}
-            backgroundImage={{ uri: data?.image[0] }}
+            backgroundImage={data?.image[0]}
             creationDate={data?.dateCreation}
             reseaux={data?.reseaux}
           />

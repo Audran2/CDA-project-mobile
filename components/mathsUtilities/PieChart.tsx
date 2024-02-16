@@ -5,17 +5,20 @@ import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../assets/utils/_colors";
 import styles from "./PieChartStyle";
 
-export default function PieChart(gameAverage: {
+export default function PieChart({
+  gameAverage,
+}: {
   gameAverage: { averageStatus: any; averageNote: string | number };
 }) {
   const navigation = useNavigation();
+
+  const { averageStatus, averageNote } = gameAverage;
 
   const centerX = 80;
   const centerY = 100;
   const radius = 80;
   const innerRadius = 50;
 
-  const averageStatus = gameAverage.gameAverage.averageStatus;
   const totalAverage = Object.values(averageStatus).reduce(
     (acc, curr) => acc + curr,
     0
@@ -27,11 +30,11 @@ export default function PieChart(gameAverage: {
   }
 
   const data = [
-    percentages.inProgress || 0,
-    percentages.completed || 0,
-    percentages.onHold || 0,
-    percentages.abandonned || 0,
-    percentages.waiting || 0,
+    percentages.inProgress ?? 0,
+    percentages.completed ?? 0,
+    percentages.pending ?? 0,
+    percentages.abandonned ?? 0,
+    percentages.planned ?? 0,
   ];
 
   const colors_chart = [
@@ -39,7 +42,7 @@ export default function PieChart(gameAverage: {
     colors.gameStatus.completed,
     colors.gameStatus.onHold,
     colors.gameStatus.abandonned,
-    colors.gameStatus.waiting,
+    colors.gameStatus.planned,
   ];
 
   const total = data.reduce((acc, value) => acc + value, 0);
@@ -96,7 +99,7 @@ export default function PieChart(gameAverage: {
               fontWeight="bold"
               fill="white"
             >
-              {gameAverage.gameAverage.averageNote} / 10
+              {averageNote} / 10
             </SvgText>
           </G>
         </Svg>
@@ -155,7 +158,7 @@ export default function PieChart(gameAverage: {
             style={[
               styles.pointLegend,
               {
-                backgroundColor: colors.gameStatus.waiting,
+                backgroundColor: colors.gameStatus.planned,
               },
             ]}
           />

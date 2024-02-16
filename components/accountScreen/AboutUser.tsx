@@ -1,13 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, Dimensions, TouchableOpacity, Image } from "react-native";
 import { AboutUserType } from "../../types.js";
 import styles from "./AboutUserStyle.js";
 
@@ -20,18 +13,14 @@ export default function AboutUser({ description, friends }: AboutUserType) {
     navigation.navigate("UserInfoScreen" as never);
   };
 
-  const friendsList = [
-    require("../../assets/images/ballistic.webp"),
-    require("../../assets/images/ballistic.webp"),
-    require("../../assets/images/ballistic.webp"),
-  ];
-
   return (
     <View style={[styles.container, { width: width, height: height / 5 }]}>
-      <View>
-        <Text style={styles.title}>A propos</Text>
-        <Text style={{ color: "white" }}>{description}</Text>
-      </View>
+      {description && (
+        <View>
+          <Text style={styles.title}>A propos</Text>
+          <Text style={{ color: "white" }}>{description}</Text>
+        </View>
+      )}
       <View>
         <Text style={styles.title}>Amis</Text>
         {friends?.length === 0 ? (

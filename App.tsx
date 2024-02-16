@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import store from "./hooks/store";
+import SplashScreen from "./components/Splashscreen";
 import AppNavigator from "./navigation/AppNav";
 
 const App = () => {
@@ -11,8 +12,16 @@ const App = () => {
     KeaniaOne: require("./assets/fonts/KeaniaOne.ttf"),
   });
 
-  if (!loaded) {
-    return null;
+  const [splashComplete, setSplashComplete] = useState(false);
+
+  if (!loaded || !splashComplete) {
+    return (
+      <SplashScreen
+        onComplete={() => {
+          setSplashComplete(true);
+        }}
+      />
+    );
   }
 
   return (

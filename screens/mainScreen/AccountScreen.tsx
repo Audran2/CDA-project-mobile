@@ -5,14 +5,11 @@ import HeadScreen from "../../components/accountScreen/HeadScreen";
 import AboutUser from "../../components/accountScreen/AboutUser";
 import InfoWidget from "../../components/accountScreen/InfoWidget";
 import { colors } from "../../assets/utils/_colors";
-import { RootState } from "../../hooks/store";
 
 export default function AccountScreen() {
-  const userData = useSelector((state: RootState) => state.user);
-  const userFavoritesData = useSelector((state: RootState) => state.favorites);
-  const GameAverage = useSelector(
-    (state: RootState) => state.userGameListAverage
-  );
+  const userData = useSelector((state: any) => state.user);
+  const userFavoritesData = useSelector((state: any) => state.favorites);
+  const GameAverage = useSelector((state: any) => state.userGameListAverage);
 
   return (
     <View style={styles.container}>

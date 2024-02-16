@@ -56,7 +56,7 @@ const ButtonTemplate = ({
       disabled={!isFormValid}
     >
       <Animated.View style={{ opacity: blinkAnimation }}>
-        <FontAwesome name="check" style={[styles.text, { color: "white" }]} />
+        <FontAwesome name="check" style={[styles.text, { color: "black" }]} />
       </Animated.View>
     </TouchableOpacity>
   );

@@ -12,7 +12,9 @@ import {
 import { setFavorites } from "../../hooks/slice/userFavoriteSlice";
 import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
 import InputTemplate from "../../components/FormTemplate/InputTemplate";
+import LogoApp from "../../components/LogoApp";
 import { colors } from "../../assets/utils/_colors";
+import { emailRegex, placeholder } from "../../assets/utils/_functions";
 import styles from "./LoginScreenStyle";
 
 export default function LoginScreen() {
@@ -21,14 +23,6 @@ export default function LoginScreen() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
-  const emailRegex =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  const placeholder = {
-    emailph: "prenom.nom@gmail.com",
-    passwordph: "e.g., •••••••",
-  };
 
   const handleLogin = async () => {
     try {
@@ -53,6 +47,9 @@ export default function LoginScreen() {
       end={{ x: 0.5, y: 0 }}
       colors={[colors.darkblue, colors.blue]}
     >
+      <View style={{ height: 100 }}>
+        <LogoApp />
+      </View>
       <View style={styles.InputContainer}>
         <LabelTemplate name={"Email"} required={false} />
         <InputTemplate
@@ -89,11 +86,12 @@ export default function LoginScreen() {
           <Text style={styles.text}>Connexion</Text>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={{ alignItems: "center" }}>
         <TouchableOpacity
+          style={styles.buttonSecondary}
           onPress={() => navigation.navigate("AccountCreationScreen" as never)}
         >
-          <Text style={styles.text}>Créer un compte</Text>
+          <Text style={styles.textSecondary}>Créer un compte</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>
