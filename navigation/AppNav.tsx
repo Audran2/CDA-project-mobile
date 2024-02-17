@@ -117,7 +117,7 @@ const createAppNavigator = (defaultPage: string | undefined) => {
   );
 };
 
-const AppNav = createAppNavigator("Home"); // Utilisez "Home" comme page par défaut
+const AppNav = createAppNavigator("Home");
 
 const screenConfigurations = [
   {

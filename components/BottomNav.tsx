@@ -16,7 +16,6 @@ import {
   removeFromFavorites,
   useAddToGameList,
 } from "../hooks/useDataFetching.js";
-import { RootState } from "../hooks/store";
 import styles from "./BottomNavStyle.js";
 
 export default function BottomNav({
@@ -24,8 +23,8 @@ export default function BottomNav({
   typeInfo,
   GameID,
 }: BottomNavType) {
-  const userData = useSelector((state: RootState) => state.user);
-  const userFavoritesData = useSelector((state: RootState) => state.favorites);
+  const userData = useSelector((state: any) => state.user);
+  const userFavoritesData = useSelector((state: any) => state.favorites);
   const [userGameList, setUserGameList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [completionStatus, setCompletionStatus] = useState("inProgress");

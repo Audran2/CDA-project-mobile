@@ -6,12 +6,13 @@ import { colors } from "../../assets/utils/_colors";
 import styles from "./PieChartStyle";
 
 export default function PieChart({
+  userId,
   gameAverage,
 }: {
+  userId: string;
   gameAverage: { averageStatus: any; averageNote: string | number };
 }) {
   const navigation = useNavigation();
-
   const { averageStatus, averageNote } = gameAverage;
 
   const centerX = 80;
@@ -165,7 +166,9 @@ export default function PieChart({
           <Text style={{ color: "white" }}>Prévu</Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("GameListScreen" as never)}
+          onPress={() =>
+            navigation.navigate("GameListScreen", { userId: userId })
+          }
         >
           <Text style={{ color: "white" }}>Voir la liste</Text>
         </TouchableOpacity>

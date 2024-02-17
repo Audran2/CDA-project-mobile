@@ -30,6 +30,7 @@ export default function AccountScreen() {
       )}
       {GameAverage && userFavoritesData && (
         <InfoWidget
+          userId={userData._id}
           games={userFavoritesData.favorites?.jeux}
           characters={userFavoritesData.favorites?.characters}
           studios={userFavoritesData.favorites?.studios}

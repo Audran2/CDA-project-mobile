@@ -8,7 +8,6 @@ import styles from "./StudioBodyStyle.js";
 
 export default function StudioBodyScreen({ studioId }: { studioId: string }) {
   const [data, setData] = useState<CardData[]>([]);
-  console.log(data);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {

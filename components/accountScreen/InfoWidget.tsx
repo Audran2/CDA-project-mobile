@@ -15,6 +15,7 @@ import styles from "./InfoWidgetStyle.js";
 import { colors } from "../../assets/utils/_colors";
 
 export default function InfoWidget({
+  userId,
   games,
   characters,
   studios,
@@ -25,11 +26,13 @@ export default function InfoWidget({
   const [selectedButtonSecond, setSelectedButtonSecond] = useState(1);
   const navigation = useNavigation();
 
-  const handleButtonPress = (buttonNumber) => {
+  const handleButtonPress = (buttonNumber: React.SetStateAction<number>) => {
     setSelectedButton(buttonNumber);
   };
 
-  const handleButtonSecondPress = (buttonNumber) => {
+  const handleButtonSecondPress = (
+    buttonNumber: React.SetStateAction<number>
+  ) => {
     setSelectedButtonSecond(buttonNumber);
   };
 
@@ -40,7 +43,7 @@ export default function InfoWidget({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
         if (scrollViewRef.current) {
-          scrollViewRef.current.scrollTo({
+          (scrollViewRef.current as any).scrollTo({
             x: -gestureState.dx,
             animated: false,
           });
@@ -115,7 +118,7 @@ export default function InfoWidget({
           (Object.values(gameAverage?.averageStatus ?? {}).some(
             (value) => value > 0
           ) ? (
-            <PieChart gameAverage={gameAverage} />
+            <PieChart userId={userId} gameAverage={gameAverage} />
           ) : (
             <View
               style={{

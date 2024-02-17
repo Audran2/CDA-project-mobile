@@ -243,6 +243,7 @@ type Average = {
 };
 
 export interface InfoWidgetType {
+  userId: string;
   games: Entity[] | null;
   characters: Entity[] | null;
   studios: Entity[] | null;

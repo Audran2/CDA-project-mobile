@@ -106,7 +106,7 @@ export default function CharacterBodyScreen({
           <Text style={styles.title}>Informations</Text>
           <Text style={{ color: "white" }}>{description}</Text>
         </View>
-        <View>
+        {/* <View>
           <Text style={styles.title}>Voice actors</Text>
           <ScrollView
             ref={scrollViewRef}
@@ -117,7 +117,7 @@ export default function CharacterBodyScreen({
           >
             {repeatedViews}
           </ScrollView>
-        </View>
+        </View> */}
       </View>
     </View>
   );

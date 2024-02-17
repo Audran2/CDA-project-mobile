@@ -16,7 +16,12 @@ const buttons = [
   { id: 6, label: "Prévu" },
 ];
 
-const GameListScreen = () => {
+const GameListScreen = ({
+  route,
+}: {
+  route: { params: { userId: string } };
+}) => {
+  const { userId } = route.params;
   const [selectedButton, setSelectedButton] = useState(1);
   const [data, setData] = useState([]);
 
@@ -24,7 +29,6 @@ const GameListScreen = () => {
     setSelectedButton(buttonNumber);
   };
 
-  const userId = "65b62a93d1aef4c0e8f69a65";
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {

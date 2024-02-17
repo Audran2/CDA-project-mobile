@@ -1,11 +1,13 @@
 import React, { useLayoutEffect, useState } from "react";
-import { Platform, ScrollView, View } from "react-native";
+import { Alert, Platform, ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Controller, useForm } from "react-hook-form";
 import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
 import InputTemplate from "../../components/FormTemplate/InputTemplate";
 import ButtonTemplate from "../../components/FormTemplate/ButtonTemplate";
+import { passwordRegex } from "../../assets/utils/_functions";
+import { updatePassword } from "../../hooks/useDataFetching";
 import styles from "./SecurityScreenStyle.js";
 
 export default function SecurityScreen(): React.JSX.Element {
@@ -13,8 +15,31 @@ export default function SecurityScreen(): React.JSX.Element {
   const isFormValid = formState.isValid;
   const navigation = useNavigation();
 
-  const onSubmit = (data: { OldPassword: any; NewPassword: any }): void => {
-    console.log(data);
+  const onSubmit = async (data: {
+    OldPassword: string;
+    NewPassword: string;
+    VerifyPassword: string;
+  }) => {
+    const { NewPassword, VerifyPassword } = data;
+
+    if (NewPassword !== VerifyPassword) {
+      Alert.alert(
+        "Erreur",
+        "La confirmation du nouveau mot de passe ne correspond pas."
+      );
+      return;
+    }
+
+    try {
+      await updatePassword(data.OldPassword, NewPassword);
+      Alert.alert("Succès", "Mot de passe mis à jour avec succès.");
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du mot de passe :", error);
+      Alert.alert(
+        "Erreur",
+        "Une erreur s'est produite lors de la mise à jour du mot de passe."
+      );
+    }
   };
 
   const [fields, setFields] = useState({
@@ -36,9 +61,6 @@ export default function SecurityScreen(): React.JSX.Element {
   }, [navigation, isFormValid]);
 
   const passwordPlaceholder = "e.g., ••••••";
-
-  const passwordRegex =
-    /^(?=.*[a-zàáâãäåæçèéêëìíîïñòóôõöùúûü])(?=.*[A-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜ])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-zàáâãäåæçèéêëìíîïñòóôõöùúûüÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜ\d@$!%*?&_-]{8,}$/;
 
   const switchPasswordVisibility = (field: string): void => {
     setFields((prevState) => ({

@@ -32,7 +32,7 @@ export default function GameInfoScreen({ route }: { route: any }) {
           <GameHeadScreen
             isGame={true}
             title={data.nom}
-            backgroundImage={{ uri: data.image[0] }}
+            backgroundImage={data.image[0]}
             note={data.note}
             plateformes={data.plateformes}
           />

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 import { colors } from "../../assets/utils/_colors";
 import { useDataFetching } from "../../hooks/useDataFetching";
 import GameCard from "../../components/searchScreen/GameCard";
@@ -19,6 +20,7 @@ import ButtonNavTop from "../../components/ButtonNavTop";
 
 export default function ResearchScreen() {
   const { height, width } = Dimensions.get("window");
+  const userData = useSelector((state: any) => state.user);
   const scrollViewRef = useRef<ScrollView>(null);
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +36,7 @@ export default function ResearchScreen() {
           "gamesReduct",
           "studiosReduct",
           "charactersReduct",
-          "users",
+          "usersReduct",
         ];
         const endpoint = endpoints[selectedButton - 1] || "gamesReduct";
         const apiData = await useDataFetching(endpoint);

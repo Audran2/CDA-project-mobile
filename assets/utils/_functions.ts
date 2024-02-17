@@ -46,6 +46,7 @@ export const placeholder = {
   emailph: "e.g., nom.prenom@gmail.com",
   passwordph: "e.g., •••••••",
   avatarph: "selectionner une image",
+  descriptionph: "e.g., Description du joueur",
   genderph: "e.g., homme",
   regionph: "e.g., Europe",
   plateformsph: "e.g., Nintendo",

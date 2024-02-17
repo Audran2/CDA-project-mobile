@@ -29,6 +29,39 @@ export const signupUser = async (userData) => {
   }
 };
 
+export const updateUser = async (userData) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      configureAxios(token);
+      const response = await axios.put(`${BASE_URL}/users`, userData);
+      return response.data;
+    } else {
+      throw new Error("Token not found in AsyncStorage");
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePassword = async (oldPassword, newPassword) => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      configureAxios(token);
+      const response = await axios.put(`${BASE_URL}/users/password`, {
+        oldPassword,
+        newPassword,
+      });
+      return response.data;
+    } else {
+      throw new Error("Token not found in AsyncStorage");
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${BASE_URL}/users/login`, {

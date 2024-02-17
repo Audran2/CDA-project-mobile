@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Alert } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
@@ -9,6 +9,8 @@ import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
 import InputTemplate from "../../components/FormTemplate/InputTemplate";
 import DropDownTemplate from "../../components/FormTemplate/DropdownTemplate";
 import ButtonTemplate from "../../components/FormTemplate/ButtonTemplate";
+import { updateUser, useDataFetching } from "../../hooks/useDataFetching";
+import { setUser } from "../../hooks/slice/userSlice";
 import { colors } from "../../assets/utils/_colors";
 import {
   genderOptions,
@@ -25,7 +27,9 @@ export default function UserEditScreen() {
   const { handleSubmit, control, formState } = useForm({
     defaultValues: {
       username: userData.username ?? "",
+      avatar: userData.avatar ?? "",
       email: userData.email ?? "",
+      description: userData.description ?? "",
       sexe: userData.sexe ?? "",
       region: userData.region ?? "",
       plateformes: userData.plateformes ?? [],
@@ -46,7 +50,38 @@ export default function UserEditScreen() {
     });
   }, [navigation, isFormValid, isFormDirty]);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
+    if (isFormValid && isFormDirty) {
+      try {
+        const updatedData = {
+          username: data.username,
+          avatar: data.avatar,
+          email: data.email,
+          description: data.description,
+          sexe: data.sexe,
+          region: data.region,
+          plateformes: data.plateformes,
+        };
+        const response = await updateUser(updatedData);
+
+        if (response.status === 200) {
+          const userDataResponse = await useDataFetching("users/me");
+          dispatch(setUser(userDataResponse));
+          Alert.alert(
+            "Informations mises à jour",
+            "Vos informations de compte ont été mises à jour avec succès !",
+            [
+              {
+                text: "OK",
+                onPress: () => navigation.goBack(),
+              },
+            ]
+          );
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'envoi des données à l'API:", error);
+      }
+    }
     console.log(data);
   };
 
@@ -96,6 +131,26 @@ export default function UserEditScreen() {
               control={control}
               render={({ field }) => (
                 <View style={{ backgroundColor: "transparent" }}>
+                  <LabelTemplate name="Avatar" required />
+                  <InputTemplate
+                    value={field.value}
+                    placeholder={placeholder.avatarph}
+                    onChangeText={field.onChange}
+                    secureTextEntry={false}
+                    showPassword={false}
+                    multiline={false}
+                  />
+                </View>
+              )}
+              name="avatar"
+              rules={{
+                required: true,
+              }}
+            />
+            <Controller
+              control={control}
+              render={({ field }) => (
+                <View style={{ backgroundColor: "transparent" }}>
                   <LabelTemplate name="E-mail" required />
                   <InputTemplate
                     value={field.value}
@@ -110,6 +165,27 @@ export default function UserEditScreen() {
                 </View>
               )}
               name="email"
+              rules={{
+                required: true,
+              }}
+            />
+            <Controller
+              control={control}
+              render={({ field }) => (
+                <View style={{ backgroundColor: "transparent" }}>
+                  <LabelTemplate name="Description" required />
+                  <InputTemplate
+                    value={field.value}
+                    placeholder={placeholder.descriptionph}
+                    onChangeText={field.onChange}
+                    secureTextEntry={false}
+                    showPassword={false}
+                    multiline={true}
+                    numberOfLines={4}
+                  />
+                </View>
+              )}
+              name="description"
               rules={{
                 required: true,
               }}
@@ -176,9 +252,9 @@ export default function UserEditScreen() {
               control={control}
               render={({ field }) => (
                 <View style={{ backgroundColor: "transparent" }}>
-                  <LabelTemplate name="Ports du PC" required />
+                  <LabelTemplate name="plateformes de jeu" required />
                   <DropDownTemplate
-                    modalTitle="Sélection des ports PC"
+                    modalTitle="Sélection des plateformes de jeu"
                     placeholder={placeholder.plateformsph}
                     open={openPlateform}
                     value={field.value}
@@ -208,4 +284,7 @@ export default function UserEditScreen() {
       </LinearGradient>
     </GestureHandlerRootView>
   );
+}
+function dispatch(arg0: { payload: any; type: "user/setUser" }) {
+  throw new Error("Function not implemented.");
 }

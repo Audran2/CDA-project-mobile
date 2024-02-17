@@ -74,6 +74,7 @@ export default function UserInfoScreen({ route }: { route: any }) {
           />
           <AboutUser description={data?.description} friends={data.amis} />
           <InfoWidget
+            userId={cardId}
             games={favorisList?.jeux}
             characters={favorisList?.characters}
             studios={favorisList?.studios}
