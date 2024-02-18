@@ -36,12 +36,22 @@ const styles = EStyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
+  cardContainer: {
+    flexDirection: "column",
+    width: 85,
+  },
   cardSlider: {
-    backgroundColor: "white",
-    height: 100,
-    width: 75,
+    backgroundColor: "lightgray",
+    height: 115,
+    width: 85,
     marginRight: 10,
     borderRadius: 3,
+  },
+  cardText: {
+    marginTop: 5,
+    color: "white",
+    fontSize: 12,
+    textAlign: "center",
   },
 });
 

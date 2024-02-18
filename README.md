@@ -11,16 +11,8 @@
 
 - same system as calendar (limit of 10-15 and when the last item, display 10-15 new items)
 
-parameters - put the update user / password query
-
 add a loading spinner on all the query
 
 tout ce qui en rapport avec les jeux : carte et page - rajouter un populate dans la query avec note + status du jeux si l'utilisateur l'a dans sa liste. (pas convaincu)
 
-##CE WEEK-END :
-
-- faire encart défi
-
-##CE SOIR (par priorité) :
-
-- calendar + research
+ajouter les stats sur les jeux

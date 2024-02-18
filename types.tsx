@@ -144,6 +144,7 @@ export interface GameWidgetType {
   dateSortie: string;
   resume: string;
   trailers: Array<string>;
+  characters: Array<string>;
 }
 
 export interface BottomNavType {

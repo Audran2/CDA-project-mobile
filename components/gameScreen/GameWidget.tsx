@@ -7,6 +7,7 @@ import {
   ScrollView,
   PanResponder,
   Linking,
+  ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -19,6 +20,7 @@ export default function GameWidget({
   dateSortie,
   resume,
   trailers,
+  characters,
 }: GameWidgetType) {
   const { height, width } = Dimensions.get("window");
   const [selectedButton, setSelectedButton] = useState(1);
@@ -36,39 +38,26 @@ export default function GameWidget({
     setFormattedDate(formatted);
   }, [dateSortie]);
 
-  const characterData = [
-    { id: 1, name: "Character 1" },
-    { id: 2, name: "Character 2" },
-    { id: 3, name: "Character 3" },
-    { id: 4, name: "Character 4" },
-    { id: 5, name: "Character 5" },
-  ];
-
-  const staffData = [
-    { id: 1, name: "Staff 1" },
-    { id: 2, name: "Staff 2" },
-    { id: 3, name: "Staff 3" },
-    { id: 4, name: "Staff 4" },
-    { id: 5, name: "Staff 5" },
-  ];
-
   const renderCharacterViews = () => {
-    return characterData.map((character) => (
-      <TouchableOpacity
-        style={styles.cardSlider}
-        key={character.id}
-        onPress={() => navigation.navigate("CharacterInfoScreen" as never)}
-      >
-        <Text>{character.name}</Text>
-      </TouchableOpacity>
-    ));
-  };
-
-  const renderStaffViews = () => {
-    return staffData.map((staff) => (
-      <TouchableOpacity style={styles.cardSlider} key={staff.id}>
-        <Text>{staff.name}</Text>
-      </TouchableOpacity>
+    return characters.map((character) => (
+      <View style={styles.cardContainer}>
+        <TouchableOpacity
+          style={styles.cardSlider}
+          key={character._id}
+          onPress={() =>
+            navigation.navigate("CharacterInfoScreen", {
+              cardId: character._id,
+            })
+          }
+        >
+          <ImageBackground
+            resizeMode="cover"
+            source={character.images ? { uri: character.images[0] } : undefined}
+            style={{ width: "100%", height: "100%", justifyContent: "center" }}
+          ></ImageBackground>
+        </TouchableOpacity>
+        <Text style={styles.cardText}>{character.nomComplet}</Text>
+      </View>
     ));
   };
 
@@ -111,7 +100,7 @@ export default function GameWidget({
               selectedButton === 2 ? styles.selectedButton : styles.offButton
             }
           >
-            Staff & persos
+            Personnages
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleButtonPress(3)}>
@@ -128,7 +117,7 @@ export default function GameWidget({
       <View>
         {selectedButton === 1 && (
           <View style={{ width: "90%" }}>
-            <View>
+            <View style={{ width: width * 0.8 }}>
               <Text
                 style={[styles.typeGame, { marginTop: 15, marginBottom: 5 }]}
               >
@@ -174,7 +163,7 @@ export default function GameWidget({
               height: height / 5.2,
             }}
           >
-            <View>
+            <View style={{ width: width * 0.8 }}>
               <Text style={[styles.title, { marginTop: 15 }]}>Personnages</Text>
               <ScrollView
                 ref={scrollViewRef}
@@ -186,7 +175,7 @@ export default function GameWidget({
                 {renderCharacterViews()}
               </ScrollView>
             </View>
-            <View>
+            {/* <View>
               <Text style={[styles.title, { marginTop: 10 }]}>Staff</Text>
               <ScrollView
                 ref={scrollViewRef}
@@ -197,7 +186,7 @@ export default function GameWidget({
               >
                 {renderStaffViews()}
               </ScrollView>
-            </View>
+            </View> */}
           </View>
         )}
         {selectedButton === 3 && (

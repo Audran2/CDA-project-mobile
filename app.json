@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CDA-project-mobile",
-    "slug": "CDA-project-mobile",
+    "name": "Thot",
+    "slug": "Thot",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +17,6 @@
     },
     "android": {
       "userInterfaceStyle": "light",
-      "softwarekeyboardlayoutmode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
