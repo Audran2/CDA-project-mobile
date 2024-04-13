@@ -36,20 +36,13 @@ export default function ParametersScreen({
     },
     {
       id: 3,
-      name: "Aide",
-      url: "HelpScreen",
-      category: "informations complémentaires",
-      nameIcon: "message-circle",
-    },
-    {
-      id: 4,
       name: "A propos",
       url: "AboutScreen",
       category: "informations complémentaires",
       nameIcon: "help-circle",
     },
     {
-      id: 5,
+      id: 4,
       name: "Déconnexion",
       url: "LogOut",
       category: "autre",
@@ -67,7 +60,7 @@ export default function ParametersScreen({
           if (item.url === "LogOut") {
             navigation.reset({
               index: 1,
-              routes: [{ name: item.url }],
+              routes: [{ name: "LoginScreen" }],
             });
           } else navigation.navigate(item.url, {});
         }}

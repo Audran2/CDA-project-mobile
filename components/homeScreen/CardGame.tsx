@@ -11,6 +11,8 @@ import { type CardGameType } from "../../types";
 import styles from "./CardGameStyle.js";
 
 export default function CardGame({
+  _id,
+  userId,
   imageBackground,
   gameTitle,
   avatarUser,
@@ -19,11 +21,13 @@ export default function CardGame({
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate("GameInfoScreen" as never);
+    navigation.navigate("GameInfoScreen", {
+      gameId: _id,
+    });
   };
 
   const handleUserIconPress = () => {
-    navigation.navigate("UserInfoScreen" as never);
+    navigation.navigate("UserInfoScreen", { cardId: userId });
   };
 
   return (

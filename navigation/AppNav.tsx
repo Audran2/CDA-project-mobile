@@ -23,7 +23,6 @@ import StudioInfoScreen from "../screens/infoScreen/StudioInfoScreen";
 import UserInfoScreen from "../screens/infoScreen/UserInfoScreen";
 import UserEditScreen from "../screens/paramScreen/UserEditScreen";
 import SecurityScreen from "../screens/paramScreen/SecurityScreen";
-import HelpScreen from "../screens/paramScreen/HelpScreen";
 import AboutScreen from "../screens/paramScreen/AboutScreen";
 import { iconType } from "../types";
 import styles from "./AppNavStyle.js";
@@ -172,11 +171,6 @@ const ScreenArr = [
     screenName: "SecurityScreen",
     component: SecurityScreen,
     label: "Sécurité",
-  },
-  {
-    screenName: "HelpScreen",
-    component: HelpScreen,
-    label: "Aide",
   },
   {
     screenName: "AboutScreen",

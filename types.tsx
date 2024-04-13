@@ -44,6 +44,8 @@ interface ReseauxType {
 }
 
 export interface CardGameType {
+  _id: string;
+  userId: string;
   imageBackground: string;
   gameTitle: string;
   avatarUser: string;

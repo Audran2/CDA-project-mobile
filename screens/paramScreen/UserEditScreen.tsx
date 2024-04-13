@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
 import InputTemplate from "../../components/FormTemplate/InputTemplate";
 import DropDownTemplate from "../../components/FormTemplate/DropdownTemplate";
@@ -23,6 +23,7 @@ import styles from "./UserEditStyle.js";
 export default function UserEditScreen() {
   const navigation = useNavigation();
   const userData = useSelector((state: any) => state.user);
+  const dispatch = useDispatch();
 
   const { handleSubmit, control, formState } = useForm({
     defaultValues: {
@@ -284,7 +285,4 @@ export default function UserEditScreen() {
       </LinearGradient>
     </GestureHandlerRootView>
   );
-}
-function dispatch(arg0: { payload: any; type: "user/setUser" }) {
-  throw new Error("Function not implemented.");
 }

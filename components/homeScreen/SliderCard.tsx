@@ -5,18 +5,24 @@ import styles from "./SliderCardStyle.js";
 
 const lastGameFriend = [
   {
+    _id: "65ad1bc8a994d152deb26569",
+    userId: "65b62a93d1aef4c0e8f69a65",
     imageBackground: require("../../assets/images/odyssey.jpg"),
     gameTitle: "Assassin's Creed : Odyssey",
     avatarUser: require("../../assets/images/ballistic.webp"),
     userName: "iNocty",
   },
   {
+    _id: "65ad1bc8a994d152deb26569",
+    userId: "65b62a93d1aef4c0e8f69a65",
     imageBackground: require("../../assets/images/odyssey.jpg"),
     gameTitle: "Assassin's Creed : Odyssey",
     avatarUser: require("../../assets/images/ballistic.webp"),
     userName: "Levorio",
   },
   {
+    _id: "65ad1bc8a994d152deb26569",
+    userId: "65b62a93d1aef4c0e8f69a65",
     imageBackground: require("../../assets/images/odyssey.jpg"),
     gameTitle: "Assassin's Creed : Odyssey",
     avatarUser: require("../../assets/images/ballistic.webp"),

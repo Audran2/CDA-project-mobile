@@ -2,11 +2,13 @@ import React, { useLayoutEffect, useState } from "react";
 import { Alert, Platform, ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
 import { Controller, useForm } from "react-hook-form";
 import LabelTemplate from "../../components/FormTemplate/LabelTemplate";
 import InputTemplate from "../../components/FormTemplate/InputTemplate";
 import ButtonTemplate from "../../components/FormTemplate/ButtonTemplate";
 import { passwordRegex } from "../../assets/utils/_functions";
+import { colors } from "../../assets/utils/_colors";
 import { updatePassword } from "../../hooks/useDataFetching";
 import styles from "./SecurityScreenStyle.js";
 
@@ -31,8 +33,16 @@ export default function SecurityScreen(): React.JSX.Element {
     }
 
     try {
-      await updatePassword(data.OldPassword, NewPassword);
-      Alert.alert("Succès", "Mot de passe mis à jour avec succès.");
+      const response = await updatePassword(data.OldPassword, NewPassword);
+
+      if (response.status === 200) {
+        Alert.alert("Succès", "Mot de passe mis à jour avec succès.", [
+          {
+            text: "OK",
+            onPress: () => navigation.goBack(),
+          },
+        ]);
+      }
     } catch (error) {
       console.error("Erreur lors de la mise à jour du mot de passe :", error);
       Alert.alert(
@@ -72,106 +82,116 @@ export default function SecurityScreen(): React.JSX.Element {
 
   return (
     <SafeAreaView edges={["left", "right"]} style={styles.container}>
-      <ScrollView
-        alwaysBounceVertical={false}
-        showsVerticalScrollIndicator={false}
+      <LinearGradient
+        style={styles.container}
+        start={{ x: 0.5, y: 0.9 }}
+        end={{ x: 0.5, y: 0 }}
+        colors={[colors.darkblue, colors.blue]}
       >
-        <View
-          style={{
-            backgroundColor: "transparent",
-            marginHorizontal: Platform.OS === "ios" ? 40 : 30,
-          }}
+        <ScrollView
+          alwaysBounceVertical={false}
+          showsVerticalScrollIndicator={false}
         >
-          <Controller
-            control={control}
-            render={({ field }) => (
-              <View style={{ backgroundColor: "transparent" }}>
-                <LabelTemplate name="Ancien mot de passe" required />
-                <InputTemplate
-                  value={field.value}
-                  placeholder={passwordPlaceholder}
-                  onChangeText={field.onChange}
-                  secureTextEntry={true}
-                  showPassword={fields.showOldPassword}
-                  switchPasswordVisibility={() => {
-                    switchPasswordVisibility("OldPassword");
-                  }}
-                  multiline={false}
-                />
-              </View>
-            )}
-            name="OldPassword"
-            rules={{
-              required: true,
+          <View
+            style={{
+              backgroundColor: "transparent",
+              marginHorizontal: Platform.OS === "ios" ? 40 : 30,
             }}
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({ field }) => (
-              <View style={{ backgroundColor: "transparent" }}>
-                <LabelTemplate name="Nouveau mot de passe" required />
-                <InputTemplate
-                  value={field.value}
-                  placeholder={passwordPlaceholder}
-                  onChangeText={field.onChange}
-                  secureTextEntry={true}
-                  showPassword={fields.showNewPassword}
-                  switchPasswordVisibility={() => {
-                    switchPasswordVisibility("NewPassword");
-                  }}
-                  multiline={false}
-                  regex={passwordRegex}
-                />
-              </View>
-            )}
-            name="NewPassword"
-            rules={{
-              required: true,
-              pattern: {
-                value: passwordRegex,
-                message:
-                  "Le mot de passe doit contenir 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial et faire 8 de long.",
-              },
-            }}
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({ field }) => {
-              fields.newPasswordContent = field.value;
-              return (
+          >
+            <Controller
+              control={control}
+              render={({ field }) => (
                 <View style={{ backgroundColor: "transparent" }}>
-                  <LabelTemplate name="Confirmation du mot de passe" required />
+                  <LabelTemplate name="Ancien mot de passe" required />
                   <InputTemplate
                     value={field.value}
                     placeholder={passwordPlaceholder}
                     onChangeText={field.onChange}
                     secureTextEntry={true}
-                    showPassword={fields.showVerifyPassword}
+                    showPassword={fields.showOldPassword}
                     switchPasswordVisibility={() => {
-                      switchPasswordVisibility("VerifyPassword");
+                      switchPasswordVisibility("OldPassword");
                     }}
                     multiline={false}
-                    regex={[
-                      passwordRegex,
-                      new RegExp("^" + watch("NewPassword") + "$"),
-                    ]}
                   />
                 </View>
-              );
-            }}
-            name="VerifyPassword"
-            rules={{
-              required: true,
-              validate: {
-                passwordMatch: (value) => value === watch("NewPassword"),
-              },
-            }}
-            defaultValue=""
-          />
-        </View>
-      </ScrollView>
+              )}
+              name="OldPassword"
+              rules={{
+                required: true,
+              }}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({ field }) => (
+                <View style={{ backgroundColor: "transparent" }}>
+                  <LabelTemplate name="Nouveau mot de passe" required />
+                  <InputTemplate
+                    value={field.value}
+                    placeholder={passwordPlaceholder}
+                    onChangeText={field.onChange}
+                    secureTextEntry={true}
+                    showPassword={fields.showNewPassword}
+                    switchPasswordVisibility={() => {
+                      switchPasswordVisibility("NewPassword");
+                    }}
+                    multiline={false}
+                    regex={passwordRegex}
+                  />
+                </View>
+              )}
+              name="NewPassword"
+              rules={{
+                required: true,
+                pattern: {
+                  value: passwordRegex,
+                  message:
+                    "Le mot de passe doit contenir 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial et faire 8 de long.",
+                },
+              }}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({ field }) => {
+                fields.newPasswordContent = field.value;
+                return (
+                  <View style={{ backgroundColor: "transparent" }}>
+                    <LabelTemplate
+                      name="Confirmation du mot de passe"
+                      required
+                    />
+                    <InputTemplate
+                      value={field.value}
+                      placeholder={passwordPlaceholder}
+                      onChangeText={field.onChange}
+                      secureTextEntry={true}
+                      showPassword={fields.showVerifyPassword}
+                      switchPasswordVisibility={() => {
+                        switchPasswordVisibility("VerifyPassword");
+                      }}
+                      multiline={false}
+                      regex={[
+                        passwordRegex,
+                        new RegExp("^" + watch("NewPassword") + "$"),
+                      ]}
+                    />
+                  </View>
+                );
+              }}
+              name="VerifyPassword"
+              rules={{
+                required: true,
+                validate: {
+                  passwordMatch: (value) => value === watch("NewPassword"),
+                },
+              }}
+              defaultValue=""
+            />
+          </View>
+        </ScrollView>
+      </LinearGradient>
     </SafeAreaView>
   );
 }

@@ -25,7 +25,7 @@ export default function UserInfoScreen({ route }: { route: any }) {
       }
     };
 
-    const fetchDataWithId = async (cardId) => {
+    const fetchDataWithId = async (cardId: string) => {
       try {
         const BASE_URL = process.env.EXPO_API_PUBLIC_URL;
         const response = await axios.get(
@@ -41,7 +41,7 @@ export default function UserInfoScreen({ route }: { route: any }) {
       }
     };
 
-    const fetchAverageData = async (cardId) => {
+    const fetchAverageData = async (cardId: any) => {
       try {
         const BASE_URL = process.env.EXPO_API_PUBLIC_URL;
         const response = await axios.get(

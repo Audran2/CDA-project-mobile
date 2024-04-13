@@ -35,7 +35,7 @@ export const updateUser = async (userData) => {
     if (token) {
       configureAxios(token);
       const response = await axios.put(`${BASE_URL}/users`, userData);
-      return response.data;
+      return response;
     } else {
       throw new Error("Token not found in AsyncStorage");
     }
@@ -53,7 +53,7 @@ export const updatePassword = async (oldPassword, newPassword) => {
         oldPassword,
         newPassword,
       });
-      return response.data;
+      return response;
     } else {
       throw new Error("Token not found in AsyncStorage");
     }
