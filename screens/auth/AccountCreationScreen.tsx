@@ -82,7 +82,7 @@ export default function AccountCreationScreen() {
     validateForm();
   };
 
-  const onSubmit = async (data, navigation) => {
+  const onSubmit = async (data) => {
     if (isFormValid) {
       try {
         const userData = {

@@ -23,7 +23,7 @@ const storeTokenInAsyncStorage = async (token) => {
 export const signupUser = async (userData) => {
   try {
     const response = await axios.post(`${BASE_URL}/users`, userData);
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
@@ -166,7 +166,7 @@ export const useAddToGameList = async (userId, gameId, etat, note) => {
         note,
       });
       console.log("Server Response:", response.data);
-      if (response.status === 201) {
+      if (response.status === 201 || response.status === 200) {
         console.log("Game added to the list successfully!");
         return response.data;
       } else {
