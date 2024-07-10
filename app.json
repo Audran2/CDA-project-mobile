@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Thot",
-    "slug": "Thot",
+    "slug": "cda-project-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

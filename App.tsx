@@ -14,17 +14,17 @@ const App = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [splashComplete, setSplashComplete] = useState(false);
+  // const [splashComplete, setSplashComplete] = useState(false);
 
-  if (!loaded || !splashComplete) {
-    return (
-      <SplashScreen
-        onComplete={() => {
-          setSplashComplete(true);
-        }}
-      />
-    );
-  }
+  // if (!loaded || !splashComplete) {
+  //   return (
+  //     <SplashScreen
+  //       onComplete={() => {
+  //         setSplashComplete(true);
+  //       }}
+  //     />
+  //   );
+  // }
 
   return (
     <SafeAreaProvider>
